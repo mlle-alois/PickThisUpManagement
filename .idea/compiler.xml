@@ -6,7 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PickThisUp" />
+        <module name="CLI-Interface" />
+        <module name="Application" />
+        <module name="JavaFX-Interface" />
+        <module name="Core" />
       </profile>
     </annotationProcessing>
   </component>
