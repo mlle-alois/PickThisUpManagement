@@ -13,6 +13,7 @@
         <module>CLI-Interface</module>
         <module>Application</module>
         <module>JavaFX-Interface</module>
+        <module>Controller</module>
     </modules>
 
     <properties>
