@@ -1,0 +1,63 @@
+package CLIInterface.Menu;
+
+import CLIInterface.Controllers.CLIInterfaceController;
+import CLIInterface.Models.ConnectionModel;
+import JavaFXInterface.Controllers.ContentPanelController;
+import Enum.InterfaceCode;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ConnectionMenu {
+
+    public static Scanner clavier = new Scanner(System.in);
+
+    public static void printMenu(JFrame window) {
+        int value = -1;
+        do {
+            do {
+                try {
+                    List<String> menu = new ArrayList<>();
+                    menu.add("1. Connexion");
+                    menu.add("2. Inscription");
+                    menu.add("3. Mot de passe oublié");
+                    menu.add("4. Passer en UML");
+                    menu.add("5. Quitter");
+                    for (String chaine : menu) {
+                        System.out.println(chaine);
+                    }
+                    value = Integer.parseInt(clavier.next());
+                    if (value < 1 || value > menu.size()) {
+                        System.out.println("Veuillez saisir un nombre entre 1 et " + menu.size());
+                        value = -1;
+                    }
+                } catch (Exception e) {
+                    System.out.println("Veuillez saisir un numérique ");
+                }
+            } while (value == -1);
+            ConnectionMenu.switchMenu(value, window);
+        } while (value != 4);
+    }
+
+    public static void switchMenu(int value, JFrame window) {
+        switch (value) {
+            case 1 -> {
+                ConnectionModel.connectionTreatment();
+            }
+            case 2 -> {
+                CLIInterfaceController.setContentPaneByInterfaceCode(InterfaceCode.INSCRIPTION, window);
+            }
+            case 3 -> {
+                CLIInterfaceController.setContentPaneByInterfaceCode(InterfaceCode.FORGOT_PASSWORD, window);
+            }
+            case 5 -> {
+                System.exit(0);
+            }
+            default -> {
+                ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.CONNECTION, window);
+            }
+        }
+    }
+}

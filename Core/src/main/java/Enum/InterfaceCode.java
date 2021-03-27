@@ -1,7 +1,7 @@
 package Enum;
 
 public enum InterfaceCode {
-    CONNEXION,
+    CONNECTION,
     INSCRIPTION,
-    MDP_OUBLIE
+    FORGOT_PASSWORD
 }

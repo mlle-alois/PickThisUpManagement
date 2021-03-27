@@ -6,12 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="CLI-Interface" />
+        <module name="Interfaces" />
         <module name="Controller" />
         <module name="Application" />
-        <module name="JavaFX-Interface" />
         <module name="Core" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="CLI-Interface" target="15" />
+    </bytecodeTargetLevel>
   </component>
 </project>
