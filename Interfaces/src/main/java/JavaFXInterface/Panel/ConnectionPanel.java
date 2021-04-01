@@ -67,6 +67,8 @@ public class ConnectionPanel extends JPanel{
         //TODO
         this.buttonConnection.addActionListener(new ConnectionController(lblError, jtfLogin, jpfPassword));
 
+        /* Mise de côté des fonctionnalités d'inscription et de mot de passe oublié sur la partie java
+
         this.buttonInscription = new JButton("Inscription");
         this.buttonInscription.setName("Inscription");
         this.buttonInscription.setPreferredSize(new Dimension(80, 50));
@@ -88,7 +90,7 @@ public class ConnectionPanel extends JPanel{
             public void actionPerformed(ActionEvent e) {
                 ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.FORGOT_PASSWORD, window);
             }
-        });
+        });*/
 
         this.buttonCLI = new JButton("Passer en CLI");
         this.buttonCLI.setPreferredSize(new Dimension(90, 20));
@@ -138,13 +140,13 @@ public class ConnectionPanel extends JPanel{
         gridBagConstraints.gridy = 5;
         this.add(buttonConnection, gridBagConstraints);
 
-        gridBagConstraints.gridx = 1;
+        /*gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
         this.add(buttonInscription, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
-        this.add(buttonIForgotPassword, gridBagConstraints);
+        this.add(buttonIForgotPassword, gridBagConstraints);*/
 
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 8;
