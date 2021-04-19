@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx-preloader" name="Application">
+    <output-path>$PROJECT_DIR$/out/artifacts/Application</output-path>
+    <root id="archive" name="Application.jar">
+      <element id="archive" name="Application.jar">
+        <element id="module-output" name="Application" />
+      </element>
+    </root>
+  </artifact>
+</component>
