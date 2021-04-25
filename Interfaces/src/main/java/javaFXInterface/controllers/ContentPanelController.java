@@ -1,9 +1,9 @@
-package JavaFXInterface.Controllers;
+package javaFXInterface.controllers;
 
 import Enum.InterfaceCode;
-import JavaFXInterface.Panel.ConnectionPanel;
-import JavaFXInterface.Panel.ForgotPasswordPanel;
-import JavaFXInterface.Panel.InscriptionPanel;
+import javaFXInterface.Panel.ConnectionPanel;
+import javaFXInterface.Panel.ForgotPasswordPanel;
+import javaFXInterface.Panel.InscriptionPanel;
 
 import javax.swing.*;
 

@@ -1,3 +1,8 @@
+package Requete;
+
+import Models.Board;
+import Requete.Body;
+import Requete.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -21,12 +26,18 @@ public class User {
     public User() {
         this.clientUser = Client.getInstance();
     }
+
     public void Login(Body body) throws JsonProcessingException {
         Map<String, Object> map = PostRequest(body,Login);
         token = String.valueOf(map.get("token"));
     }
 
-    public Board[] getBoard (Body body) throws JsonProcessingException {
+    public Board getBoard (Body body) throws JsonProcessingException {
+
+        return  body.objectMapper.readValue(GetRequest(body,getBoards).body(), Board.class);
+    }
+
+    public Board[] getBoards (Body body) throws JsonProcessingException {
 
         return  body.objectMapper.readValue(GetRequest(body,getBoards).body(), Board[].class);
     }
@@ -47,8 +58,9 @@ public class User {
 
     private HttpResponse<String> GetRequest(Body body,String route) {
 
+
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:3000/" + route))
+                .uri(URI.create(body.getUrlWithParametersInMap(route)))
                 .setHeader(Authorization,Bearer + token)
                 .header(ContentType, app_json)
                 .GET()

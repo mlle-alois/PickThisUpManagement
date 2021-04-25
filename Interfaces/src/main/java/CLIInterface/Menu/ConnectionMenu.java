@@ -2,7 +2,7 @@ package CLIInterface.Menu;
 
 import CLIInterface.Controllers.CLIInterfaceController;
 import CLIInterface.Models.ConnectionModel;
-import JavaFXInterface.Controllers.ContentPanelController;
+import javaFXInterface.controllers.ContentPanelController;
 import Enum.InterfaceCode;
 
 import javax.swing.*;

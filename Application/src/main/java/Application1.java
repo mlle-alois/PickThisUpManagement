@@ -1,6 +1,6 @@
 import Enum.InterfaceCode;
-import JavaFXInterface.Window.MainWindow;
-import JavaFXInterface.Window.ScreenWindow;
+import javaFXInterface.Window.MainWindow;
+import javaFXInterface.Window.ScreenWindow;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

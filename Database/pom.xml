@@ -11,6 +11,12 @@
 
     <artifactId>Database</artifactId>
     <dependencies>
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>Controller</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
     <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
