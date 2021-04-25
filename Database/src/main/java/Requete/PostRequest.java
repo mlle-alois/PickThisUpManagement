@@ -1,3 +1,7 @@
+package Requete;
+
+import Models.Board;
+
 import java.io.IOException;
 
 public class PostRequest {
@@ -12,6 +16,10 @@ public class PostRequest {
         testBody.addValueToBody("password","non");
 
         user.Login(testBody);
-        Board[] boards =  user.getBoard(testBody);
+
+        var boardParameters = new Body();
+        boardParameters.addValueToBody("id","1");
+       // Board[] boards =  user.getBoards(testBody);
+        Board board =  user.getBoard(boardParameters);
     }
 }

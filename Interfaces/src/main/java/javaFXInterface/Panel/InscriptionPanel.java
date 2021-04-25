@@ -1,36 +1,37 @@
-package JavaFXInterface.Panel;
+package javaFXInterface.Panel;
 
-        import java.awt.*;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
-        import javax.swing.*;
-        import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.border.Border;
 
-        import JavaFXInterface.Controllers.ConnectionController;
-        import Controller.LabelController;
-        import JavaFXInterface.Controllers.ContentPanelController;
-        import JavaFXInterface.Menu.ApplicationMenu;
-        import Enum.InterfaceCode;
+import javaFXInterface.controllers.ConnectionController;
+import Controller.LabelController;
+import javaFXInterface.controllers.ContentPanelController;
+import javaFXInterface.Menu.ApplicationMenu;
+import Enum.InterfaceCode;
 
-public class ForgotPasswordPanel extends JPanel {
+public class InscriptionPanel extends JPanel{
 
     private final LabelController labelController = new LabelController();
 
-    private JLabel lblConnexion;
+    private JLabel lblConnection;
     private JLabel lblEmail;
-    private JLabel lblMdp;
+    private JLabel lblPassword;
+    private final JLabel lblPasswordConfirmation;
     private JLabel lblError;
     private JTextField jtfLogin;
     private JPasswordField jpfPassword;
     private JButton buttonConnection;
     private JButton buttonInscription;
-    private JButton buttonIForgotPassword;
+    private JButton buttonForgotPassword;
     //TODO inscription et mot de passe oublié
 
     /**
      * Constructeur du panel de la connexion
      */
-    public ForgotPasswordPanel(JFrame window){
+    public InscriptionPanel(JFrame window){
 
         this.setLayout(new GridBagLayout());
 
@@ -40,10 +41,11 @@ public class ForgotPasswordPanel extends JPanel {
         window.setJMenuBar(applicationMenu.getEmptyMenuBar());
 
         //définition des labels
-        this.lblConnexion = new JLabel("Mot de passe oublié");
-        this.labelController.setTitle(lblConnexion);
+        this.lblConnection = new JLabel("Inscription");
+        this.labelController.setTitle(lblConnection);
         this.lblEmail = new JLabel("E-mail : ");
-        this.lblMdp = new JLabel("Mot de passe : ");
+        this.lblPassword = new JLabel("Mot de passe : ");
+        this.lblPasswordConfirmation = new JLabel("Confirmation de mot de passe : ");
         this.lblError = new JLabel(" ");
 
         this.lblError.setForeground(new Color(200,0,2));
@@ -61,7 +63,6 @@ public class ForgotPasswordPanel extends JPanel {
         //définition, nommage et action des boutons
         this.buttonConnection = new JButton("Valider");
         this.buttonConnection.setName("Connexion");
-        //TODO
         this.buttonConnection.addActionListener(new ConnectionController(lblError, jtfLogin, jpfPassword));
 
         this.buttonInscription = new JButton("Inscription");
@@ -76,22 +77,18 @@ public class ForgotPasswordPanel extends JPanel {
             }
         });
 
-        this.buttonIForgotPassword = new JButton("Mot de passe oublié");
-        this.buttonIForgotPassword.setName("MdpOublie");
-        this.buttonIForgotPassword.setBorder(emptyBorder);
-        this.buttonIForgotPassword.setBackground(Color.white);
-        this.buttonIForgotPassword.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.FORGOT_PASSWORD, window);
-            }
-        });
+        this.buttonForgotPassword = new JButton("Mot de passe oublié");
+        this.buttonForgotPassword.setName("MdpOublie");
+        this.buttonForgotPassword.setBorder(emptyBorder);
+        this.buttonForgotPassword.setBackground(Color.white);
+        //this.buttonIForgotPassword.addActionListener(/*new ActionBouton(vehicule, materiel, ajouter, supprimer, modifier, rechercher, deconnexion1, deconnexion2, deconnexion3, statistique, statistique2, statistique3, emprunt, emprunts, vehicule2, materiel2, menuResponsable, menuVisiteur, menuDirecteur, menuVide, fenetre, jtfLogin, jpfPassword, buttonConnection, lblError, lblError, lblError, user)*/);
+
         //ajout des éléments au panel
         GridBagConstraints gridBagConstraints = new GridBagConstraints();
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        this.add(lblConnexion, gridBagConstraints);
+        this.add(lblConnection, gridBagConstraints);
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -107,7 +104,7 @@ public class ForgotPasswordPanel extends JPanel {
 
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
-        this.add(lblMdp, gridBagConstraints);
+        this.add(lblPassword, gridBagConstraints);
 
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -127,8 +124,7 @@ public class ForgotPasswordPanel extends JPanel {
 
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 7;
-        this.add(buttonIForgotPassword, gridBagConstraints);
+        this.add(buttonForgotPassword, gridBagConstraints);
 
     }
 }
-

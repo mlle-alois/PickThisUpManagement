@@ -1,3 +1,5 @@
+package Requete;
+
 import lombok.NoArgsConstructor;
 
 import java.util.Map;
