@@ -9,6 +9,7 @@
         <module name="Interfaces" />
         <module name="Controller" />
         <module name="Application" />
+        <module name="JavaFX-Interface" />
         <module name="Core" />
       </profile>
     </annotationProcessing>

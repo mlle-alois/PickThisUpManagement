@@ -2,9 +2,12 @@ package JavaFXInterface.Window;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import Enum.InterfaceCode;
 import JavaFXInterface.Controllers.ContentPanelController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 import javax.swing.*;
 
@@ -13,7 +16,8 @@ public class MainWindow extends JFrame implements ActionListener{
     /**
      * Contenu de la fenetre principale
      */
-    public MainWindow(InterfaceCode interfaceCode){
+    public MainWindow(InterfaceCode interfaceCode) throws IOException {
+
 
         this.setIconImage(new ImageIcon("pictures/logo.PNG").getImage());
         //titre de la fenetre
