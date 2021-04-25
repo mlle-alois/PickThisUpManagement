@@ -13,6 +13,7 @@
         <module>Application</module>
         <module>Interfaces</module>
         <module>Controller</module>
+        <module>Database</module>
     </modules>
 
     <properties>

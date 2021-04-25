@@ -1,11 +1,11 @@
-package JavaFXInterface.Window;
+package javaFXInterface.Window;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import Enum.InterfaceCode;
-import JavaFXInterface.Controllers.ContentPanelController;
+import javaFXInterface.controllers.ContentPanelController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 

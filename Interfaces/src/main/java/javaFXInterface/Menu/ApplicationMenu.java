@@ -1,4 +1,4 @@
-package JavaFXInterface.Menu;
+package javaFXInterface.Menu;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package JavaFXInterface.Controllers;
+package javaFXInterface.controllers;
 
 import Enum.InterfaceCode;
 
