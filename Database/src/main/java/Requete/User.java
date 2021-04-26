@@ -15,6 +15,7 @@ import java.util.Map;
 public class User {
     public HttpClient clientUser;
     public String token;
+
     private static String Authorization = "Authorization";
     private static String Login = "auth/login";
     private static String Bearer = "Bearer ";
