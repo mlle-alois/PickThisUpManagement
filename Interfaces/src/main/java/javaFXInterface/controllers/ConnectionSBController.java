@@ -34,15 +34,19 @@ public class ConnectionSBController {
 
   user.Login(loginBody);
 
-  switchToScene(event,"/Boards.fxml",user);
+ // switchToScene(event,"/Boards.fxml",user);
+  switchToScene(event,"/BoardsUpgraded.fxml",user);
  }
  public void switchToScene(ActionEvent event,String ScenePath,User user) throws IOException {
   FXMLLoader loader= new FXMLLoader(getClass().getResource(ScenePath));
 
    root = loader.load();
 
-   BoardController boardController = loader.getController();
-   boardController.initialize(user);
+ //  BoardController boardController = loader.getController();
+  // boardController.initialize(user);
+
+   BoardUpgradedController boardUpgradedController = loader.getController();
+   boardUpgradedController.initialize(user);
  // stage =  FXMLLoader.load(getClass().getResource(""));
 
   stage = (Stage)((Node)event.getSource()).getScene().getWindow();
