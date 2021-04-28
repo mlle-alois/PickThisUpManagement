@@ -1,6 +1,5 @@
 package javaFXInterface.controllers;
 import Requete.*;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,7 +33,7 @@ public class ConnectionSBController {
   user.Login(loginBody);
 
  // switchToScene(event,"/Boards.fxml",user);
-  switchToScene(event,"/BoardsUpgraded.fxml",user);
+  switchToScene(event, "/MenuBoard.fxml",user);
  }
  public void switchToScene(ActionEvent event,String ScenePath,User user) throws IOException {
   FXMLLoader loader= new FXMLLoader(getClass().getResource(ScenePath));
@@ -45,8 +43,12 @@ public class ConnectionSBController {
  //  BoardController boardController = loader.getController();
   // boardController.initialize(user);
 
-   BoardUpgradedController boardUpgradedController = loader.getController();
-   boardUpgradedController.initialize(user);
+   BoardController boardController = loader.getController();
+   boardController.initialize(user);
+  //  ManagementController managementController = loader.getController();
+  //  managementController.initialize(user);
+  // TicketsController ticketsController = loader.getController();
+   //ticketsController.initialize(user);
  // stage =  FXMLLoader.load(getClass().getResource(""));
 
   stage = (Stage)((Node)event.getSource()).getScene().getWindow();

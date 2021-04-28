@@ -1,6 +1,7 @@
 package Requete;
 
 import Models.Board;
+import Models.Ticket;
 import Requete.Body;
 import Requete.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -22,7 +23,8 @@ public class User {
     private static String ContentType = "Content-Type";
     private static String app_json = "application/json";
     private static String getBoards = "board";
-
+    private static String getTickets = "ticket";
+    private static String getTicket = "ticket/get";
 
     public User() {
         this.clientUser = Client.getInstance();
@@ -33,13 +35,20 @@ public class User {
         token = String.valueOf(map.get("token"));
     }
 
-    public Board getBoard (Body body) throws JsonProcessingException {
+    public Ticket getTicket (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getTicket).body(), Ticket.class);
+    }
 
+    public Ticket[] getTickets (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getTickets).body(), Ticket[].class);
+    }
+
+
+    public Board getBoard (Body body) throws JsonProcessingException {
         return  body.objectMapper.readValue(GetRequest(body,getBoards).body(), Board.class);
     }
 
     public Board[] getBoards (Body body) throws JsonProcessingException {
-
         return  body.objectMapper.readValue(GetRequest(body,getBoards).body(), Board[].class);
     }
 

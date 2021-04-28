@@ -7,14 +7,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import lombok.SneakyThrows;
 
-public class BoardController  {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ResourceBundle;
+
+public class BoardOldController {
     @FXML
-    private TreeView treeBoard;
+    private ListView<String> boardsView;
 
     String currentBoard;
 
@@ -25,16 +29,15 @@ public class BoardController  {
     }
     @SneakyThrows
     public void initialize(User user) {
-
-            TreeItem<String> rootBoard = new TreeItem<>("Tableaux");
-
-           TreeItem<String>[] allChildBoards = getBranchs(parseBoards(user));
-
-            rootBoard.getChildren().addAll(allChildBoards);
-
-            treeBoard.setRoot(rootBoard);
-
-
+        // Display all boards
+        boardsView.getItems().addAll(parseBoards(user));
+        // Activate listener on the boardList
+        boardsView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                currentBoard = boardsView.getSelectionModel().getSelectedItem();
+            }
+        });
     }
     private String[] parseBoards(User user) throws JsonProcessingException {
         Board[] boards = getBoards(user);
@@ -44,22 +47,5 @@ public class BoardController  {
         }
 
     return  allBoars;
-    }
-
-    private TreeItem<String>[] getBranchs(String[] boards){
-        TreeItem<String>[] treeItems = new TreeItem[boards.length];
-
-        for(int i = 0; i < boards.length;i++){
-            treeItems[i] = new TreeItem<>(boards[i]);
-        }
-
-        return treeItems;
-    }
-
-    public void selectItem(){
-        TreeItem<String> item = (TreeItem<String>) treeBoard.getSelectionModel().getSelectedItem();
-        if(item != null){
-            System.out.println(item.getValue());
-        }
     }
 }

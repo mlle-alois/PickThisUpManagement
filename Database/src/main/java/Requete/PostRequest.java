@@ -1,6 +1,7 @@
 package Requete;
 
 import Models.Board;
+import Models.Ticket;
 
 import java.io.IOException;
 
@@ -17,9 +18,11 @@ public class PostRequest {
 
         user.Login(testBody);
 
-        var boardParameters = new Body();
-        boardParameters.addValueToBody("id","1");
+        var ticketParameters = new Body();
+        ticketParameters.addValueToBody("id","1");
        // Board[] boards =  user.getBoards(testBody);
-        Board board =  user.getBoard(boardParameters);
+       // Board board =  user.getBoard(boardParameters);
+      //  Ticket[] tickets = user.getTickets(boardParameters);
+        Ticket ticket = user.getTicket(ticketParameters);
     }
 }
