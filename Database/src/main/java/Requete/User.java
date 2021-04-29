@@ -1,6 +1,9 @@
 package Requete;
 
 import Models.Board;
+import Models.Liste;
+import Models.Status;
+import Models.Ticket;
 import Requete.Body;
 import Requete.Client;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,13 +18,18 @@ import java.util.Map;
 public class User {
     public HttpClient clientUser;
     public String token;
+
     private static String Authorization = "Authorization";
     private static String Login = "auth/login";
     private static String Bearer = "Bearer ";
     private static String ContentType = "Content-Type";
     private static String app_json = "application/json";
     private static String getBoards = "board";
-
+    private static String getTickets = "ticket";
+    private static String getTicket = "ticket/get";
+    private static String getList = "list";
+    private static String getListsFromBoard = "list/board";
+    private static String getStatus ="ticket/status";
 
     public User() {
         this.clientUser = Client.getInstance();
@@ -32,13 +40,32 @@ public class User {
         token = String.valueOf(map.get("token"));
     }
 
-    public Board getBoard (Body body) throws JsonProcessingException {
+    public Status[] getStatus (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getStatus).body(), Status[].class);
+    }
 
+    public Liste getListe (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getList).body(), Liste.class);
+    }
+
+    public Liste[] getListes (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getListsFromBoard).body(), Liste[].class);
+    }
+
+    public Ticket getTicket (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getTicket).body(), Ticket.class);
+    }
+
+    public Ticket[] getTickets (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getTickets).body(), Ticket[].class);
+    }
+
+
+    public Board getBoard (Body body) throws JsonProcessingException {
         return  body.objectMapper.readValue(GetRequest(body,getBoards).body(), Board.class);
     }
 
     public Board[] getBoards (Body body) throws JsonProcessingException {
-
         return  body.objectMapper.readValue(GetRequest(body,getBoards).body(), Board[].class);
     }
 
