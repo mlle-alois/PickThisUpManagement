@@ -1,6 +1,8 @@
 package Requete;
 
 import Models.Board;
+import Models.Liste;
+import Models.Status;
 import Models.Ticket;
 import Requete.Body;
 import Requete.Client;
@@ -25,6 +27,9 @@ public class User {
     private static String getBoards = "board";
     private static String getTickets = "ticket";
     private static String getTicket = "ticket/get";
+    private static String getList = "list";
+    private static String getListsFromBoard = "list/board";
+    private static String getStatus ="ticket/status";
 
     public User() {
         this.clientUser = Client.getInstance();
@@ -33,6 +38,18 @@ public class User {
     public void Login(Body body) throws JsonProcessingException {
         Map<String, Object> map = PostRequest(body,Login);
         token = String.valueOf(map.get("token"));
+    }
+
+    public Status[] getStatus (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getStatus).body(), Status[].class);
+    }
+
+    public Liste getListe (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getList).body(), Liste.class);
+    }
+
+    public Liste[] getListes (Body body) throws JsonProcessingException {
+        return  body.objectMapper.readValue(GetRequest(body,getListsFromBoard).body(), Liste[].class);
     }
 
     public Ticket getTicket (Body body) throws JsonProcessingException {

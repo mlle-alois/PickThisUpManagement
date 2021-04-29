@@ -27,10 +27,10 @@ public class Application1 {
         stage.show();*/
 
 
-    public static void main(String[] args)   {
-        ScreenWindow.main(args);
+    public static void main(String[] args) throws IOException {
+       ScreenWindow.main(args);
 
-        // MainWindow applicationInterface = new MainWindow(InterfaceCode.CONNECTION);
+       // MainWindow applicationInterface = new MainWindow(InterfaceCode.CONNECTION);
 
     }
 

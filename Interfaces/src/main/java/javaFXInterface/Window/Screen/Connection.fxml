@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.stage.Stage?>
 
+<?import javafx.scene.control.PasswordField?>
 <Stage xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFXInterface.controllers.ConnectionSBController">
     <scene>
         <Scene>
@@ -15,7 +16,7 @@
                <Button layoutX="244.0" layoutY="209.0" mnemonicParsing="false" onAction="#connection" text="Se connecter" />
                <TextField fx:id="textAreaId" layoutX="212.0" layoutY="113.0" />
                <Label layoutX="176.0" layoutY="117.0" text="Id :" />
-               <TextField fx:id="testAreaPassword" layoutX="212.0" layoutY="159.0" />
+               <PasswordField fx:id="testAreaPassword" layoutX="212.0" layoutY="159.0" />
                <Label layoutX="136.0" layoutY="163.0" text="password :" />
             </children></AnchorPane>
         </Scene>

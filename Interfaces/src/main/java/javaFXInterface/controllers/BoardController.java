@@ -1,6 +1,7 @@
 package javaFXInterface.controllers;
 
 import Models.Board;
+import Models.Ticket;
 import Requete.Body;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,6 +16,8 @@ import lombok.SneakyThrows;
 public class BoardController  {
     @FXML
     private TreeView treeBoard;
+    @FXML
+    private TreeView treeTickets;
 
     String currentBoard;
 
@@ -26,16 +29,28 @@ public class BoardController  {
     @SneakyThrows
     public void initialize(User user) {
 
-            TreeItem<String> rootBoard = new TreeItem<>("Tableaux");
+        initializeBoards(user);
+        initializeTickets(user);
 
-           TreeItem<String>[] allChildBoards = getBranchs(parseBoards(user));
+    }
 
-            rootBoard.getChildren().addAll(allChildBoards);
+    private void initializeTickets(User user) throws JsonProcessingException {
+        TreeItem<String> rootBoard = new TreeItem<>("Tickets");
+        TreeItem<String>[] allChildTickets = getBranchsTickets(parseTickets(user));
+        rootBoard.getChildren().addAll(allChildTickets);
+        treeTickets.setRoot(rootBoard);
+    }
 
-            treeBoard.setRoot(rootBoard);
+    private void initializeBoards(User user) throws JsonProcessingException {
+        TreeItem<String> rootBoard = new TreeItem<>("Tableaux");
+        TreeItem<String>[] allChildBoards = getBranchs(parseBoards(user));
+        rootBoard.getChildren().addAll(allChildBoards);
+        treeBoard.setFixedCellSize(20);
+        treeBoard.setRoot(rootBoard);
 
 
     }
+
     private String[] parseBoards(User user) throws JsonProcessingException {
         Board[] boards = getBoards(user);
         String[] allBoars = new String[boards.length];
@@ -61,5 +76,33 @@ public class BoardController  {
         if(item != null){
             System.out.println(item.getValue());
         }
+    }
+
+
+    // Ticket Parts
+
+    private String[] parseTickets(User user) throws JsonProcessingException {
+        Ticket[] Tickets = getTickets(user);
+        String[] allTickets = new String[Tickets.length];
+        for (int i = 0; i < Tickets.length;i++){
+            allTickets[i] = Tickets[i].ticketName;
+        }
+
+        return  allTickets;
+    }
+
+    public Ticket[] getTickets(User user) throws JsonProcessingException {
+        Body body = new Body();
+
+        return user.getTickets(body);
+    }
+    private TreeItem<String>[] getBranchsTickets(String[] Tickets){
+        TreeItem<String>[] treeItems = new TreeItem[Tickets.length];
+
+        for(int i = 0; i < Tickets.length;i++){
+            treeItems[i] = new TreeItem<>(Tickets[i]);
+        }
+
+        return treeItems;
     }
 }
