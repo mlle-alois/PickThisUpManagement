@@ -26,6 +26,7 @@ public class MenuController {
 
     String currentBoard;
 
+    private User user;
 
     public Board[] getBoards(User user) throws JsonProcessingException {
         Body body = new Body();
@@ -34,21 +35,21 @@ public class MenuController {
     }
     @SneakyThrows
     public void initialize(User user) {
-
-        initializeBoards(user);
-        initializeTickets(user);
+        this.user = user;
+        initializeBoards();
+        initializeTickets();
 
     }
 
-    private void initializeTickets(User user) throws JsonProcessingException {
-        ticketMenu.getItems().addAll(getBranchsTickets(parseTickets(user)));
+    private void initializeTickets() throws JsonProcessingException {
+        ticketMenu.getItems().addAll(getBranchsTickets(parseTickets()));
     }
 
-    private void initializeBoards(User user) throws JsonProcessingException {
-        boardMenu.getItems().addAll(getBranchs(parseBoards(user)));
+    private void initializeBoards() throws JsonProcessingException {
+        boardMenu.getItems().addAll(getBranchs(parseBoards()));
     }
 
-    private String[] parseBoards(User user) throws JsonProcessingException {
+    private String[] parseBoards() throws JsonProcessingException {
         Board[] boards = getBoards(user);
         String[] allBoars = new String[boards.length+1];
         for (int i = 0; i < boards.length;i++){
@@ -77,7 +78,7 @@ public class MenuController {
 
     // Ticket Parts
 
-    private String[] parseTickets(User user) throws JsonProcessingException {
+    private String[] parseTickets() throws JsonProcessingException {
         Status[] Tickets = getTickets(user);
         String[] allTickets = new String[Tickets.length+1];
 
