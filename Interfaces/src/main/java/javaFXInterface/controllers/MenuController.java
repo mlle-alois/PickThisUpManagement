@@ -16,11 +16,16 @@ import lombok.SneakyThrows;
 
 public class MenuController {
     @FXML
+    private MenuItem deconnexion;
+    @FXML
+    private MenuItem goCli;
+    @FXML
     private Menu boardMenu;
     @FXML
     private Menu ticketMenu;
 
     String currentBoard;
+
 
     public Board[] getBoards(User user) throws JsonProcessingException {
         Body body = new Body();
@@ -97,5 +102,11 @@ public class MenuController {
         }
 
         return tasksItems;
+    }
+
+    // Déconnexion part
+    public boolean disconnect(){
+
+        return true;
     }
 }

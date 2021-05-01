@@ -21,15 +21,16 @@ public class PostRequest {
         user.Login(testBody);
 
         var Parameters = new Body();
-        Parameters.addValueToBody("limit","3");
-      //  ticketParameters.addValueToBody("id","2");
-       // Board[] boards =  user.getBoards(testBody);
-       // Board board =  user.getBoard(boardParameters);
-      //  Ticket[] tickets = user.getTickets(boardParameters);
+      //  Parameters.addValueToBody("limit","3");
+      Parameters.addValueToBody("id","2");
+     //   Board[] boards =  user.getBoards(Parameters);
+     //   Board board =  user.getBoard(Parameters);
+      //  Ticket[] tickets = user.getTickets(Parameters);
       //  Ticket ticket = user.getTicket(ticketParameters);
-       // Liste[] listes = user.getListes(ticketParameters);
+       // Liste[] listes = user.getListes(Parameters);
        // Liste liste = user.getListe(ticketParameters);
-        Status[] status = user.getStatus(Parameters);
+       // Status[] status = user.getStatus(Parameters);
+        user.Logout(Parameters);
 
     }
 }

@@ -25,6 +25,8 @@ public class Body {
     public String getStringAsJSon() throws JsonProcessingException {
        return  this.objectMapper.writeValueAsString(this.map);
     }
+
+
     public String getUrlWithParametersInMap(String route){
         String result;
         result = baseURL + route + getEndUrlFromMap();

@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFXInterface.controllers.MenuController">
@@ -10,6 +11,12 @@
         <menus>
           <Menu fx:id="boardMenu" mnemonicParsing="false" text="Tableaux" />
           <Menu fx:id="ticketMenu" mnemonicParsing="false" text="Tickets" />
+            <Menu mnemonicParsing="false" text="Options">
+              <items>
+                <MenuItem fx:id="goCli" mnemonicParsing="false" text="Passer en ligne de commande" />
+                  <MenuItem fx:id="deconnexion" mnemonicParsing="false" text="Déconnexion" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>
