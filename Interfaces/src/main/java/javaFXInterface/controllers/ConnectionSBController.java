@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -14,6 +15,8 @@ import java.io.IOException;
 
 
 public class ConnectionSBController {
+ @FXML
+ private Label labelError;
 
  private Stage stage;
  private Scene scene;
@@ -23,6 +26,8 @@ public class ConnectionSBController {
  @FXML
  PasswordField testAreaPassword;
 
+ private static String errorConnection = "La connexion a échoué";
+
  public void connection(ActionEvent event) throws IOException {
 
  User user = new Requete.User();
@@ -31,9 +36,14 @@ public class ConnectionSBController {
   loginBody.addValueToBody("mail",textAreaId.getText());
   loginBody.addValueToBody("password",testAreaPassword.getText());
 
-  user.Login(loginBody);
+  if(user.Login(loginBody)){
+   switchToScene(event, "/MenuBarBoard.fxml",user);
+  }
+  else{
+   labelError.setText(errorConnection);
+  }
 
-  switchToScene(event, "/MenuBarBoard.fxml",user);
+
  }
  public void switchToScene(ActionEvent event,String ScenePath,User user) throws IOException {
   FXMLLoader loader= new FXMLLoader(getClass().getResource(ScenePath));
