@@ -2,14 +2,21 @@
 
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFXInterface.controllers.MenuController">
+<AnchorPane fx:id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFXInterface.controllers.MenuController">
    <children>
-      <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="810.0">
+      <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="810.0">
         <menus>
           <Menu fx:id="boardMenu" mnemonicParsing="false" text="Tableaux" />
           <Menu fx:id="ticketMenu" mnemonicParsing="false" text="Tickets" />
+            <Menu mnemonicParsing="false" text="Options">
+              <items>
+                <MenuItem fx:id="goCli" mnemonicParsing="false" text="Passer en ligne de commande" />
+                  <MenuItem fx:id="deconnexion" mnemonicParsing="false" onAction="#disconnect" text="Déconnexion" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>
