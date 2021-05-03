@@ -1,27 +1,24 @@
 package javaFXInterface.controllers;
 
 import Models.Board;
-import Models.Liste;
 import Models.Status;
-import Models.Ticket;
 import Requete.Body;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
 
-public class MenuController {
+public class BorderPaneController {
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -33,7 +30,7 @@ public class MenuController {
     @FXML
     private Menu ticketMenu;
     @FXML
-    private AnchorPane scenePane;
+    private BorderPane scenePane;
     Stage root;
     Stage stage;
     Scene scene;

@@ -37,7 +37,8 @@ public class ConnectionSBController {
   loginBody.addValueToBody("password",testAreaPassword.getText());
 
   if(user.Login(loginBody)){
-   switchToScene(event, "/MenuBarBoard.fxml",user);
+   //switchToScene(event, "/MenuBarBoard.fxml",user);
+   switchToScene(event, "/BorderPaneBoard.fxml",user);
   }
   else{
    labelError.setText(errorConnection);
@@ -53,8 +54,8 @@ public class ConnectionSBController {
 
    /*BoardController boardController = loader.getController();
    boardController.initialize(user);*/
-  MenuController menuController = loader.getController();
-  menuController.initialize(user);
+  BorderPaneController borderPaneController = loader.getController();
+  borderPaneController.initialize(user);
 
 
   stage = (Stage)((Node)event.getSource()).getScene().getWindow();
