@@ -24,7 +24,7 @@ public class BorderPaneController {
     @FXML
     private MenuItem deconnexion;
     @FXML
-    private MenuItem goCli;
+    private MenuItem options;
     @FXML
     private Menu boardMenu;
     @FXML
@@ -50,7 +50,6 @@ public class BorderPaneController {
         this.user = user;
         initializeBoards();
         initializeTickets();
-
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -87,7 +86,6 @@ public class BorderPaneController {
         }*/
     }
 
-
     // Ticket Parts
 
     private String[] parseTickets() throws JsonProcessingException {
@@ -120,16 +118,16 @@ public class BorderPaneController {
 
     // Déconnexion part
     public void disconnect(ActionEvent event) throws IOException {
-        if(!doesUserWantToDisconnect())
+        if (!doesUserWantToDisconnect())
             return;
         Body body = new Body();
-       if(user.Logout(body))
-        switchToConnexionScene(event,"/Connection.fxml");
+        if (user.logout(body))
+            switchToConnexionScene(event, "/Connection.fxml");
     }
 
-    public void switchToConnexionScene(ActionEvent event,String ScenePath) throws IOException {
+    public void switchToConnexionScene(ActionEvent event, String ScenePath) throws IOException {
 
-       stage = (Stage) menuBar.getScene().getWindow();
+        stage = (Stage) menuBar.getScene().getWindow();
         stage.close();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
@@ -140,7 +138,7 @@ public class BorderPaneController {
 
     }
 
-    private boolean doesUserWantToDisconnect(){
+    private boolean doesUserWantToDisconnect() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
         alert.setHeaderText("Vous êtes sur le point de vous déconnecter! ");

@@ -7,14 +7,11 @@ import Models.Ticket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class User {
@@ -38,7 +35,7 @@ public class User {
         this.clientUser = Client.getInstance();
     }
 
-    public boolean Login(Body body) throws JsonProcessingException {
+    public boolean login(Body body) throws JsonProcessingException {
         HttpResponse<String> response = PostRequest(body,Login);
         if(response.statusCode() < 300){
             Map<String, Object> result = body.objectMapper.readValue(response.body(), new TypeReference<>(){
@@ -49,7 +46,7 @@ public class User {
         return false;
     }
 
-    public boolean Logout(Body body) throws JsonProcessingException {
+    public boolean logout(Body body) throws JsonProcessingException {
         if (DeleteRequest(body,Logout)){
             token = "";
             return true;

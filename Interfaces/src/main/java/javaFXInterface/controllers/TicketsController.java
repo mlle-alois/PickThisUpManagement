@@ -1,6 +1,5 @@
 package javaFXInterface.controllers;
 
-import Models.Board;
 import Models.Ticket;
 import Requete.Body;
 import Requete.User;
@@ -21,42 +20,42 @@ public class TicketsController {
 
         return user.getTickets(body);
     }
+
     @SneakyThrows
     public void initialize(User user) {
 
-            TreeItem<String> rootBoard = new TreeItem<>("Tickets");
+        TreeItem<String> rootBoard = new TreeItem<>("Tickets");
 
-           TreeItem<String>[] allChildTickets = getBranchs(parseTickets(user));
+        TreeItem<String>[] allChildTickets = getBranchs(parseTickets(user));
 
-            rootBoard.getChildren().addAll(allChildTickets);
+        rootBoard.getChildren().addAll(allChildTickets);
 
-            treeTickets.setRoot(rootBoard);
-
-
+        treeTickets.setRoot(rootBoard);
     }
+
     private String[] parseTickets(User user) throws JsonProcessingException {
         Ticket[] Tickets = getTickets(user);
         String[] allTickets = new String[Tickets.length];
-        for (int i = 0; i < Tickets.length;i++){
-           allTickets[i] = Tickets[i].ticketName;
+        for (int i = 0; i < Tickets.length; i++) {
+            allTickets[i] = Tickets[i].ticketName;
         }
 
-    return  allTickets;
+        return allTickets;
     }
 
-    private TreeItem<String>[] getBranchs(String[] Tickets){
+    private TreeItem<String>[] getBranchs(String[] Tickets) {
         TreeItem<String>[] treeItems = new TreeItem[Tickets.length];
 
-        for(int i = 0; i < Tickets.length;i++){
+        for (int i = 0; i < Tickets.length; i++) {
             treeItems[i] = new TreeItem<>(Tickets[i]);
         }
 
         return treeItems;
     }
 
-    public void selectItem(){
+    public void selectItem() {
         TreeItem<String> item = (TreeItem<String>) treeTickets.getSelectionModel().getSelectedItem();
-        if(item != null){
+        if (item != null) {
             System.out.println(item.getValue());
         }
     }
