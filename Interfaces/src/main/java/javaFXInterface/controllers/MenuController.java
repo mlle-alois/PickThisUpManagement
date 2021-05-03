@@ -1,17 +1,13 @@
 package javaFXInterface.controllers;
 
 import Models.Board;
-import Models.Liste;
 import Models.Status;
-import Models.Ticket;
 import Requete.Body;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -27,7 +23,7 @@ public class MenuController {
     @FXML
     private MenuItem deconnexion;
     @FXML
-    private MenuItem goCli;
+    private MenuItem options;
     @FXML
     private Menu boardMenu;
     @FXML
@@ -53,7 +49,6 @@ public class MenuController {
         this.user = user;
         initializeBoards();
         initializeTickets();
-
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -90,7 +85,6 @@ public class MenuController {
         }*/
     }
 
-
     // Ticket Parts
 
     private String[] parseTickets() throws JsonProcessingException {
@@ -123,16 +117,16 @@ public class MenuController {
 
     // Déconnexion part
     public void disconnect(ActionEvent event) throws IOException {
-        if(!doesUserWantToDisconnect())
+        if (!doesUserWantToDisconnect())
             return;
         Body body = new Body();
-       if(user.Logout(body))
-        switchToConnexionScene(event,"/Connection.fxml");
+        if (user.logout(body))
+            switchToConnexionScene(event, "/Connection.fxml");
     }
 
-    public void switchToConnexionScene(ActionEvent event,String ScenePath) throws IOException {
+    public void switchToConnexionScene(ActionEvent event, String ScenePath) throws IOException {
 
-       stage = (Stage) menuBar.getScene().getWindow();
+        stage = (Stage) menuBar.getScene().getWindow();
         stage.close();
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
@@ -143,7 +137,7 @@ public class MenuController {
 
     }
 
-    private boolean doesUserWantToDisconnect(){
+    private boolean doesUserWantToDisconnect() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Déconnexion");
         alert.setHeaderText("Vous êtes sur le point de vous déconnecter! ");

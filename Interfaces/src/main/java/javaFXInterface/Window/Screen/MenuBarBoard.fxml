@@ -13,7 +13,7 @@
           <Menu fx:id="ticketMenu" mnemonicParsing="false" text="Tickets" />
             <Menu mnemonicParsing="false" text="Options">
               <items>
-                <MenuItem fx:id="goCli" mnemonicParsing="false" text="Passer en ligne de commande" />
+                <MenuItem fx:id="options" mnemonicParsing="false" text="Passer en ligne de commande" />
                   <MenuItem fx:id="deconnexion" mnemonicParsing="false" onAction="#disconnect" text="Déconnexion" />
               </items>
             </Menu>
