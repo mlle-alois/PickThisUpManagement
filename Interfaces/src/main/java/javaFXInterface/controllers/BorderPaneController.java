@@ -19,6 +19,7 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 
+import static Enum.InterfaceCode.BOARD;
 import static Enum.InterfaceCode.CONNECTION;
 
 public class BorderPaneController {
@@ -156,6 +157,6 @@ public class BorderPaneController {
         stage = (Stage) menuBar.getScene().getWindow();
         stage.setOpacity(0);
         stage.setAlwaysOnTop(false);
-        CLIInterfaceController.setContentPaneByInterfaceCode(CONNECTION, stage);
+        CLIInterfaceController.setContentPaneByInterfaceCode(BOARD, stage);
     }
 }
