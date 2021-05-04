@@ -1,5 +1,7 @@
 package Requete;
 
+import Models.Task;
+
 import java.io.IOException;
 
 public class PostRequest {
@@ -25,6 +27,7 @@ public class PostRequest {
         // Liste[] listes = user.getListes(Parameters);
         // Liste liste = user.getListe(ticketParameters);
         // Status[] status = user.getStatus(Parameters);
+         Task[] task = user.getTasksFromList(Parameters);
         user.logout(Parameters);
 
     }
