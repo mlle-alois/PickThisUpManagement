@@ -1,9 +1,6 @@
 package Requete;
 
-import Models.Board;
-import Models.Liste;
-import Models.Status;
-import Models.Ticket;
+import Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
@@ -30,6 +27,7 @@ public class User {
     private static String getListsFromBoard = "list/board";
     private static String getStatus ="ticket/status";
     private static String Logout ="auth/logout";
+    private static String getTasksFromList ="task/list";
 
     public User() {
         this.clientUser = Client.getInstance();
@@ -55,6 +53,14 @@ public class User {
     }
     // Get methods : If there's a positive reponse, => return a table of it
                         // else return a empty table;
+
+    public Task[] getTasksFromList (Body body) throws JsonProcessingException {
+        HttpResponse<String> result = GetRequest(body,getTasksFromList);
+        if (result.statusCode() < 300) {
+            return body.objectMapper.readValue(result.body(), Task[].class);
+        }
+        return new Task[0];
+    }
 
     public Status[] getStatus (Body body) throws JsonProcessingException {
         HttpResponse<String> result = GetRequest(body,getStatus);

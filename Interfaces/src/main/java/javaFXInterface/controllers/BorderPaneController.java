@@ -2,6 +2,7 @@ package javaFXInterface.controllers;
 
 import CLIInterface.Controllers.CLIInterfaceController;
 import Models.Board;
+import Models.Liste;
 import Models.Status;
 import Requete.Body;
 import Requete.User;
@@ -9,12 +10,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
@@ -36,7 +37,7 @@ public class BorderPaneController {
     @FXML
     private Menu ticketMenu;
     @FXML
-    private BorderPane scenePane;
+    private BorderPane borderPane;
     Stage root;
     Stage stage;
     Scene scene;
@@ -56,6 +57,7 @@ public class BorderPaneController {
         this.user = user;
         initializeBoards();
         initializeTickets();
+        addGridPaneToCenter();
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -153,14 +155,41 @@ public class BorderPaneController {
         return alert.showAndWait().get() == ButtonType.OK;
     }
 
-<<<<<<< HEAD
-    public void switchToCLI(ActionEvent actionEvent) {
-=======
+
     public void switchToCLI(ActionEvent actionEvent) throws IOException {
         stage = (Stage) menuBar.getScene().getWindow();
         stage.setOpacity(0);
         stage.setAlwaysOnTop(false);
         CLIInterfaceController.setContentPaneByInterfaceCode(CONNECTION, stage);
->>>>>>> CONNECTION-CLI
+
+    }
+
+    private void addGridPaneToCenter() throws JsonProcessingException {
+        ScrollPane scrollPane = new ScrollPane();
+        GridPane mainPane = new GridPane();
+        mainPane.setPadding(new Insets(10,10,10,10));
+        Body body = new Body();
+        Liste[] listes = user.getListes(body);
+        mainPane.setHgap(50);
+        mainPane.setVgap(50);
+        int x = 0;
+        int y = 0;
+        for (int i = 0;i < listes.length; i++){
+            VBox vbox = new VBox();
+            Label lbl = new Label(listes[i].listName);
+            Pane pane = new Pane();
+            pane.setPrefSize(150,400);
+            pane.setStyle("-fx-background-color: blue, lightgray;");
+            vbox.getChildren().addAll(lbl,pane);
+
+            mainPane.add(vbox,i,x);
+        }
+
+        mainPane.setGridLinesVisible(true);
+        scrollPane.setContent(mainPane);
+
+        borderPane.setCenter(scrollPane);
+
+
     }
 }
