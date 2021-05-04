@@ -46,8 +46,6 @@ public class ConnectionSBController {
         } else {
             labelError.setText(errorConnection);
         }
-
-
     }
 
     public void switchToScene(ActionEvent event, String ScenePath, User user) throws IOException {
