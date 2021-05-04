@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -53,8 +54,6 @@ public class ConnectionSBController {
 
         root = loader.load();
 
-       /*BoardController boardController = loader.getController();
-       boardController.initialize(user);*/
         BorderPaneController borderPaneController = loader.getController();
         borderPaneController.initialize(user);
 
@@ -64,15 +63,28 @@ public class ConnectionSBController {
         stage.show();
     }
 
+    public void switchToConnectionUML(String ScenePath, Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
+
+        stage = loader.load();
+
+        stage.setTitle("PickThisUp");
+        stage.getIcons().add(new Image("/logo.PNG"));
+
+        scene = stage.getScene();
+        stage.setScene(scene);
+        stage.setOpacity(1);
+        stage.setAlwaysOnTop(true);
+        stage.show();
+    }
+
     public void switchToUML(String ScenePath, Stage stage) throws IOException {
-        //TODO faire en sorte de switcher sur la fenêtre correspondant à la localisation du CLI (connexion, tableau, ticket)
-        //FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
 
-        //User user = new Requete.User();
-        //root = loader.load();
+        root = loader.load();
 
-        //BorderPaneController borderPaneController = loader.getController();
-        //borderPaneController.initialize(user);
+        stage.setTitle("PickThisUp");
+        stage.getIcons().add(new Image("/logo.PNG"));
 
         scene = stage.getScene();
         stage.setScene(scene);

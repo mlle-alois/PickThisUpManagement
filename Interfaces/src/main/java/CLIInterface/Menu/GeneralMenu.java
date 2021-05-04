@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Enum.InterfaceCode.BOARD;
 import static Enum.InterfaceCode.CONNECTION;
 
 public class GeneralMenu {
@@ -109,7 +110,7 @@ public class GeneralMenu {
                 System.exit(0);
             }
             default -> {
-                ContentPanelController.setContentPaneByInterfaceCode(CONNECTION, window);
+                ContentPanelController.setContentPaneByInterfaceCode(BOARD, window);
             }
         }
     }
