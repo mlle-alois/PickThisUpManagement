@@ -73,7 +73,7 @@ public class InscriptionPanel extends JPanel{
         this.buttonInscription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.INSCRIPTION, window);
+                //ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.INSCRIPTION, window);
             }
         });
 

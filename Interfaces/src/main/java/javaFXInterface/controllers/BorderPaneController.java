@@ -22,6 +22,8 @@ public class BorderPaneController {
     @FXML
     private MenuBar menuBar;
     @FXML
+    private MenuItem switchCLI;
+    @FXML
     private MenuItem deconnexion;
     @FXML
     private MenuItem options;

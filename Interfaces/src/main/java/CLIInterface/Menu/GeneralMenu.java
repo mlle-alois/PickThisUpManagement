@@ -1,18 +1,18 @@
 package CLIInterface.Menu;
 
-import CLIInterface.Controllers.CLIInterfaceController;
 import CLIInterface.Models.ConnectionModel;
 import javaFXInterface.controllers.ContentPanelController;
-import Enum.InterfaceCode;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class ConnectionMenu {
+import static Enum.InterfaceCode.CONNECTION;
+
+public class GeneralMenu {
+
 
     public static Scanner clavier = new Scanner(System.in);
 
@@ -22,7 +22,7 @@ public class ConnectionMenu {
             do {
                 try {
                     List<String> menu = new ArrayList<>();
-                    menu.add("1. Connexion");
+                    menu.add("1. Tableaux");
                     /*menu.add("2. Inscription");
                     menu.add("3. Mot de passe oublié");*/
                     menu.add("4. Passer en UML");
@@ -59,7 +59,7 @@ public class ConnectionMenu {
                 System.exit(0);
             }
             default -> {
-                ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.CONNECTION, window);
+                ContentPanelController.setContentPaneByInterfaceCode(CONNECTION, window);
             }
         }
     }

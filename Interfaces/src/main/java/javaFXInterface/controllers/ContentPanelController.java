@@ -1,30 +1,21 @@
 package javaFXInterface.controllers;
 
 import Enum.InterfaceCode;
-import javaFXInterface.Panel.ConnectionPanel;
-import javaFXInterface.Panel.ForgotPasswordPanel;
-import javaFXInterface.Panel.InscriptionPanel;
+import javafx.stage.Stage;
 
-import javax.swing.*;
+import java.io.IOException;
 
 public class ContentPanelController {
 
-    public static void setContentPaneByInterfaceCode(InterfaceCode interfaceCode, JFrame window) {
+    public static void setContentPaneByInterfaceCode(InterfaceCode interfaceCode, Stage window) throws IOException {
+        ConnectionSBController connectionSBController = new ConnectionSBController();
         switch (interfaceCode) {
             case CONNECTION -> {
-                window.setVisible(true);
-                window.setContentPane(new ConnectionPanel(window));
-                window.revalidate();
+                connectionSBController.switchToUML("/Connection.fxml", window);
             }
             case INSCRIPTION -> {
-                window.setVisible(true);
-                window.setContentPane(new InscriptionPanel(window));
-                window.revalidate();
             }
             case FORGOT_PASSWORD -> {
-                window.setVisible(true);
-                window.setContentPane(new ForgotPasswordPanel(window));
-                window.revalidate();
             }
         }
     }
