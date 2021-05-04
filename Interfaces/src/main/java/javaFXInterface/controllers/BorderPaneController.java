@@ -1,5 +1,6 @@
 package javaFXInterface.controllers;
 
+import CLIInterface.Controllers.CLIInterfaceController;
 import Models.Board;
 import Models.Status;
 import Requete.Body;
@@ -17,6 +18,8 @@ import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
+
+import static Enum.InterfaceCode.CONNECTION;
 
 public class BorderPaneController {
     @FXML
@@ -149,6 +152,10 @@ public class BorderPaneController {
         return alert.showAndWait().get() == ButtonType.OK;
     }
 
-    public void switchToCLI(ActionEvent actionEvent) {
+    public void switchToCLI(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) menuBar.getScene().getWindow();
+        stage.setOpacity(0);
+        stage.setAlwaysOnTop(false);
+        CLIInterfaceController.setContentPaneByInterfaceCode(CONNECTION, stage);
     }
 }

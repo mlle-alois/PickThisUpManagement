@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="scenePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="810.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFXInterface.controllers.BorderPaneController">
+   <children>
+      <MenuBar fx:id="menuBar" layoutY="2.0" prefHeight="25.0" prefWidth="810.0">
+
+      </MenuBar>
+   </children>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+          <menus>
+              <Menu fx:id="boardMenu" mnemonicParsing="false" text="Tableaux" />
+              <Menu fx:id="ticketMenu" mnemonicParsing="false" text="Tickets" />
+              <Menu mnemonicParsing="false" text="Options">
+                  <items>
+                      <MenuItem fx:id="switchCLI" mnemonicParsing="false" onAction="#switchToCLI" text="Passer en ligne de commande" />
+                      <MenuItem fx:id="deconnexion" mnemonicParsing="false" onAction="#disconnect" text="Déconnexion" />
+                  </items>
+              </Menu>
+          </menus>
+      </MenuBar>
+   </top>
+   <right>
+      <VBox prefHeight="515.0" prefWidth="158.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Ajouter une liste" />
+            <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="12.0" prefWidth="134.0" text="pas visible" visible="false" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" text="Modifier le tableau" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="pas visible" visible="false" />
+            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Supprimer le tableau" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
