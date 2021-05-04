@@ -11,11 +11,13 @@ public class ContentPanelController {
         ConnectionSBController connectionSBController = new ConnectionSBController();
         switch (interfaceCode) {
             case CONNECTION -> {
-                connectionSBController.switchToUML("/Connection.fxml", window);
+                connectionSBController.switchToConnectionUML("/Connection.fxml", window);
             }
-            case INSCRIPTION -> {
+            case BOARD -> {
+                connectionSBController.switchToUML("/BorderPaneBoard.fxml", window);
             }
-            case FORGOT_PASSWORD -> {
+            case TICKET -> {
+                //TODO
             }
         }
     }
