@@ -148,4 +148,7 @@ public class BorderPaneController {
 
         return alert.showAndWait().get() == ButtonType.OK;
     }
+
+    public void switchToCLI(ActionEvent actionEvent) {
+    }
 }
