@@ -1,5 +1,6 @@
 package javaFXInterface.controllers;
 
+import CLIInterface.Controllers.CLIInterfaceController;
 import Models.Board;
 import Models.Status;
 import Requete.Body;
@@ -8,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -17,6 +19,8 @@ import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
+
+import static Enum.InterfaceCode.*;
 
 public class BorderPaneController {
     @FXML
@@ -149,6 +153,14 @@ public class BorderPaneController {
         return alert.showAndWait().get() == ButtonType.OK;
     }
 
+<<<<<<< HEAD
     public void switchToCLI(ActionEvent actionEvent) {
+=======
+    public void switchToCLI(ActionEvent actionEvent) throws IOException {
+        stage = (Stage) menuBar.getScene().getWindow();
+        stage.setOpacity(0);
+        stage.setAlwaysOnTop(false);
+        CLIInterfaceController.setContentPaneByInterfaceCode(CONNECTION, stage);
+>>>>>>> CONNECTION-CLI
     }
 }

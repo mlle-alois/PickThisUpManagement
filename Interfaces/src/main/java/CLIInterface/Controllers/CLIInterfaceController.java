@@ -1,6 +1,7 @@
 package CLIInterface.Controllers;
 
 import CLIInterface.Menu.ConnectionMenu;
+import CLIInterface.Menu.GeneralMenu;
 import Enum.InterfaceCode;
 import javafx.stage.Stage;
 
@@ -13,6 +14,9 @@ public class CLIInterfaceController {
         switch (interfaceCode) {
             case CONNECTION -> {
                 ConnectionMenu.printMenu(window);
+            }
+            case BOARD, TICKET -> {
+                GeneralMenu.printGeneralMenu(window);
             }
         }
     }
