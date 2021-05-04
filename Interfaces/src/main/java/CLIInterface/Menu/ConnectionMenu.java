@@ -4,8 +4,10 @@ import CLIInterface.Controllers.CLIInterfaceController;
 import CLIInterface.Models.ConnectionModel;
 import javaFXInterface.controllers.ContentPanelController;
 import Enum.InterfaceCode;
+import javafx.stage.Stage;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ public class ConnectionMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printMenu(JFrame window) {
+    public static void printMenu(Stage window) throws IOException {
         int value = -1;
         do {
             do {
@@ -42,10 +44,10 @@ public class ConnectionMenu {
         } while (value != 4);
     }
 
-    public static void switchMenu(int value, JFrame window) {
+    public static void switchMenu(int value, Stage window) throws IOException {
         switch (value) {
             case 1 -> {
-                ConnectionModel.connectionTreatment();
+                ConnectionModel.connectionTreatment(window);
             }
             /*case 2 -> {
                 CLIInterfaceController.setContentPaneByInterfaceCode(InterfaceCode.INSCRIPTION, window);

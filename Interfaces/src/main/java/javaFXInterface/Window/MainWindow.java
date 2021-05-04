@@ -34,7 +34,7 @@ public class MainWindow extends JFrame implements ActionListener{
         this.setLocationRelativeTo(null);
 
         //changement du panel
-        ContentPanelController.setContentPaneByInterfaceCode(interfaceCode, this);
+        //ContentPanelController.setContentPaneByInterfaceCode(interfaceCode, this);
 
         this.setVisible(true);
     }

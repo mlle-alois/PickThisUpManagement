@@ -72,7 +72,7 @@ public class ForgotPasswordPanel extends JPanel {
         this.buttonInscription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.INSCRIPTION, window);
+                //ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.INSCRIPTION, window);
             }
         });
 
@@ -83,7 +83,7 @@ public class ForgotPasswordPanel extends JPanel {
         this.buttonIForgotPassword.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.FORGOT_PASSWORD, window);
+                //ContentPanelController.setContentPaneByInterfaceCode(InterfaceCode.FORGOT_PASSWORD, window);
             }
         });
         //ajout des éléments au panel

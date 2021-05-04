@@ -101,7 +101,7 @@ public class ConnectionPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 window.setVisible(false);
-                CLIInterfaceController.setContentPaneByInterfaceCode(InterfaceCode.CONNECTION, window);
+                //CLIInterfaceController.setContentPaneByInterfaceCode(InterfaceCode.CONNECTION, window);
             }
         });
 

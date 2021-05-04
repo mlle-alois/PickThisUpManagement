@@ -11,7 +11,7 @@ public class ScreenWindow extends javafx.application.Application{
 
         FXMLLoader loader= new FXMLLoader(getClass().getResource("/Connection.fxml"));
         Stage root = loader.load();
-        root.setTitle("PickThis");
+        root.setTitle("PickThisUp");
         root.getIcons().add(new Image("/logo.PNG"));
         root.show();
     }
