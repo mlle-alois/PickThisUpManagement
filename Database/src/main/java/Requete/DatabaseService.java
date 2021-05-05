@@ -25,7 +25,6 @@ public class DatabaseService {
     }
 
     public HttpResponse<String> PostRequest(Body body, String route) throws JsonProcessingException {
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:3000/" + route))
                 .setHeader(Authorization, Bearer + user.getToken())
@@ -34,11 +33,9 @@ public class DatabaseService {
                 .build();
 
         return getBodyMapResponse(body, request);
-
     }
 
     public boolean DeleteRequest(Body body, String route) throws JsonProcessingException {
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create("http://localhost:3000/" + route))
                 .setHeader(Authorization, Bearer + user.getToken())
@@ -49,12 +46,9 @@ public class DatabaseService {
         HttpResponse<String> response = getGetMapResponse(body, request);
 
         return response.statusCode() == 204;
-
     }
 
     public HttpResponse<String> GetRequest(Body body, String route) {
-
-
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(body.getUrlWithParametersInMap(route)))
                 .setHeader(Authorization, Bearer + user.getToken())
@@ -63,7 +57,6 @@ public class DatabaseService {
                 .build();
 
         return getGetMapResponse(body, request);
-
     }
 
     public HttpResponse<String> getBodyMapResponse(Body body, HttpRequest request) throws JsonProcessingException {

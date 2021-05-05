@@ -55,8 +55,9 @@ public class TicketMenu {
         }
         else {
             Body body = new Body();
-            body.addValueToBody("");
-            ticketsService.getTicketsByStatus();
+            body.addValueToBody("status", tickets[value - 1]);
+            
+            ticketsService.getTicketsByStatus(body);
         }
         //TODO permettre de naviguer sur le bon type de tickets selon la valeur saisie
         /*switch (value) {
