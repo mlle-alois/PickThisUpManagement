@@ -3,7 +3,7 @@ package javaFXInterface.controllers;
 import CLIInterface.Controllers.CLIInterfaceController;
 import Models.Board;
 import Models.Liste;
-import Models.Status;
+import Models.StatusModel;
 import Requete.Body;
 import Requete.TicketsService;
 import Requete.User;
@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -100,7 +99,7 @@ public class BorderPaneController {
     // Ticket Parts
 
     private String[] parseTickets() throws JsonProcessingException {
-        Status[] Tickets = getTickets(user);
+        StatusModel[] Tickets = getTickets(user);
         String[] allTickets = new String[Tickets.length + 1];
 
         allTickets[0] = "Tous les tickets";
@@ -111,10 +110,10 @@ public class BorderPaneController {
         return allTickets;
     }
 
-    public Status[] getTickets(User user) throws JsonProcessingException {
+    public StatusModel[] getTickets(User user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return ticketsService.getStatus(body);
+        return ticketsService.getTicketsStatus(body);
     }
 
     private MenuItem[] getBranchsTickets(String[] Tickets) {

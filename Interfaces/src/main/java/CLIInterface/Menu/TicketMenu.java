@@ -1,12 +1,11 @@
 package CLIInterface.Menu;
 
-import CLIInterface.Controllers.MenuController;
+import CLIInterface.Controllers.TicketController;
 import CLIInterface.Models.TicketsModel;
 import Models.Ticket;
 import Requete.Body;
 import Requete.TicketsService;
 import Requete.User;
-import javaFXInterface.controllers.TicketsController;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class TicketMenu {
 
     public void printTicketsMenu(Stage window, User user) throws IOException {
         int value = -1;
-        MenuController menuController = new MenuController(user);
+        TicketController menuController = new TicketController(user);
 
         this.ticketsStatus = menuController.parseTickets();
         do {
@@ -55,35 +54,15 @@ public class TicketMenu {
         }
         else if (value == 1){
             Ticket[] tickets = ticketsService.getTickets(new Body());
-            TicketsModel.printBoards(tickets, window, user);
+            TicketsModel.printTickets(tickets, window, user);
         }
         else {
             Body body = new Body();
             body.addValueToBody("status", ticketsStatus[value - 1]);
 
-            Ticket[] selectedTickets = ticketsService.getTicketsByStatus(body);
+            Ticket[] tickets = ticketsService.getTicketsByStatus(body);
 
-            this.printTicketsMenu(window, user);
+            TicketsModel.printTickets(tickets, window, user);
         }
-        //TODO permettre de naviguer sur le bon type de tickets selon la valeur saisie
-        /*switch (value) {
-            case 1 -> {
-                BoardMenu.printBoardMenu(window);
-            }
-            case 2 -> {
-                TicketMenu.printTicketsMenu(window);
-            }
-            case 4 -> {
-                User user = new User();
-                user.logout(new Body());
-                ConnectionMenu.printMenu(window);
-            }
-            case 5 -> {
-                System.exit(0);
-            }
-            default -> {
-                ContentPanelController.setContentPaneByInterfaceCode(BOARD, window);
-            }
-        }*/
     }
 }

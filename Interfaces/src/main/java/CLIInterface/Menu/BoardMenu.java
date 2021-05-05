@@ -1,8 +1,8 @@
 package CLIInterface.Menu;
 
-import CLIInterface.Controllers.MenuController;
+import CLIInterface.Controllers.BoardController;
+import CLIInterface.Controllers.TicketController;
 import Requete.User;
-import javaFXInterface.controllers.BorderPaneController;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,9 +18,9 @@ public class BoardMenu {
 
     public void printBoardMenu(Stage window, User user) throws IOException {
         int value = -1;
-        MenuController menuController = new MenuController(user);
+        BoardController boardController = new BoardController(user);
 
-        this.boards = menuController.parseBoards();
+        this.boards = boardController.parseBoards();
         do {
             try {
                 List<String> menu = new ArrayList<>();

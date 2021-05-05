@@ -16,7 +16,7 @@ public class BoardModel {
         System.out.println("Nom du nouveau tableau :");
         String name = clavier.next();
 
-        BoardController boardController = new BoardController();
+        BoardController boardController = new BoardController(user);
         boardController.createBoard(name, window, user);
     }
 }

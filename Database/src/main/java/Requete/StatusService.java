@@ -1,6 +1,6 @@
 package Requete;
 
-import Models.Status;
+import Models.StatusModel;
 import Models.Ticket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -27,19 +27,19 @@ public class StatusService {
         return new Ticket[0];
     }
 
-    public Status[] getStatus(Body body) throws JsonProcessingException {
+    public StatusModel[] getStatus(Body body) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getStatus);
         if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Status[].class);
+            return body.objectMapper.readValue(result.body(), StatusModel[].class);
         }
-        return new Status[0];
+        return new StatusModel[0];
     }
 
-    public Status[] getTicketsForStatus(Body body) throws JsonProcessingException {
+    public StatusModel[] getTicketsForStatus(Body body) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getTicketsForStatus);
         if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Status[].class);
+            return body.objectMapper.readValue(result.body(), StatusModel[].class);
         }
-        return new Status[0];
+        return new StatusModel[0];
     }
 }
