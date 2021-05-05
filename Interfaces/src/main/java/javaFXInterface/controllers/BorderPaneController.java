@@ -3,15 +3,17 @@ package javaFXInterface.controllers;
 import CLIInterface.Controllers.CLIInterfaceController;
 import Models.Board;
 import Models.Liste;
-import Models.Status;
+import Models.StatusModel;
+import Models.Task;
 import Requete.Body;
+import Requete.TicketsService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -40,9 +42,6 @@ public class BorderPaneController {
     private Menu ticketMenu;
     @FXML
     private BorderPane borderPane;
-    Stage root;
-    Stage stage;
-    Scene scene;
 
     private Stage root;
     private Stage stage;
@@ -60,7 +59,6 @@ public class BorderPaneController {
 
     @SneakyThrows
     public void initialize(User user) {
-        System.out.println(user.token);
         this.user = user;
         this.ticketsService = new TicketsService(user);
         initializeBoards();

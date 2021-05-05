@@ -44,7 +44,6 @@ public class ConnectionSBController {
         loginBody.addValueToBody("password", testAreaPassword.getText());
 
         if (user.login(loginBody)) {
-            //switchToScene(event, "/MenuBarBoard.fxml",user);
             switchToScene(event, "/BorderPaneBoard.fxml", user);
         } else {
             labelError.setText(errorConnection);
