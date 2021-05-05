@@ -6,6 +6,7 @@ import Requete.Body;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -210,9 +211,54 @@ public class BorderPaneController {
     }
 
     private void addTitleToVbox(Liste liste, VBox vbox) {
+        GridPane newGrid = getTitleListWithButtonEvents(liste);
+
+        vbox.getChildren().add(newGrid);
+    }
+
+    private GridPane getTitleListWithButtonEvents(Liste liste) {
+        GridPane newGrid = new GridPane();
         Label lbl = new Label(liste.listName);
+        newGrid.add(lbl,0,0);
         lbl.setPrefSize(50,50);
-        vbox.getChildren().add(lbl);
+
+        // Set Event when clicked from buttons
+        EventHandler<ActionEvent> buttonModifHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Modifier");
+                event.consume();
+            }
+        };
+
+        EventHandler<ActionEvent> buttonEraseHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Supprimer");
+                event.consume();
+            }
+        };
+
+        Button modifButton = new Button("Modifer");
+        modifButton.setOnAction(buttonModifHandler);
+
+        Button eraseButton = new Button("Supprimer");
+        eraseButton.setOnAction(buttonEraseHandler);
+
+        VerticalButtonBar bar = new VerticalButtonBar();
+        bar.addButton(modifButton);
+        bar.addButton(eraseButton);
+
+        // Set Column constraints
+        ColumnConstraints column1 = new ColumnConstraints();
+        ColumnConstraints column2 = new ColumnConstraints();
+        column1.setPrefWidth(150);
+        column2.setPrefWidth(150);
+
+        newGrid.getColumnConstraints().add(column1);
+        newGrid.getColumnConstraints().add(column2);
+        newGrid.add(bar,1,0,1,1);
+        return newGrid;
     }
 
     private void addPanesToVbox(VBox vbox, List<GridPane> gridPanes) {
@@ -236,7 +282,7 @@ public class BorderPaneController {
     }
 
     private void setVboxShape(VBox vbox, Task[] tasks) {
-        int vboxLength = (tasks.length*200);
+        int vboxLength = (tasks.length*200+100);
         vbox.setSpacing(20);
         vbox.setPrefSize(150,vboxLength);
         vbox.setStyle("-fx-background-color: #d3d4cb");
@@ -260,9 +306,33 @@ public class BorderPaneController {
         lblTextArea.setStyle("-fx-control-inner-background: lightgray;");
         newGrid.add(lblTextArea,0,1);
 
-        // add button bar
+        addButtonBarToGrid(newGrid);
+    }
+
+    private void addButtonBarToGrid(GridPane newGrid) {
+        // Set Event when clicked from buttons
+        EventHandler<ActionEvent> buttonModifHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Modifier");
+                event.consume();
+            }
+        };
+
+        EventHandler<ActionEvent> buttonEraseHandler = new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Supprimer");
+                event.consume();
+            }
+        };
+
         Button modifButton = new Button("Modifer");
+        modifButton.setOnAction(buttonModifHandler);
+
         Button eraseButton = new Button("Supprimer");
+        eraseButton.setOnAction(buttonEraseHandler);
+
         ButtonBar buttonBar = new ButtonBar();
         buttonBar.getButtons().addAll(modifButton,eraseButton);
         newGrid.add(buttonBar,0,2,2,1);
