@@ -31,11 +31,13 @@ public class ConnectionSBController {
     @FXML
     PasswordField testAreaPassword;
 
+    private User user;
+
     private static String errorConnection = "La connexion a échoué";
 
     public void connection(ActionEvent event) throws IOException {
 
-        User user = new Requete.User();
+        this.user = new Requete.User();
 
         var loginBody = new Requete.Body();
         loginBody.addValueToBody("mail", textAreaId.getText());
@@ -97,7 +99,7 @@ public class ConnectionSBController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setOpacity(0);
         stage.setAlwaysOnTop(false);
-        CLIInterfaceController.setContentPaneByInterfaceCode(CONNECTION, stage);
+        CLIInterfaceController.setContentPaneByInterfaceCode(CONNECTION, stage, user);
     }
 
 

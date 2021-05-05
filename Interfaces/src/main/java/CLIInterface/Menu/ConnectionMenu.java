@@ -2,6 +2,7 @@ package CLIInterface.Menu;
 
 import CLIInterface.Controllers.CLIInterfaceController;
 import CLIInterface.Models.ConnectionModel;
+import Requete.User;
 import javaFXInterface.controllers.ContentPanelController;
 import Enum.InterfaceCode;
 import javafx.stage.Stage;
@@ -16,7 +17,7 @@ public class ConnectionMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printMenu(Stage window) throws IOException {
+    public static void printMenu(Stage window, User user) throws IOException {
         int value = -1;
         do {
             try {
@@ -39,13 +40,13 @@ public class ConnectionMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        ConnectionMenu.switchMenu(value, window);
+        ConnectionMenu.switchMenu(value, window, user);
     }
 
-    public static void switchMenu(int value, Stage window) throws IOException {
+    public static void switchMenu(int value, Stage window, User user) throws IOException {
         switch (value) {
             case 1 -> {
-                ConnectionModel.connectionTreatment(window);
+                ConnectionModel.connectionTreatment(window, user);
             }
             /*case 2 -> {
                 CLIInterfaceController.setContentPaneByInterfaceCode(InterfaceCode.INSCRIPTION, window);

@@ -12,11 +12,11 @@ import java.util.Scanner;
 
 import static Enum.InterfaceCode.BOARD;
 
-public class GeneralMenu {
+public class TicketMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printGeneralMenu(Stage window, User user) throws IOException {
+    public static void printTicketsMenu(Stage window, User user) throws IOException {
         int value = -1;
         do {
             try {
@@ -38,10 +38,10 @@ public class GeneralMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        GeneralMenu.switchGeneralMenu(value, window, user);
+        TicketMenu.switchTicketMenu(value, window, user);
     }
 
-    public static void switchGeneralMenu(int value, Stage window, User user) throws IOException {
+    public static void switchTicketMenu(int value, Stage window, User user) throws IOException {
         switch (value) {
             case 1 -> {
                 BoardMenu.printBoardMenu(window, user);

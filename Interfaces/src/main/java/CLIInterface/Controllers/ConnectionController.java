@@ -12,16 +12,14 @@ public class ConnectionController {
 
     private static String errorConnection = "La connexion a échoué";
 
-    public void connection(String mail, String password, Stage window) throws IOException {
-
-        User user = new User();
+    public void connection(String mail, String password, Stage window, User user) throws IOException {
 
         var loginBody = new Body();
         loginBody.addValueToBody("mail", mail);
         loginBody.addValueToBody("password", password);
 
         if (user.login(loginBody)) {
-            GeneralMenu.printGeneralMenu(window);
+            GeneralMenu.printGeneralMenu(window, user);
         } else {
             System.out.println(errorConnection);
         }
