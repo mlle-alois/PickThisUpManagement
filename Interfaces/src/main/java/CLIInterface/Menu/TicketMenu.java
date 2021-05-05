@@ -17,11 +17,13 @@ public class TicketMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printTicketsMenu(Stage window, User user) throws IOException {
+    private String[] tickets;
+
+    public void printTicketsMenu(Stage window, User user) throws IOException {
         int value = -1;
         MenuController menuController = new MenuController(user);
 
-        String[] tickets = menuController.parseTickets();
+        this.tickets = menuController.parseTickets();
         do {
             try {
                 List<String> menu = new ArrayList<>();
@@ -41,10 +43,10 @@ public class TicketMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        TicketMenu.switchTicketMenu(tickets.length, value, window, user);
+        this.switchTicketMenu(tickets.length, value, window, user);
     }
 
-    public static void switchTicketMenu(int length, int value, Stage window, User user) throws IOException {
+    public void switchTicketMenu(int length, int value, Stage window, User user) throws IOException {
         if(value == length + 1) {
             GeneralMenu.printGeneralMenu(window, user);
         }

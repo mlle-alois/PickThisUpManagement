@@ -33,6 +33,10 @@ public class User {
         this.clientUser = Client.getInstance();
     }
 
+    public String getToken() {
+        return this.token;
+    }
+
     public boolean login(Body body) throws JsonProcessingException {
         HttpResponse<String> response = PostRequest(body,Login);
         if(response.statusCode() < 300){
@@ -200,7 +204,5 @@ public class User {
         return response;
 
     }
-
-
 }
 

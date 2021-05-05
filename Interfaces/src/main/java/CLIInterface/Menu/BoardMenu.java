@@ -12,16 +12,17 @@ import java.util.Scanner;
 
 public class BoardMenu {
 
+    private String[] boards;
+
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printBoardMenu(Stage window, User user) throws IOException {
+    public void printBoardMenu(Stage window, User user) throws IOException {
         int value = -1;
         MenuController menuController = new MenuController(user);
 
-        String[] boards = menuController.parseBoards();
+        this.boards = menuController.parseBoards();
         do {
             try {
-
                 List<String> menu = new ArrayList<>();
                 for(int i = 0 ; i < boards.length ; i+= 1) {
                     menu.add((i + 1) + ". " + boards[i]);
@@ -39,11 +40,11 @@ public class BoardMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        BoardMenu.switchBoardMenu(boards.length, value, window, user);
+        this.switchBoardMenu(value, window, user);
     }
 
-    public static void switchBoardMenu(int length, int value, Stage window, User user) throws IOException {
-        if(value == length + 1) {
+    public void switchBoardMenu(int value, Stage window, User user) throws IOException {
+        if(value == boards.length + 1) {
             GeneralMenu.printGeneralMenu(window, user);
         }
         //TODO permettre de naviguer sur le bon tableau selon la valeur saisie

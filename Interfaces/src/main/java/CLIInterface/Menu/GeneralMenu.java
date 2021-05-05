@@ -42,12 +42,14 @@ public class GeneralMenu {
     }
 
     public static void switchGeneralMenu(int value, Stage window, User user) throws IOException {
+        BoardMenu boardMenu = new BoardMenu();
+        TicketMenu ticketMenu = new TicketMenu();
         switch (value) {
             case 1 -> {
-                BoardMenu.printBoardMenu(window, user);
+                boardMenu.printBoardMenu(window, user);
             }
             case 2 -> {
-                TicketMenu.printTicketsMenu(window, user);
+                ticketMenu.printTicketsMenu(window, user);
             }
             case 4 -> {
                 user.logout(new Body());

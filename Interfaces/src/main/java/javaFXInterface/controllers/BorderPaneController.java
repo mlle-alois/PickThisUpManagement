@@ -53,7 +53,6 @@ public class BorderPaneController {
 
     @SneakyThrows
     public void initialize(User user) {
-        System.out.println(user.token);
         this.user = user;
         initializeBoards();
         initializeTickets();
