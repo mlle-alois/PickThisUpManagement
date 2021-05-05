@@ -6,7 +6,6 @@ import Enum.InterfaceCode;
 import Requete.User;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 
 public class CLIInterfaceController {

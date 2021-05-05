@@ -16,12 +16,10 @@ public class BoardMenu {
 
     public static void printBoardMenu(Stage window, User user) throws IOException {
         int value = -1;
-        MenuController menuController = new MenuController();
-        menuController.initialize(user);
+        MenuController menuController = new MenuController(user);
 
         String[] boards = menuController.parseBoards();
-        System.out.println(boards.length);
-        //do {
+        do {
             try {
 
                 List<String> menu = new ArrayList<>();
@@ -33,14 +31,14 @@ public class BoardMenu {
                     System.out.println(chaine);
                 }
                 value = Integer.parseInt(clavier.next());
-                if (value < 1 || value > boards.length) {
+                if (value < 1 || value > boards.length + 1) {
                     System.out.println("Veuillez saisir un nombre présent dans le menu");
                     value = -1;
                 }
             } catch (Exception e) {
                 System.out.println("Veuillez saisir un numérique");
             }
-        //} while (value == -1);
+        } while (value == -1);
         BoardMenu.switchBoardMenu(boards.length, value, window, user);
     }
 
@@ -48,6 +46,7 @@ public class BoardMenu {
         if(value == length + 1) {
             GeneralMenu.printGeneralMenu(window, user);
         }
+        //TODO permettre de naviguer sur le bon tableau selon la valeur saisie
         /*switch (value) {
             case 1 -> {
                 BoardMenu.printBoardMenu(window);

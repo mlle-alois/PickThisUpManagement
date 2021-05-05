@@ -25,8 +25,7 @@ public class MenuController {
 
     private User user;
 
-    @SneakyThrows
-    public void initialize(User user) {
+    public MenuController(User user) {
         this.user = user;
     }
 
@@ -46,16 +45,7 @@ public class MenuController {
         return allBoars;
     }
 
-    private MenuItem[] getBranchs(String[] boards) {
-        MenuItem[] menuItems = new MenuItem[boards.length];
-
-        for (int i = 0; i < boards.length; i++) {
-            menuItems[i] = new MenuItem(boards[i]);
-        }
-        return menuItems;
-    }
-
-    private String[] parseTickets() throws JsonProcessingException {
+    public String[] parseTickets() throws JsonProcessingException {
         Status[] Tickets = getTickets(user);
         String[] allTickets = new String[Tickets.length + 1];
 
@@ -71,16 +61,6 @@ public class MenuController {
         Body body = new Body();
         body.addValueToBody("limit", "3");
         return user.getStatus(body);
-    }
-
-    private MenuItem[] getBranchsTickets(String[] Tickets) {
-        MenuItem[] tasksItems = new MenuItem[Tickets.length];
-
-        for (int i = 0; i < Tickets.length; i++) {
-            tasksItems[i] = new MenuItem(Tickets[i]);
-        }
-
-        return tasksItems;
     }
 
     public void disconnect(ActionEvent event) throws IOException {

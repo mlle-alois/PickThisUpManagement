@@ -1,5 +1,6 @@
 package CLIInterface.Menu;
 
+import CLIInterface.Controllers.MenuController;
 import Requete.Body;
 import Requete.User;
 import javaFXInterface.controllers.ContentPanelController;
@@ -18,19 +19,21 @@ public class TicketMenu {
 
     public static void printTicketsMenu(Stage window, User user) throws IOException {
         int value = -1;
+        MenuController menuController = new MenuController(user);
+
+        String[] tickets = menuController.parseTickets();
         do {
             try {
                 List<String> menu = new ArrayList<>();
-                menu.add("1. Tableaux");
-                menu.add("2. Tickets");
-                menu.add("3. Passer en UML");
-                menu.add("4. Déconnexion");
-                menu.add("5. Quitter");
+                for(int i = 0 ; i < tickets.length ; i+= 1) {
+                    menu.add((i + 1) + ". " + tickets[i]);
+                }
+                menu.add((tickets.length + 1) + ". Retour");
                 for (String chaine : menu) {
                     System.out.println(chaine);
                 }
                 value = Integer.parseInt(clavier.next());
-                if (value < 1 || value > 5) {
+                if (value < 1 || value > tickets.length + 1) {
                     System.out.println("Veuillez saisir un nombre présent dans le menu");
                     value = -1;
                 }
@@ -38,20 +41,25 @@ public class TicketMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        TicketMenu.switchTicketMenu(value, window, user);
+        TicketMenu.switchTicketMenu(tickets.length, value, window, user);
     }
 
-    public static void switchTicketMenu(int value, Stage window, User user) throws IOException {
-        switch (value) {
+    public static void switchTicketMenu(int length, int value, Stage window, User user) throws IOException {
+        if(value == length + 1) {
+            GeneralMenu.printGeneralMenu(window, user);
+        }
+        //TODO permettre de naviguer sur le bon type de tickets selon la valeur saisie
+        /*switch (value) {
             case 1 -> {
-                BoardMenu.printBoardMenu(window, user);
+                BoardMenu.printBoardMenu(window);
             }
             case 2 -> {
-                TicketMenu.printTicketsMenu(window, user);
+                TicketMenu.printTicketsMenu(window);
             }
             case 4 -> {
+                User user = new User();
                 user.logout(new Body());
-                ConnectionMenu.printMenu(window, user);
+                ConnectionMenu.printMenu(window);
             }
             case 5 -> {
                 System.exit(0);
@@ -59,6 +67,6 @@ public class TicketMenu {
             default -> {
                 ContentPanelController.setContentPaneByInterfaceCode(BOARD, window);
             }
-        }
+        }*/
     }
 }
