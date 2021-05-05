@@ -2,6 +2,7 @@ package CLIInterface.Menu;
 
 import CLIInterface.Controllers.MenuController;
 import Requete.Body;
+import Requete.TicketsService;
 import Requete.User;
 import javaFXInterface.controllers.ContentPanelController;
 import javafx.stage.Stage;
@@ -43,12 +44,19 @@ public class TicketMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        this.switchTicketMenu(tickets.length, value, window, user);
+        this.switchTicketMenu(value, window, user);
     }
 
-    public void switchTicketMenu(int length, int value, Stage window, User user) throws IOException {
-        if(value == length + 1) {
+    public void switchTicketMenu(int value, Stage window, User user) throws IOException {
+        TicketsService ticketsService = new TicketsService(user);
+
+        if(value == tickets.length + 1) {
             GeneralMenu.printGeneralMenu(window, user);
+        }
+        else {
+            Body body = new Body();
+            body.addValueToBody("");
+            ticketsService.getTicketsByStatus();
         }
         //TODO permettre de naviguer sur le bon type de tickets selon la valeur saisie
         /*switch (value) {

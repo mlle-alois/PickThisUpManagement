@@ -1,11 +1,12 @@
 package Requete;
 
-import Models.*;
+import Models.Status;
+import Models.Ticket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.net.http.HttpResponse;
 
-public class TicketsService {
+public class StatusService {
 
     private final DatabaseService databaseService;
 
@@ -14,7 +15,7 @@ public class TicketsService {
     private static final String getStatus = "ticket/status";
     private static final String getTicketsForStatus = "ticket/getByStatus/";
 
-    public TicketsService(User user) {
+    public StatusService(User user) {
         this.databaseService = new DatabaseService(user);
     }
 
@@ -34,7 +35,7 @@ public class TicketsService {
         return new Status[0];
     }
 
-    public Status[] getTicketsByStatus(Body body) throws JsonProcessingException {
+    public Status[] getTicketsForStatus(Body body) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getTicketsForStatus);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), Status[].class);

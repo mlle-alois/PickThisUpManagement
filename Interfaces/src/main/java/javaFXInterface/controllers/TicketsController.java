@@ -21,12 +21,6 @@ public class TicketsController {
         this.ticketsService = new TicketsService(user);
     }
 
-    public Ticket[] getTickets() throws JsonProcessingException {
-        Body body = new Body();
-
-        return ticketsService.getTickets(body);
-    }
-
     @SneakyThrows
     public void initialize(User user) {
 
@@ -37,6 +31,12 @@ public class TicketsController {
         rootBoard.getChildren().addAll(allChildTickets);
 
         treeTickets.setRoot(rootBoard);
+    }
+
+    public Ticket[] getTickets() throws JsonProcessingException {
+        Body body = new Body();
+
+        return ticketsService.getTickets(body);
     }
 
     private String[] parseTickets() throws JsonProcessingException {
