@@ -48,12 +48,12 @@ public class BorderPaneController {
 
     public Board[] getBoards(User user) throws JsonProcessingException {
         Body body = new Body();
-
         return user.getBoards(body);
     }
 
     @SneakyThrows
     public void initialize(User user) {
+        System.out.println(user.token);
         this.user = user;
         initializeBoards();
         initializeTickets();
@@ -68,7 +68,7 @@ public class BorderPaneController {
         boardMenu.getItems().addAll(getBranchs(parseBoards()));
     }
 
-    private String[] parseBoards() throws JsonProcessingException {
+    public String[] parseBoards() throws JsonProcessingException {
         Board[] boards = getBoards(user);
         String[] allBoars = new String[boards.length + 1];
         for (int i = 0; i < boards.length; i++) {
@@ -160,7 +160,7 @@ public class BorderPaneController {
         stage = (Stage) menuBar.getScene().getWindow();
         stage.setOpacity(0);
         stage.setAlwaysOnTop(false);
-        CLIInterfaceController.setContentPaneByInterfaceCode(BOARD, stage);
+        CLIInterfaceController.setContentPaneByInterfaceCode(BOARD, stage, user);
 
     }
 

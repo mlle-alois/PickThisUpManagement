@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Body {
     public HashMap<String, String> map;
-    public ObjectMapper objectMapper = new ObjectMapper();
+    public ObjectMapper objectMapper;
 
     private static String baseURL = "http://localhost:3000/";
     private static String limit = "limit";
@@ -17,6 +17,7 @@ public class Body {
 
     public Body() {
         map = new HashMap<>();
+        objectMapper = new ObjectMapper();
     }
 
     public void addValueToBody(String attribute, String value) {
