@@ -5,6 +5,7 @@ import Models.Board;
 import Models.Liste;
 import Models.Status;
 import Requete.Body;
+import Requete.TicketsService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
@@ -38,11 +39,13 @@ public class BorderPaneController {
     private Menu ticketMenu;
     @FXML
     private BorderPane borderPane;
-    Stage root;
-    Stage stage;
-    Scene scene;
 
-    String currentBoard;
+    private Stage root;
+    private Stage stage;
+    private Scene scene;
+
+    private String currentBoard;
+    private TicketsService ticketsService;
 
     private User user;
 
@@ -54,6 +57,7 @@ public class BorderPaneController {
     @SneakyThrows
     public void initialize(User user) {
         this.user = user;
+        this.ticketsService = new TicketsService(user);
         initializeBoards();
         initializeTickets();
         addGridPaneToCenter();
@@ -110,7 +114,7 @@ public class BorderPaneController {
     public Status[] getTickets(User user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return user.getStatus(body);
+        return ticketsService.getStatus(body);
     }
 
     private MenuItem[] getBranchsTickets(String[] Tickets) {

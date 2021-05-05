@@ -4,28 +4,21 @@ import Models.Board;
 import Models.Liste;
 import Models.Status;
 import Requete.Body;
+import Requete.TicketsService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import lombok.SneakyThrows;
 
 import java.io.IOException;
 
-import static Enum.InterfaceCode.BOARD;
-
 public class MenuController {
 
-    private User user;
+    private final User user;
+    private final TicketsService ticketsService;
 
     public MenuController(User user) {
+        this.ticketsService = new TicketsService(user);
         this.user = user;
     }
 
@@ -60,7 +53,7 @@ public class MenuController {
     public Status[] getTickets(User user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return user.getStatus(body);
+        return ticketsService.getStatus(body);
     }
 
     public void disconnect(ActionEvent event) throws IOException {
