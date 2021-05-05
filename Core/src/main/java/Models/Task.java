@@ -2,15 +2,18 @@ package Models;
 
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
 import java.time.LocalDate;
+
 @NoArgsConstructor
 public class Task {
-    public int taskid;
+    public int taskId;
     public String taskName;
     public String taskDescription;
-    public LocalDate taskCreationDate;
-    public LocalDate TaskDeadline;
+    public Date taskCreationDate;
+    public Date taskDeadline;
     public int positionInList;
+    public int statusId;
     public int priorityId;
     public int listId;
     public String creatorId;
