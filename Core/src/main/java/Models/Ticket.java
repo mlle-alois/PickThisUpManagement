@@ -11,6 +11,7 @@ public class Ticket {
     public String ticketDescription;
     public Date ticketCreationDate;
     public int statusId;
+    public String statusLibelle;
     public int priorityId;
     public String creatorId;
 }

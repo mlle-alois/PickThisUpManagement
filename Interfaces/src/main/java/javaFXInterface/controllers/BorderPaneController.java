@@ -1,15 +1,17 @@
 package javaFXInterface.controllers;
 
 import CLIInterface.Controllers.CLIInterfaceController;
-import Models.*;
+import Models.Board;
+import Models.Liste;
+import Models.Status;
 import Requete.Body;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -42,7 +44,12 @@ public class BorderPaneController {
     Stage stage;
     Scene scene;
 
-    String currentBoard;
+    private Stage root;
+    private Stage stage;
+    private Scene scene;
+
+    private String currentBoard;
+    private TicketsService ticketsService;
 
     private User user;
 
@@ -55,6 +62,7 @@ public class BorderPaneController {
     public void initialize(User user) {
         System.out.println(user.token);
         this.user = user;
+        this.ticketsService = new TicketsService(user);
         initializeBoards();
         initializeTickets();
         addGridPaneToCenter();
@@ -97,7 +105,7 @@ public class BorderPaneController {
     // Ticket Parts
 
     private String[] parseTickets() throws JsonProcessingException {
-        Status[] Tickets = getTickets(user);
+        StatusModel[] Tickets = getTickets(user);
         String[] allTickets = new String[Tickets.length + 1];
 
         allTickets[0] = "Tous les tickets";
@@ -108,10 +116,10 @@ public class BorderPaneController {
         return allTickets;
     }
 
-    public Status[] getTickets(User user) throws JsonProcessingException {
+    public StatusModel[] getTickets(User user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return user.getStatus(body);
+        return ticketsService.getTicketsStatus(body);
     }
 
     private MenuItem[] getBranchsTickets(String[] Tickets) {
@@ -168,7 +176,7 @@ public class BorderPaneController {
         ScrollPane scrollPane = new ScrollPane();
         GridPane mainPane = new GridPane();
         setMainGridPaneShape(mainPane);
-        
+
         Body body = new Body();
         Liste[] listes = user.getListes(body);
 

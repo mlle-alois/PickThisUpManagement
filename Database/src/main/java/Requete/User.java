@@ -21,16 +21,17 @@ public class User {
     private static String ContentType = "Content-Type";
     private static String app_json = "application/json";
     private static String getBoards = "board";
-    private static String getTickets = "ticket";
-    private static String getTicket = "ticket/get";
     private static String getList = "list";
     private static String getListsFromBoard = "list/board";
-    private static String getStatus ="ticket/status";
     private static String Logout ="auth/logout";
     private static String getTasksFromList ="task/list";
 
     public User() {
         this.clientUser = Client.getInstance();
+    }
+
+    public String getToken() {
+        return this.token;
     }
 
     public boolean login(Body body) throws JsonProcessingException {
@@ -62,28 +63,12 @@ public class User {
         return new Task[0];
     }
 
-    public Status[] getStatus (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = GetRequest(body,getStatus);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Status[].class);
-        }
-        return new Status[0];
-    }
-
     public Liste[] getListes (Body body) throws JsonProcessingException {
         HttpResponse<String> result = GetRequest(body,getList);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), Liste[].class);
         }
         return new Liste[0];
-    }
-
-    public Ticket[] getTickets (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = GetRequest(body,getTickets);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Ticket[].class);
-        }
-        return new Ticket[0];
     }
 
     public Board getBoard (Body body) throws JsonProcessingException {
@@ -200,7 +185,5 @@ public class User {
         return response;
 
     }
-
-
 }
 

@@ -1,8 +1,11 @@
 package CLIInterface.Menu;
 
+import CLIInterface.Controllers.TicketController;
+import CLIInterface.Models.TicketsModel;
+import Models.Ticket;
 import Requete.Body;
+import Requete.TicketsService;
 import Requete.User;
-import javaFXInterface.controllers.ContentPanelController;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -10,27 +13,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Enum.InterfaceCode.BOARD;
-
 public class TicketMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printTicketsMenu(Stage window, User user) throws IOException {
+    private String[] ticketsStatus;
+
+    public void printTicketsMenu(Stage window, User user) throws IOException {
         int value = -1;
+        TicketController menuController = new TicketController(user);
+
+        this.ticketsStatus = menuController.parseTickets();
         do {
             try {
                 List<String> menu = new ArrayList<>();
-                menu.add("1. Tableaux");
-                menu.add("2. Tickets");
-                menu.add("3. Passer en UML");
-                menu.add("4. Déconnexion");
-                menu.add("5. Quitter");
+                for(int i = 0; i < ticketsStatus.length ; i+= 1) {
+                    menu.add((i + 1) + ". " + ticketsStatus[i]);
+                }
+                menu.add((ticketsStatus.length + 1) + ". Retour");
                 for (String chaine : menu) {
                     System.out.println(chaine);
                 }
                 value = Integer.parseInt(clavier.next());
-                if (value < 1 || value > 5) {
+                if (value < 1 || value > ticketsStatus.length + 1) {
                     System.out.println("Veuillez saisir un nombre présent dans le menu");
                     value = -1;
                 }
@@ -38,27 +43,26 @@ public class TicketMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        TicketMenu.switchTicketMenu(value, window, user);
+        this.switchTicketMenu(value, window, user);
     }
 
-    public static void switchTicketMenu(int value, Stage window, User user) throws IOException {
-        switch (value) {
-            case 1 -> {
-                BoardMenu.printBoardMenu(window, user);
-            }
-            case 2 -> {
-                TicketMenu.printTicketsMenu(window, user);
-            }
-            case 4 -> {
-                user.logout(new Body());
-                ConnectionMenu.printMenu(window, user);
-            }
-            case 5 -> {
-                System.exit(0);
-            }
-            default -> {
-                ContentPanelController.setContentPaneByInterfaceCode(BOARD, window);
-            }
+    public void switchTicketMenu(int value, Stage window, User user) throws IOException {
+        TicketsService ticketsService = new TicketsService(user);
+
+        if(value == ticketsStatus.length + 1) {
+            GeneralMenu.printGeneralMenu(window, user);
+        }
+        else if (value == 1){
+            Ticket[] tickets = ticketsService.getTickets(new Body());
+            TicketsModel.printTickets(tickets, window, user);
+        }
+        else {
+            Body body = new Body();
+            body.addValueToBody("status", ticketsStatus[value - 1]);
+
+            Ticket[] tickets = ticketsService.getTicketsByStatus(body);
+
+            TicketsModel.printTickets(tickets, window, user);
         }
     }
 }
