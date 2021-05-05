@@ -12,7 +12,7 @@ public class TicketsService {
     private static final String getTickets = "ticket";
     private static final String getTicket = "ticket/get";
     private static final String getStatus = "ticket/status";
-    private static final String getTicketsForStatus = "ticket/getByStatus/";
+    private static final String getTicketsForStatus = "ticket/getByStatus";
 
     public TicketsService(User user) {
         this.databaseService = new DatabaseService(user);
@@ -34,11 +34,11 @@ public class TicketsService {
         return new Status[0];
     }
 
-    public Status[] getTicketsByStatus(Body body) throws JsonProcessingException {
+    public Ticket[] getTicketsByStatus(Body body) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getTicketsForStatus);
         if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Status[].class);
+            return body.objectMapper.readValue(result.body(), Ticket[].class);
         }
-        return new Status[0];
+        return new Ticket[0];
     }
 }

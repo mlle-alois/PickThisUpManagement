@@ -48,7 +48,7 @@ public class DatabaseService {
         return response.statusCode() == 204;
     }
 
-    public HttpResponse<String> GetRequest(Body body, String route) {
+    public HttpResponse<String> GetRequest(Body body, String route) throws JsonProcessingException {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(body.getUrlWithParametersInMap(route)))
                 .setHeader(Authorization, Bearer + user.getToken())

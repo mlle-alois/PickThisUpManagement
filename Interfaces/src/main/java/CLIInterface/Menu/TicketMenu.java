@@ -1,10 +1,12 @@
 package CLIInterface.Menu;
 
 import CLIInterface.Controllers.MenuController;
+import CLIInterface.Models.TicketsModel;
+import Models.Ticket;
 import Requete.Body;
 import Requete.TicketsService;
 import Requete.User;
-import javaFXInterface.controllers.ContentPanelController;
+import javaFXInterface.controllers.TicketsController;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -12,31 +14,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static Enum.InterfaceCode.BOARD;
-
 public class TicketMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    private String[] tickets;
+    private String[] ticketsStatus;
 
     public void printTicketsMenu(Stage window, User user) throws IOException {
         int value = -1;
         MenuController menuController = new MenuController(user);
 
-        this.tickets = menuController.parseTickets();
+        this.ticketsStatus = menuController.parseTickets();
         do {
             try {
                 List<String> menu = new ArrayList<>();
-                for(int i = 0 ; i < tickets.length ; i+= 1) {
-                    menu.add((i + 1) + ". " + tickets[i]);
+                for(int i = 0; i < ticketsStatus.length ; i+= 1) {
+                    menu.add((i + 1) + ". " + ticketsStatus[i]);
                 }
-                menu.add((tickets.length + 1) + ". Retour");
+                menu.add((ticketsStatus.length + 1) + ". Retour");
                 for (String chaine : menu) {
                     System.out.println(chaine);
                 }
                 value = Integer.parseInt(clavier.next());
-                if (value < 1 || value > tickets.length + 1) {
+                if (value < 1 || value > ticketsStatus.length + 1) {
                     System.out.println("Veuillez saisir un nombre présent dans le menu");
                     value = -1;
                 }
@@ -50,14 +50,20 @@ public class TicketMenu {
     public void switchTicketMenu(int value, Stage window, User user) throws IOException {
         TicketsService ticketsService = new TicketsService(user);
 
-        if(value == tickets.length + 1) {
+        if(value == ticketsStatus.length + 1) {
             GeneralMenu.printGeneralMenu(window, user);
+        }
+        else if (value == 1){
+            Ticket[] tickets = ticketsService.getTickets(new Body());
+            TicketsModel.printBoards(tickets, window, user);
         }
         else {
             Body body = new Body();
-            body.addValueToBody("status", tickets[value - 1]);
-            
-            ticketsService.getTicketsByStatus(body);
+            body.addValueToBody("status", ticketsStatus[value - 1]);
+
+            Ticket[] selectedTickets = ticketsService.getTicketsByStatus(body);
+
+            this.printTicketsMenu(window, user);
         }
         //TODO permettre de naviguer sur le bon type de tickets selon la valeur saisie
         /*switch (value) {

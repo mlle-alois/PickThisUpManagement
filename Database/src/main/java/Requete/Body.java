@@ -46,10 +46,8 @@ public class Body {
             }
             result += "&" + me.getKey() + "=" + me.getValue();
         }
-        ;
         return result;
     }
-
 
     private boolean isGetAllOptions() {
         String firstKey = map.keySet().iterator().next();
@@ -57,9 +55,7 @@ public class Body {
     }
 
     private String firstLine(Map.Entry me) {
-        if (isGetAllOptions())
-            return "?" + me.getKey() + "=" + me.getValue();
-        return (String) me.getValue();
+        return "?" + me.getKey() + "=" + me.getValue();
     }
 }
 
