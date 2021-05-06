@@ -55,6 +55,9 @@ public class Body {
     }
 
     private String firstLine(Map.Entry me) {
+        if(me.getKey().equals("")) {
+            return me.getValue() + "";
+        }
         return "?" + me.getKey() + "=" + me.getValue();
     }
 }

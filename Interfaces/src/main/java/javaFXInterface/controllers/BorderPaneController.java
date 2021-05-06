@@ -188,15 +188,15 @@ public class BorderPaneController {
     }
 
     private void create1VboxPerListe(GridPane mainPane, Liste[] listes) throws JsonProcessingException {
-        for (int i = 0; i < listes.length; i++){
+        for (int i = 0; i < listes.length; i++) {
             VBox vbox = createVbox(listes[i]);
 
-            mainPane.add(vbox,i,0);
+            mainPane.add(vbox, i, 0);
         }
     }
 
     private void setMainGridPaneShape(GridPane mainPane) {
-        mainPane.setPadding(new Insets(10,10,10,10));
+        mainPane.setPadding(new Insets(10, 10, 10, 10));
         mainPane.setHgap(50);
         mainPane.setVgap(50);
     }
@@ -225,8 +225,8 @@ public class BorderPaneController {
     private GridPane getTitleListWithButtonEvents(Liste liste) {
         GridPane newGrid = new GridPane();
         Label lbl = new Label(liste.listName);
-        newGrid.add(lbl,0,0);
-        lbl.setPrefSize(50,50);
+        newGrid.add(lbl, 0, 0);
+        lbl.setPrefSize(50, 50);
 
         // Set Event when clicked from buttons
         EventHandler<ActionEvent> buttonModifHandler = new EventHandler<ActionEvent>() {
@@ -263,12 +263,12 @@ public class BorderPaneController {
 
         newGrid.getColumnConstraints().add(column1);
         newGrid.getColumnConstraints().add(column2);
-        newGrid.add(bar,1,0,1,1);
+        newGrid.add(bar, 1, 0, 1, 1);
         return newGrid;
     }
 
     private void addPanesToVbox(VBox vbox, List<GridPane> gridPanes) {
-        for (GridPane gridPane: gridPanes) {
+        for (GridPane gridPane : gridPanes) {
             vbox.getChildren().add(gridPane);
         }
     }
@@ -276,7 +276,7 @@ public class BorderPaneController {
     private List<GridPane> getGridPanes(Task[] tasks) {
         List<GridPane> gridPanes = new ArrayList<>();
 
-        for (Task task: tasks) {
+        for (Task task : tasks) {
             GridPane newGrid = new GridPane();
             setGridShape(newGrid);
 
@@ -288,29 +288,29 @@ public class BorderPaneController {
     }
 
     private void setVboxShape(VBox vbox, Task[] tasks) {
-        int vboxLength = (tasks.length*200+100);
+        int vboxLength = (tasks.length * 200 + 100);
         vbox.setSpacing(20);
-        vbox.setPrefSize(150,vboxLength);
+        vbox.setPrefSize(150, vboxLength);
         vbox.setStyle("-fx-background-color: #d3d4cb");
     }
 
     private Task[] getTasksFromListe(Liste liste) throws JsonProcessingException {
         // Get all the tasks linked to the list
         Body body = new Body();
-        body.addValueToBody("id",String.valueOf(liste.listId));
+        body.addValueToBody("", String.valueOf(liste.listId));
         return user.getTasksFromList(body);
     }
 
     private void addTaskToGrid(Task task, GridPane newGrid) {
         // add title of task
         Label lblTaskName = new Label(task.taskName);
-        newGrid.add(lblTaskName,0,0);
+        newGrid.add(lblTaskName, 0, 0);
         // add task's description
         TextArea lblTextArea = new TextArea(task.taskDescription);
         lblTextArea.setWrapText(true);
         lblTextArea.setEditable(false);
         lblTextArea.setStyle("-fx-control-inner-background: lightgray;");
-        newGrid.add(lblTextArea,0,1);
+        newGrid.add(lblTextArea, 0, 1);
 
         addButtonBarToGrid(newGrid);
     }
@@ -340,15 +340,15 @@ public class BorderPaneController {
         eraseButton.setOnAction(buttonEraseHandler);
 
         ButtonBar buttonBar = new ButtonBar();
-        buttonBar.getButtons().addAll(modifButton,eraseButton);
-        newGrid.add(buttonBar,0,2,2,1);
+        buttonBar.getButtons().addAll(modifButton, eraseButton);
+        newGrid.add(buttonBar, 0, 2, 2, 1);
     }
 
     private void setGridShape(GridPane newGrid) {
-        newGrid.setPadding(new Insets(10,   10,10,  10));
+        newGrid.setPadding(new Insets(10, 10, 10, 10));
         //   newGrid.setGridLinesVisible(true);
 
-        newGrid.setPrefSize(100,180);
+        newGrid.setPrefSize(100, 180);
         // set style
         newGrid.setStyle("-fx-background-color: blue, lightgray;-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;");
         // set Gap between row and column

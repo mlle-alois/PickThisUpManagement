@@ -19,7 +19,7 @@ public class PostRequest {
 
         var Parameters = new Body();
         //  Parameters.addValueToBody("limit","3");
-        Parameters.addValueToBody("id", "2");
+        Parameters.addValueToBody("", "2");
         //   Board[] boards =  user.getBoards(Parameters);
         //   Board board =  user.getBoard(Parameters);
         //  Ticket[] tickets = user.getTickets(Parameters);
