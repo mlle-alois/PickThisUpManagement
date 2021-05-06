@@ -19,7 +19,13 @@ public class TicketMenu {
 
     private String[] ticketsStatus;
 
-    public void printTicketsMenu(Stage window, User user) throws IOException {
+    /**
+     * affichage du menu des tickets (leur statut)
+     * @param window
+     * @param user
+     * @throws IOException
+     */
+    public void printTicketsStatusMenu(Stage window, User user) throws IOException {
         int value = -1;
         TicketController menuController = new TicketController(user);
 
@@ -43,10 +49,10 @@ public class TicketMenu {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        this.switchTicketMenu(value, window, user);
+        this.switchTicketsStatusMenu(value, window, user);
     }
 
-    public void switchTicketMenu(int value, Stage window, User user) throws IOException {
+    public void switchTicketsStatusMenu(int value, Stage window, User user) throws IOException {
         TicketsService ticketsService = new TicketsService(user);
 
         if(value == ticketsStatus.length + 1) {
@@ -54,15 +60,16 @@ public class TicketMenu {
         }
         else if (value == 1){
             Ticket[] tickets = ticketsService.getTickets(new Body());
-            TicketsModel.printTickets(tickets, window, user);
+            TicketsModel.printTickets(tickets, window, user, "");
         }
         else {
             Body body = new Body();
-            body.addValueToBody("status", ticketsStatus[value - 1]);
+            String status = ticketsStatus[value - 1];
+            body.addValueToBody("status", status);
 
             Ticket[] tickets = ticketsService.getTicketsByStatus(body);
 
-            TicketsModel.printTickets(tickets, window, user);
+            TicketsModel.printTickets(tickets, window, user, status);
         }
     }
 }

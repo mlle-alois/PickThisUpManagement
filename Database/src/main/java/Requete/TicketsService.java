@@ -10,10 +10,14 @@ public class TicketsService {
     private final DatabaseService databaseService;
 
     private static final String getTickets = "ticket";
-    private static final String getTicket = "ticket/get";
+    private static final String addTicket = "ticket/add";
     private static final String getStatus = "ticket/status";
     private static final String getTicketsForStatus = "ticket/getByStatus";
     private static final String getMembersByTicketId = "ticket/getMembers/";
+    private static final String closeTicket = "ticket/close/";
+    private static final String archiveTicket = "ticket/archive/";
+    private static final String reopenTicket = "ticket/open/";
+    private static final String updateTicket = "ticket/update/";
 
     public TicketsService(User user) {
         this.databaseService = new DatabaseService(user);
@@ -27,6 +31,26 @@ public class TicketsService {
         return new Ticket[0];
     }
 
+    public void addTicket(Body body) throws JsonProcessingException {
+        databaseService.PostRequest(body, addTicket);
+    }
+
+    public void closeTicket(Body body, int id) throws JsonProcessingException {
+        databaseService.PutRequest(body, closeTicket + id);
+    }
+
+    public void archiveTicket(Body body, int id) throws JsonProcessingException {
+        databaseService.PutRequest(body, archiveTicket + id);
+    }
+
+    public void reopenTicket(Body body, int id) throws JsonProcessingException {
+        databaseService.PutRequest(body, reopenTicket + id);
+    }
+
+    public void updateTicket(Body body, int id) throws JsonProcessingException {
+        databaseService.PutRequest(body, updateTicket + id);
+    }
+
     public StatusModel[] getTicketsStatus(Body body) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getStatus);
         if (result.statusCode() < 300) {
@@ -35,16 +59,7 @@ public class TicketsService {
         return new StatusModel[0];
     }
 
-    public StatusModel[] getTicketStatus(Body body, Integer ticketId) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body, getStatus);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), StatusModel[].class);
-        }
-        return new StatusModel[0];
-    }
-
     public UserModel[] getMembersByTicketId(Body body, Integer ticketId) throws JsonProcessingException {
-        //TODO coder la route dans l'api
         HttpResponse<String> result = databaseService.GetRequest(body, getMembersByTicketId + ticketId);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), UserModel[].class);

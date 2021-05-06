@@ -39,7 +39,6 @@ public class Body {
         int i = 0;
         for (Map.Entry me : map.entrySet()) {
             if (i == 0) {
-                // result += me.getValue();
                 result += firstLine(me);
                 i++;
                 continue;
