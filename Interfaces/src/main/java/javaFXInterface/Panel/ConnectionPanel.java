@@ -20,7 +20,6 @@ public class ConnectionPanel extends JPanel{
     private JLabel lblConnection;
     private JLabel lblEmail;
     private JLabel lblMdp;
-    //TODO voir comment afficher des pop-up d'erreur au lieu du label
     private JLabel lblError;
     private JTextField jtfLogin;
     private JPasswordField jpfPassword;
@@ -28,7 +27,6 @@ public class ConnectionPanel extends JPanel{
     private JButton buttonInscription;
     private JButton buttonIForgotPassword;
     private JButton buttonCLI;
-    //TODO inscription et mot de passe oublié
 
     /**
      * Constructeur du panel de la connexion
@@ -64,7 +62,6 @@ public class ConnectionPanel extends JPanel{
         //définition, nommage et action des boutons
         this.buttonConnection = new JButton("Valider");
         this.buttonConnection.setName("Connexion");
-        //TODO
         this.buttonConnection.addActionListener(new ConnectionController(lblError, jtfLogin, jpfPassword));
 
         /* Mise de côté des fonctionnalités d'inscription et de mot de passe oublié sur la partie java
@@ -96,7 +93,6 @@ public class ConnectionPanel extends JPanel{
         this.buttonCLI.setPreferredSize(new Dimension(90, 20));
         this.buttonCLI.setFont(new Font("Arial", Font.PLAIN, 8));
         this.buttonCLI.setName("CLI");
-        //TODO
         this.buttonCLI.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -26,7 +26,6 @@ public class ApplicationMenu {
         this.boardMenu = new JMenu("Tableaux");
         this.newBoard = new JMenuItem("Nouveau tableau");
         this.boardMenu.add(newBoard);
-        //TODO ajouter les tableaux dynamiquement
         this.menuBar.add(boardMenu);
 
         //menu tickets

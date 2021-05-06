@@ -14,6 +14,7 @@ import java.util.Map;
 public class User {
     public HttpClient clientUser;
     public String token;
+    public DatabaseService databaseService;
 
     private static String Authorization = "Authorization";
     private static String Login = "auth/login";
@@ -28,6 +29,7 @@ public class User {
 
     public User() {
         this.clientUser = Client.getInstance();
+        this.databaseService = new DatabaseService(this);
     }
 
     public String getToken() {
@@ -35,7 +37,7 @@ public class User {
     }
 
     public boolean login(Body body) throws JsonProcessingException {
-        HttpResponse<String> response = PostRequest(body,Login);
+        HttpResponse<String> response = databaseService.PostRequest(body,Login);
         if(response.statusCode() < 300){
             Map<String, Object> result = body.objectMapper.readValue(response.body(), new TypeReference<>(){
             });
@@ -46,7 +48,7 @@ public class User {
     }
 
     public boolean logout(Body body) throws JsonProcessingException {
-        if (DeleteRequest(body,Logout)){
+        if (databaseService.DeleteRequest(body,Logout)){
             token = "";
             return true;
         };
@@ -56,7 +58,7 @@ public class User {
                         // else return a empty table;
 
     public Task[] getTasksFromList (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = GetRequest(body,getTasksFromList);
+        HttpResponse<String> result = databaseService.GetRequest(body,getTasksFromList);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), Task[].class);
         }
@@ -64,7 +66,7 @@ public class User {
     }
 
     public Liste[] getListes (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = GetRequest(body,getList);
+        HttpResponse<String> result = databaseService.GetRequest(body,getList);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), Liste[].class);
         }
@@ -72,7 +74,7 @@ public class User {
     }
 
     public Board getBoard (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = GetRequest(body,getBoards);
+        HttpResponse<String> result = databaseService.GetRequest(body,getBoards);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), Board.class);
         }
@@ -80,110 +82,11 @@ public class User {
     }
 
     public Board[] getBoards (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = GetRequest(body,getBoards);
+        HttpResponse<String> result = databaseService.GetRequest(body,getBoards);
         if (result.statusCode() < 300){
             return body.objectMapper.readValue(result.body(), Board[].class);
         }
         return new Board[0];
-    }
-  /*  public Board[] getBoards (Body body) throws JsonProcessingException {
-
-        return  body.objectMapper.readValue(GetRequest(body,getBoards).body(), Board[].class);
-    }*/
-
-   /* private Map<String, Object> PostRequest(Body body,String route) throws JsonProcessingException {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:3000/" + route))
-                .setHeader(Authorization,Bearer + token)
-                .header(ContentType, app_json)
-                .POST(HttpRequest.BodyPublishers.ofString(body.getStringAsJSon()))
-                .build();
-
-        return getBodyMapResponse(body, request);
-
-    }*/
-
-    private HttpResponse<String> PostRequest(Body body,String route) throws JsonProcessingException {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:3000/" + route))
-                .setHeader(Authorization,Bearer + token)
-                .header(ContentType, app_json)
-                .POST(HttpRequest.BodyPublishers.ofString(body.getStringAsJSon()))
-                .build();
-
-        return getBodyMapResponse(body, request);
-
-    }
-
-    private boolean DeleteRequest(Body body,String route) throws JsonProcessingException {
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:3000/" + route))
-                .setHeader(Authorization,Bearer + token)
-                .header(ContentType, app_json)
-                .DELETE()
-                .build();
-
-        HttpResponse<String> response = getGetMapResponse(body,request);
-
-        return response.statusCode() == 204;
-
-    }
-
-    private HttpResponse<String> GetRequest(Body body,String route) {
-
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(body.getUrlWithParametersInMap(route)))
-                .setHeader(Authorization,Bearer + token)
-                .header(ContentType, app_json)
-                .GET()
-                .build();
-
-        return getGetMapResponse(body, request);
-
-    }
-
-   /* private Map<String, Object> getBodyMapResponse(Body body, HttpRequest request) throws JsonProcessingException {
-        HttpResponse<String> response = null;
-        try {
-            response = this.clientUser.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        //Map<String, Object> map =
-        return  body.objectMapper.readValue(response.body(), new TypeReference<>() {
-        });
-    }*/
-    private HttpResponse<String> getBodyMapResponse(Body body, HttpRequest request) throws JsonProcessingException {
-        HttpResponse<String> response = null;
-        try {
-            response = this.clientUser.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        //Map<String, Object> map =
-        return  response;
-
-    }
-
-    private HttpResponse<String> getGetMapResponse(Body body, HttpRequest request) {
-        HttpResponse<String> response = null;
-        try {
-            response = this.clientUser.send(request,
-                    HttpResponse.BodyHandlers.ofString());
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return response;
-
     }
 }
 

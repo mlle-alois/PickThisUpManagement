@@ -26,7 +26,6 @@ public class InscriptionPanel extends JPanel{
     private JButton buttonConnection;
     private JButton buttonInscription;
     private JButton buttonForgotPassword;
-    //TODO inscription et mot de passe oublié
 
     /**
      * Constructeur du panel de la connexion
