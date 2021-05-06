@@ -6,6 +6,7 @@ import Models.Liste;
 import Models.StatusModel;
 import Models.Task;
 import Requete.Body;
+import Requete.ListeService;
 import Requete.TicketsService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,10 +15,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
@@ -28,6 +33,8 @@ import java.util.List;
 import static Enum.InterfaceCode.*;
 
 public class BorderPaneController {
+    @FXML
+    private Button addListeButton;
     @FXML
     private MenuBar menuBar;
     @FXML
@@ -43,13 +50,21 @@ public class BorderPaneController {
     @FXML
     private BorderPane borderPane;
 
+    // Screen AddList
+    @FXML
+    private Button validateAddListButton;
+    @FXML
+    private Button cancelAddListButton;
+    @FXML
+    private TextField addListTextField;
+
     private Stage root;
     private Stage stage;
     private Scene scene;
 
     private String currentBoard;
     private TicketsService ticketsService;
-
+    private ListeService listeService;
     private User user;
 
     public Board[] getBoards(User user) throws JsonProcessingException {
@@ -61,9 +76,11 @@ public class BorderPaneController {
     public void initialize(User user) {
         this.user = user;
         this.ticketsService = new TicketsService(user);
+        this.listeService = new ListeService(user);
         initializeBoards();
         initializeTickets();
         addGridPaneToCenter();
+        var mm = "";
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -176,7 +193,7 @@ public class BorderPaneController {
         setMainGridPaneShape(mainPane);
 
         Body body = new Body();
-        Liste[] listes = user.getListes(body);
+        Liste[] listes = listeService.getListes(body);
 
         create1VboxPerListe(mainPane, listes);
 
@@ -229,20 +246,14 @@ public class BorderPaneController {
         lbl.setPrefSize(50, 50);
 
         // Set Event when clicked from buttons
-        EventHandler<ActionEvent> buttonModifHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Modifier");
-                event.consume();
-            }
+        EventHandler<ActionEvent> buttonModifHandler = event -> {
+            System.out.println("Modifier");
+            event.consume();
         };
 
-        EventHandler<ActionEvent> buttonEraseHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Supprimer");
-                event.consume();
-            }
+        EventHandler<ActionEvent> buttonEraseHandler = event -> {
+            System.out.println("Supprimer");
+            event.consume();
         };
 
         Button modifButton = new Button("Modifer");
@@ -317,20 +328,14 @@ public class BorderPaneController {
 
     private void addButtonBarToGrid(GridPane newGrid) {
         // Set Event when clicked from buttons
-        EventHandler<ActionEvent> buttonModifHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Modifier");
-                event.consume();
-            }
+        EventHandler<ActionEvent> buttonModifHandler = event -> {
+            System.out.println("Modifier");
+            event.consume();
         };
 
-        EventHandler<ActionEvent> buttonEraseHandler = new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Supprimer");
-                event.consume();
-            }
+        EventHandler<ActionEvent> buttonEraseHandler = event -> {
+            System.out.println("Supprimer");
+            event.consume();
         };
 
         Button modifButton = new Button("Modifer");
@@ -372,4 +377,48 @@ public class BorderPaneController {
         newGrid.getRowConstraints().add(row1);
         newGrid.getRowConstraints().add(row2);
     }
+
+    @FXML
+    private void addNewList(ActionEvent actionEvent) throws IOException, NoSuchFieldException {
+
+        Stage newStage;
+        Parent root;
+        Body body;
+        if(actionEvent.getSource() == addListeButton) {
+
+
+           newStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddListToBoard.fxml"));
+            root = loader.load();
+           // root = FXMLLoader.load(getClass().getResource("/AddListToBoard.fxml"));
+            AddListController popupController = loader.getController();
+            newStage.setScene(new Scene(root));
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.initOwner(addListeButton.getScene().getWindow());
+            newStage.setTitle("PickThisUp");
+            newStage.getIcons().add(new Image("/logo.PNG"));
+            newStage.showAndWait();
+            body = new Body();
+             body.addValueToBody("name",popupController.getText());
+            body.addValueToBody("boardId","1");
+          Liste liste =  listeService.addListe(body);
+
+
+        }
+    }
+
+/*    public void switchToScene(ActionEvent event, String ScenePath, User user) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
+
+        root = loader.load();
+
+        BorderPaneController borderPaneController = loader.getController();
+        borderPaneController.initialize(user);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }*/
+
 }
