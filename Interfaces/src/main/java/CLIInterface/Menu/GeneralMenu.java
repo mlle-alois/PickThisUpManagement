@@ -49,7 +49,7 @@ public class GeneralMenu {
                 boardMenu.printBoardMenu(window, user);
             }
             case 2 -> {
-                ticketMenu.printTicketsMenu(window, user);
+                ticketMenu.printTicketsStatusMenu(window, user);
             }
             case 4 -> {
                 user.logout(new Body());

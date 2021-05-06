@@ -35,11 +35,6 @@ public class TicketController {
         return ticketsService.getTicketsStatus(body);
     }
 
-    public StatusModel[] getTicketStatus(User user) throws JsonProcessingException {
-        Body body = new Body();
-        return ticketsService.getTicketsStatus(body);
-    }
-
     public UserModel[] getMembersByTicketId(Integer ticketId) throws JsonProcessingException {
         Body body = new Body();
         return ticketsService.getMembersByTicketId(body, ticketId);
