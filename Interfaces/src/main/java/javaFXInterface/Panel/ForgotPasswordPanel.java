@@ -25,7 +25,6 @@ public class ForgotPasswordPanel extends JPanel {
     private JButton buttonConnection;
     private JButton buttonInscription;
     private JButton buttonIForgotPassword;
-    //TODO inscription et mot de passe oublié
 
     /**
      * Constructeur du panel de la connexion
@@ -61,7 +60,6 @@ public class ForgotPasswordPanel extends JPanel {
         //définition, nommage et action des boutons
         this.buttonConnection = new JButton("Valider");
         this.buttonConnection.setName("Connexion");
-        //TODO
         this.buttonConnection.addActionListener(new ConnectionController(lblError, jtfLogin, jpfPassword));
 
         this.buttonInscription = new JButton("Inscription");

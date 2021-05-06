@@ -86,6 +86,5 @@ public class TicketsModel {
         } while (value == -1);
         TicketMenu ticketMenu = new TicketMenu();
         ticketMenu.printTicketsMenu(window, user);
-        //TODO détailler le ticket choisi
     }
 }

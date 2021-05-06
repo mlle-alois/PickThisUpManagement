@@ -44,7 +44,6 @@ public class TicketsService {
     }
 
     public UserModel[] getMembersByTicketId(Body body, Integer ticketId) throws JsonProcessingException {
-        //TODO coder la route dans l'api
         HttpResponse<String> result = databaseService.GetRequest(body, getMembersByTicketId + ticketId);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), UserModel[].class);
