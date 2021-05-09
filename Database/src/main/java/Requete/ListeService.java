@@ -40,7 +40,7 @@ public class ListeService {
     }
 
     public Liste[] getListesFromBoard (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body,getList);
+        HttpResponse<String> result = databaseService.GetRequest(body,getListsFromBoard);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), Liste[].class);
         }

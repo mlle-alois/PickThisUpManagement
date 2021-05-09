@@ -1,11 +1,15 @@
 package javaFXInterface.controllers;
 
+import Models.Board;
 import Models.Liste;
 import Models.Task;
 import Requete.Body;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;

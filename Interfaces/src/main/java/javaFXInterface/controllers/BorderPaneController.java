@@ -28,7 +28,9 @@ import lombok.SneakyThrows;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Handler;
 
 import static Enum.InterfaceCode.*;
 
@@ -62,10 +64,11 @@ public class BorderPaneController {
     private Stage stage;
     private Scene scene;
 
-    private int currentBoard;
+    private Board currentBoard;
     private TicketsService ticketsService;
     private ListeService listeService;
     private User user;
+    private Board[] boards;
 
     public Board[] getBoards(User user) throws JsonProcessingException {
         Body body = new Body();
@@ -77,9 +80,13 @@ public class BorderPaneController {
         this.user = user;
         this.ticketsService = new TicketsService(user);
         this.listeService = new ListeService(user);
+
         initializeBoards();
         initializeTickets();
+
+        currentBoard = boards[0];
         addGridPaneToCenter();
+        borderPane.setLeft(new Label(currentBoard.boardName));
 
     }
 
@@ -92,7 +99,7 @@ public class BorderPaneController {
     }
 
     public String[] parseBoards() throws JsonProcessingException {
-        Board[] boards = getBoards(user);
+        boards = getBoards(user);
         String[] allBoars = new String[boards.length + 1];
         for (int i = 0; i < boards.length; i++) {
             allBoars[i] = boards[i].boardName;
@@ -105,7 +112,25 @@ public class BorderPaneController {
         MenuItem[] menuItems = new MenuItem[boards.length];
 
         for (int i = 0; i < boards.length; i++) {
+            // Create event for switching boards
+            EventHandler<ActionEvent> menuItemHandler = event -> {
+                MenuItem menuItemTemp = (MenuItem) event.getSource();
+                for (Board board:this.boards) {
+                    if(board.boardName == menuItemTemp.getText()){
+                        currentBoard = board;
+                    }
+                }
+                try {
+                    addGridPaneToCenter();
+                    borderPane.setLeft(new Label(currentBoard.boardName));
+
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                event.consume();
+            };
             menuItems[i] = new MenuItem(boards[i]);
+            menuItems[i].setOnAction(menuItemHandler);
         }
         return menuItems;
     }
@@ -191,7 +216,7 @@ public class BorderPaneController {
        private void addGridPaneToCenter() throws JsonProcessingException {
 
         Body body = new Body();
-        body.addValueToBody("id",String.valueOf(currentBoard));
+        body.addValueToBody("",String.valueOf(currentBoard.boardId));
         Liste[] listes = listeService.getListesFromBoard(body);
         ScrollPaneWithList scrollPaneWithList = new ScrollPaneWithList(listes,user);
         borderPane.setCenter(scrollPaneWithList.getFullScrollPane());
