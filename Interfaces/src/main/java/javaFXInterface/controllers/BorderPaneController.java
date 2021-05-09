@@ -62,7 +62,7 @@ public class BorderPaneController {
     private Stage stage;
     private Scene scene;
 
-    private String currentBoard;
+    private int currentBoard;
     private TicketsService ticketsService;
     private ListeService listeService;
     private User user;
@@ -80,7 +80,7 @@ public class BorderPaneController {
         initializeBoards();
         initializeTickets();
         addGridPaneToCenter();
-        var mm = "";
+
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -187,13 +187,26 @@ public class BorderPaneController {
 
     }
 
-    private void addGridPaneToCenter() throws JsonProcessingException {
+
+       private void addGridPaneToCenter() throws JsonProcessingException {
+
+        Body body = new Body();
+        body.addValueToBody("id",String.valueOf(currentBoard));
+        Liste[] listes = listeService.getListesFromBoard(body);
+           ScrollPaneWithList scrollPaneWithList = new ScrollPaneWithList(listes,user);
+
+
+        borderPane.setCenter(scrollPaneWithList.getFullScrollPane());
+
+    }
+  /*  private void addGridPaneToCenter() throws JsonProcessingException {
         ScrollPane scrollPane = new ScrollPane();
         GridPane mainPane = new GridPane();
         setMainGridPaneShape(mainPane);
 
         Body body = new Body();
-        Liste[] listes = listeService.getListes(body);
+        body.addValueToBody("id",String.valueOf(currentBoard));
+        Liste[] listes = listeService.getListesFromBoard(body);
 
         create1VboxPerListe(mainPane, listes);
 
@@ -202,7 +215,7 @@ public class BorderPaneController {
         borderPane.setCenter(scrollPane);
 
 
-    }
+    } THIS WORKS BUT NOT REFACTO*/
 
     private void create1VboxPerListe(GridPane mainPane, Liste[] listes) throws JsonProcessingException {
         for (int i = 0; i < listes.length; i++) {
@@ -398,11 +411,13 @@ public class BorderPaneController {
             newStage.setTitle("PickThisUp");
             newStage.getIcons().add(new Image("/logo.PNG"));
             newStage.showAndWait();
+            // add the list to the database
             body = new Body();
              body.addValueToBody("name",popupController.getText());
             body.addValueToBody("boardId","1");
           Liste liste =  listeService.addListe(body);
-
+            // Refresh
+            addGridPaneToCenter();
 
         }
     }

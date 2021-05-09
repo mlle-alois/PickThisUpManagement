@@ -16,6 +16,7 @@ public class ListeService {
 
     private static String getList = "list";
     private static String addList = "list/add";
+    private static String getListsFromBoard = "list/board";
 
     public ListeService(User user) {
         this.databaseService = new DatabaseService(user);
@@ -38,5 +39,11 @@ public class ListeService {
         return new Liste();
     }
 
-
+    public Liste[] getListesFromBoard (Body body) throws JsonProcessingException {
+        HttpResponse<String> result = databaseService.GetRequest(body,getList);
+        if (result.statusCode() < 300) {
+            return body.objectMapper.readValue(result.body(), Liste[].class);
+        }
+        return new Liste[0];
+    }
 }
