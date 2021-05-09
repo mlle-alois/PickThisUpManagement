@@ -67,7 +67,14 @@ public class BorderPaneController {
     private Board currentBoard;
     private TicketsService ticketsService;
     private ListeService listeService;
+
+
+
     private User user;
+    public User getUser() {
+        return user;
+    }
+
     private Board[] boards;
 
     public Board[] getBoards(User user) throws JsonProcessingException {
@@ -252,7 +259,7 @@ public class BorderPaneController {
             body.addValueToBody("boardId","1");
           Liste liste =  listeService.addListe(body);
             // Refresh
-            addGridPaneToCenter();
+            setBorderPane();
 
         }
     }

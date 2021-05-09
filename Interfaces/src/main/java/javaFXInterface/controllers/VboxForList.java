@@ -38,7 +38,7 @@ public class VboxForList {
         this.tasks = getTasksFromListe();
         setVboxShape();
         addTitleToVbox();
-        GridForVboxList gridForVboxList = new GridForVboxList(tasks);
+        GridForVboxList gridForVboxList = new GridForVboxList(tasks,borderPaneController);
         this.gridPanes = gridForVboxList.getGridPanes();
         addPanesToVbox();
         return this.vbox;
@@ -80,7 +80,6 @@ public class VboxForList {
         };
 
         EventHandler<ActionEvent> buttonEraseHandler = event -> {
-            System.out.println("Supprimer");
             try {
                 Body body = new Body();
                 body.addValueToBody("",String.valueOf(liste.listId));

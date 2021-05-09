@@ -1,9 +1,14 @@
 package javaFXInterface.controllers;
 
 import Models.Task;
+import Requete.Body;
+import Requete.TaskService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.Label;
@@ -18,10 +23,12 @@ import java.util.List;
 public class GridForVboxList {
     private List<GridPane> gridPanes;
     private Task[] tasks;
+    private BorderPaneController borderPaneController;
 
-    public GridForVboxList(Task[] tasks){
+    public GridForVboxList(Task[] tasks,BorderPaneController borderPaneController){
         this.gridPanes = new ArrayList<>();
         this.tasks = tasks;
+        this.borderPaneController = borderPaneController;
     }
 
     public List<GridPane> getGridPanes() {
@@ -80,13 +87,25 @@ public class GridForVboxList {
     }
     private void addButtonBarToGrid(GridPane newGrid) {
         // Set Event when clicked from buttons
+        TaskService taskService = new TaskService(borderPaneController.getUser());
+
         EventHandler<ActionEvent> buttonModifHandler = event -> {
             System.out.println("Modifier");
             event.consume();
         };
 
         EventHandler<ActionEvent> buttonEraseHandler = event -> {
-            System.out.println("Supprimer");
+            try {
+                Body body = new Body();
+
+                String labelName = getClickedLabelName(event);
+
+                addLabelNameToBody(body, labelName);
+                if(taskService.deleteTask(body))
+                    borderPaneController.setBorderPane();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             event.consume();
         };
 
@@ -99,6 +118,24 @@ public class GridForVboxList {
         ButtonBar buttonBar = new ButtonBar();
         buttonBar.getButtons().addAll(modifButton, eraseButton);
         newGrid.add(buttonBar, 0, 2, 2, 1);
+    }
+
+    private void addLabelNameToBody(Body body, String labelName) {
+        for (Task task:tasks) {
+            if(task.taskName.equals(labelName)){
+                body.addValueToBody("",String.valueOf(task.taskId));
+                break;
+            }
+        }
+    }
+
+    private String getClickedLabelName(ActionEvent event) {
+        Button buttonTemp = (Button) event.getSource();
+        GridPane parent =(GridPane) buttonTemp.getParent().getParent().getParent();
+        var childrenArray =  parent.getChildrenUnmodifiable();
+        Label label = (Label) childrenArray.get(0);
+        String labelName = label.getText();
+        return labelName;
     }
 
 }
