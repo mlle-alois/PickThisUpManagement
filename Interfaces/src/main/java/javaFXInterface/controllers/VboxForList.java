@@ -3,12 +3,14 @@ package javaFXInterface.controllers;
 import Models.Liste;
 import Models.Task;
 import Requete.Body;
+import Requete.ListeService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -22,12 +24,14 @@ public class VboxForList {
     private VBox vbox;
     private Task[] tasks;
     private List<GridPane> gridPanes;
+    private BorderPaneController borderPaneController;
 
-    public VboxForList(Liste liste,User user){
+    public VboxForList(Liste liste,User user,BorderPaneController borderPaneController){
         this.liste = liste;
         this.user = user;
         this.vbox = new VBox();
         this.gridPanes = new ArrayList<>();
+        this.borderPaneController = borderPaneController;
     }
 
     public VBox getFilledVbox() throws JsonProcessingException {
@@ -65,6 +69,9 @@ public class VboxForList {
         Label lbl = new Label(liste.listName);
         newGrid.add(lbl, 0, 0);
         lbl.setPrefSize(50, 50);
+        // Initialisation requete
+        ListeService listeService = new ListeService(user);
+
 
         // Set Event when clicked from buttons
         EventHandler<ActionEvent> buttonModifHandler = event -> {
@@ -74,6 +81,14 @@ public class VboxForList {
 
         EventHandler<ActionEvent> buttonEraseHandler = event -> {
             System.out.println("Supprimer");
+            try {
+                Body body = new Body();
+                body.addValueToBody("",String.valueOf(liste.listId));
+               if( listeService.deleteListe(body))
+                borderPaneController.setBorderPane();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             event.consume();
         };
 

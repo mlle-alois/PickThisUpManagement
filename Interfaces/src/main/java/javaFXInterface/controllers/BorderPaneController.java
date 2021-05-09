@@ -85,9 +85,13 @@ public class BorderPaneController {
         initializeTickets();
 
         currentBoard = boards[0];
+        setBorderPane();
+
+    }
+
+    public void setBorderPane() throws JsonProcessingException {
         addGridPaneToCenter();
         borderPane.setLeft(new Label(currentBoard.boardName));
-
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -116,13 +120,12 @@ public class BorderPaneController {
             EventHandler<ActionEvent> menuItemHandler = event -> {
                 MenuItem menuItemTemp = (MenuItem) event.getSource();
                 for (Board board:this.boards) {
-                    if(board.boardName == menuItemTemp.getText()){
+                    if(board.boardName.equals(menuItemTemp.getText())){
                         currentBoard = board;
                     }
                 }
                 try {
-                    addGridPaneToCenter();
-                    borderPane.setLeft(new Label(currentBoard.boardName));
+                    setBorderPane();
 
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -218,13 +221,13 @@ public class BorderPaneController {
         Body body = new Body();
         body.addValueToBody("",String.valueOf(currentBoard.boardId));
         Liste[] listes = listeService.getListesFromBoard(body);
-        ScrollPaneWithList scrollPaneWithList = new ScrollPaneWithList(listes,user);
+        ScrollPaneWithList scrollPaneWithList = new ScrollPaneWithList(listes,user,this);
         borderPane.setCenter(scrollPaneWithList.getFullScrollPane());
 
     }
 
     @FXML
-    private void addNewList(ActionEvent actionEvent) throws IOException, NoSuchFieldException {
+    private void addNewList(ActionEvent actionEvent) throws IOException {
 
         Stage newStage;
         Parent root;

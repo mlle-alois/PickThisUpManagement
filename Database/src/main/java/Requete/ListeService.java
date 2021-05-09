@@ -47,5 +47,7 @@ public class ListeService {
         return new Liste[0];
     }
 
-
+    public boolean deleteListe(Body body) throws JsonProcessingException {
+        return databaseService.DeleteRequest(body,getList);
+    }
 }
