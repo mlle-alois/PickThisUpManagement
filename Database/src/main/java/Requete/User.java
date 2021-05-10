@@ -23,7 +23,6 @@ public class User {
     private static String app_json = "application/json";
     private static String getBoards = "board";
     private static String getList = "list";
-    private static String getListsFromBoard = "list/board";
     private static String Logout ="auth/logout";
     private static String getTasksFromList ="task/list";
 
@@ -63,14 +62,6 @@ public class User {
             return body.objectMapper.readValue(result.body(), Task[].class);
         }
         return new Task[0];
-    }
-
-    public Liste[] getListes (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body,getList);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Liste[].class);
-        }
-        return new Liste[0];
     }
 
     public Board getBoard (Body body) throws JsonProcessingException {
