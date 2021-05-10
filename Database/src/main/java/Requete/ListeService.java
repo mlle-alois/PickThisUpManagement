@@ -17,6 +17,7 @@ public class ListeService {
     private static String getList = "list";
     private static String addList = "list/add";
     private static String getListsFromBoard = "list/board";
+    private static String updateList = "list/update";
 
     public ListeService(User user) {
         this.databaseService = new DatabaseService(user);
@@ -49,5 +50,13 @@ public class ListeService {
 
     public boolean deleteListe(Body body) throws JsonProcessingException {
         return databaseService.DeleteRequest(body,getList);
+    }
+
+    public Liste updateListe(Body body) throws JsonProcessingException {
+        HttpResponse<String> response = databaseService.PutRequest(body,updateList);
+        if(response.statusCode() < 300){
+            return body.objectMapper.readValue(response.body(), Liste.class);
+        }
+        return new Liste();
     }
 }

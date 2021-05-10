@@ -5,10 +5,7 @@ import Models.Board;
 import Models.Liste;
 import Models.StatusModel;
 import Models.Task;
-import Requete.Body;
-import Requete.ListeService;
-import Requete.TicketsService;
-import Requete.User;
+import Requete.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -38,6 +35,9 @@ public class BorderPaneController {
     @FXML
     private Button addListeButton;
     @FXML
+    private Button updateBoardName;
+
+    @FXML
     private MenuBar menuBar;
     @FXML
     private MenuItem switchCLI;
@@ -64,9 +64,10 @@ public class BorderPaneController {
     private Stage stage;
     private Scene scene;
 
-    private Board currentBoard;
+    public Board currentBoard;
     private TicketsService ticketsService;
     private ListeService listeService;
+    private BoardService boardService;
 
 
 
@@ -77,9 +78,10 @@ public class BorderPaneController {
 
     private Board[] boards;
 
-    public Board[] getBoards(User user) throws JsonProcessingException {
+    public Board[] getBoards() throws JsonProcessingException {
         Body body = new Body();
-        return user.getBoards(body);
+        //return user.getBoards(body);
+        return boardService.getBoards(body);
     }
 
     @SneakyThrows
@@ -87,6 +89,7 @@ public class BorderPaneController {
         this.user = user;
         this.ticketsService = new TicketsService(user);
         this.listeService = new ListeService(user);
+        this.boardService = new BoardService(user);
 
         initializeBoards();
         initializeTickets();
@@ -98,7 +101,11 @@ public class BorderPaneController {
 
     public void setBorderPane() throws JsonProcessingException {
         addGridPaneToCenter();
+      //  TextArea lblTextArea = new TextArea(currentBoard.boardName);
+      //  VboxForList vboxForList = new VboxForList(user,this);
         borderPane.setLeft(new Label(currentBoard.boardName));
+      //  borderPane.setLeft(vboxForList.getTitleVbox());
+
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -110,7 +117,7 @@ public class BorderPaneController {
     }
 
     public String[] parseBoards() throws JsonProcessingException {
-        boards = getBoards(user);
+        boards = getBoards();
         String[] allBoars = new String[boards.length + 1];
         for (int i = 0; i < boards.length; i++) {
             allBoars[i] = boards[i].boardName;
@@ -245,7 +252,6 @@ public class BorderPaneController {
            newStage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddListToBoard.fxml"));
             root = loader.load();
-           // root = FXMLLoader.load(getClass().getResource("/AddListToBoard.fxml"));
             AddListController popupController = loader.getController();
             newStage.setScene(new Scene(root));
             newStage.initModality(Modality.APPLICATION_MODAL);
@@ -256,8 +262,39 @@ public class BorderPaneController {
             // add the list to the database
             body = new Body();
              body.addValueToBody("name",popupController.getText());
-            body.addValueToBody("boardId","1");
+            body.addValueToBody("boardId",String.valueOf(currentBoard.boardId));
           Liste liste =  listeService.addListe(body);
+            // Refresh
+            setBorderPane();
+
+        }
+    }
+
+    @FXML
+    private void updateBoard(ActionEvent actionEvent) throws IOException {
+
+        Stage newStage;
+        Parent root;
+        Body body;
+        if(actionEvent.getSource() == updateBoardName) {
+
+
+            newStage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/UpdateBoardName.fxml"));
+            root = loader.load();
+            UpdateBoardNameController popupController = loader.getController();
+            newStage.setScene(new Scene(root));
+            newStage.initModality(Modality.APPLICATION_MODAL);
+            newStage.initOwner(updateBoardName.getScene().getWindow());
+            newStage.setTitle("PickThisUp");
+            newStage.getIcons().add(new Image("/logo.PNG"));
+            newStage.showAndWait();
+            // add the list to the database
+            body = new Body();
+            body.addValueToBody("",String.valueOf(currentBoard.boardId));
+            body.addValueToBody("name",popupController.getText());
+
+            currentBoard = boardService.updateBoard(body);
             // Refresh
             setBorderPane();
 

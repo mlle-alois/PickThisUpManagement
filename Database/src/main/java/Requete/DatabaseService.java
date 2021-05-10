@@ -35,6 +35,17 @@ public class DatabaseService {
         return getBodyMapResponse(body, request);
     }
 
+    public HttpResponse<String> PutRequest(Body body, String route) throws JsonProcessingException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(body.getPutUrl(route)))
+                .setHeader(Authorization, Bearer + user.getToken())
+                .header(ContentType, app_json)
+                .PUT(HttpRequest.BodyPublishers.ofString(body.getStringAsJSon()))
+                .build();
+
+        return getBodyMapResponse(body, request);
+    }
+
     public boolean DeleteRequest(Body body, String route)  {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(body.getUrlWithParametersInMap(route)))
