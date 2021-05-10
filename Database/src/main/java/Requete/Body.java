@@ -59,6 +59,13 @@ public class Body {
         }
         return "?" + me.getKey() + "=" + me.getValue();
     }
+
+    public String getPutUrl(String route){
+        String result;
+        result = baseURL + route + "/" + map.get("");
+        map.remove("");
+       return result;
+    }
 }
 
 

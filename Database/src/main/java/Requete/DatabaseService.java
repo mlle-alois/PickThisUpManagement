@@ -35,9 +35,20 @@ public class DatabaseService {
         return getBodyMapResponse(body, request);
     }
 
-    public boolean DeleteRequest(Body body, String route) throws JsonProcessingException {
+    public HttpResponse<String> PutRequest(Body body, String route) throws JsonProcessingException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:3000/" + route))
+                .uri(URI.create(body.getPutUrl(route)))
+                .setHeader(Authorization, Bearer + user.getToken())
+                .header(ContentType, app_json)
+                .PUT(HttpRequest.BodyPublishers.ofString(body.getStringAsJSon()))
+                .build();
+
+        return getBodyMapResponse(body, request);
+    }
+
+    public boolean DeleteRequest(Body body, String route)  {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(body.getUrlWithParametersInMap(route)))
                 .setHeader(Authorization, Bearer + user.getToken())
                 .header(ContentType, app_json)
                 .DELETE()
@@ -48,7 +59,7 @@ public class DatabaseService {
         return response.statusCode() == 204;
     }
 
-    public HttpResponse<String> GetRequest(Body body, String route) throws JsonProcessingException {
+    public HttpResponse<String> GetRequest(Body body, String route)  {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(body.getUrlWithParametersInMap(route)))
                 .setHeader(Authorization, Bearer + user.getToken())
@@ -58,6 +69,7 @@ public class DatabaseService {
 
         return getGetMapResponse(body, request);
     }
+
 
     public HttpResponse<String> PutRequest(Body body, String route) throws JsonProcessingException {
         HttpRequest request = HttpRequest.newBuilder()
@@ -71,6 +83,7 @@ public class DatabaseService {
     }
 
     public HttpResponse<String> getBodyMapResponse(Body body, HttpRequest request) throws JsonProcessingException {
+
         HttpResponse<String> response = null;
         try {
             response = this.httpClient.send(request,

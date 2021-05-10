@@ -16,13 +16,9 @@ public class User {
     public String token;
     public DatabaseService databaseService;
 
-    private static String Authorization = "Authorization";
+
     private static String Login = "auth/login";
-    private static String Bearer = "Bearer ";
-    private static String ContentType = "Content-Type";
-    private static String app_json = "application/json";
     private static String getBoards = "board";
-    private static String getList = "list";
     private static String Logout ="auth/logout";
     private static String getTasksFromList ="task/list";
 

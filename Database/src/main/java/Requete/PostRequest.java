@@ -21,7 +21,9 @@ public class PostRequest {
         var Parameters = new Body();
       //  Parameters.addValueToBody("name","NListe2");
        // Parameters.addValueToBody("boardId","1");
-        Parameters.addValueToBody("","2");
+        Parameters.addValueToBody("","1");
+        Parameters.addValueToBody("name","JAVA");
+     ///   Parameters.addValueToBody("boardId",String.valueOf(1));
         //  Parameters.addValueToBody("limit","3");
      //   Parameters.addValueToBody("", "2");
         //   Board[] boards =  user.getBoards(Parameters);
@@ -32,10 +34,15 @@ public class PostRequest {
         // Liste liste = user.getListe(ticketParameters);
         // Status[] status = user.getStatus(Parameters);
          //Task[] task = user.getTasksFromList(Parameters);
-        ListeService listeService = new ListeService(user);
+     //   ListeService listeService = new ListeService(user);
+        //TaskService taskService = new TaskService(user);
        // Liste liste = listeService.addListe(Parameters);
-        Liste[] listes = listeService.getListesFromBoard(Parameters);
-
+       // Liste[] listes = listeService.getListesFromBoard(Parameters);
+       // boolean result = listeService.deleteListe(Parameters);
+       // boolean result = taskService.deleteTask(Parameters);
+     //   Liste liste = listeService.updateListe(Parameters);
+        BoardService boardService = new BoardService(user);
+        boardService.updateBoard(Parameters);
         user.logout(Parameters);
 
     }
