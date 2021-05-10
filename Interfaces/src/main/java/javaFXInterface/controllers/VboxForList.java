@@ -3,19 +3,15 @@ package javaFXInterface.controllers;
 import Models.Liste;
 import Models.Task;
 import Requete.Body;
-import Requete.ListeService;
+import Requete.ListService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -81,7 +77,7 @@ public class VboxForList {
         newGrid.add(lbl, 0, 0);
         lbl.setPrefSize(50, 50);*/
         // Initialisation requete
-        ListeService listeService = new ListeService(user);
+        ListService listService = new ListService(user);
 
 
         // Set Event when clicked from buttons
@@ -96,7 +92,7 @@ public class VboxForList {
             try {
                 Body body = new Body();
                 body.addValueToBody("",String.valueOf(liste.listId));
-               if( listeService.deleteListe(body))
+               if( listService.deleteListe(body))
                 borderPaneController.setBorderPane();
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
@@ -146,12 +142,12 @@ public class VboxForList {
                        return;
                    }
                    // If new entry is different, update the database
-                   ListeService listeService = new ListeService(user);
+                   ListService listService = new ListService(user);
                    Body body = new Body();
                    body.addValueToBody("",String.valueOf(liste.listId));
                    body.addValueToBody("name",text);
                    body.addValueToBody("boardId",String.valueOf(borderPaneController.currentBoard.boardId));
-                   Liste updatedList = listeService.updateListe(body);
+                   Liste updatedList = listService.updateListe(body);
 
                     liste.listName = updatedList.listName;
                     lblTextArea.setText(text);

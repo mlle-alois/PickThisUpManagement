@@ -32,7 +32,7 @@
          <children>
             <Button fx:id="addListeButton" mnemonicParsing="false" onAction="#addNewList" prefHeight="25.0" prefWidth="130.0" text="Ajouter une liste" />
             <Button maxHeight="-Infinity" mnemonicParsing="false" prefHeight="12.0" prefWidth="134.0" text="pas visible" visible="false" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" text="Modifier le tableau" />
+            <Button fx:id="updateBoardName" mnemonicParsing="false" onAction="#updateBoard" prefHeight="25.0" prefWidth="136.0" text="Modifier le tableau" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="pas visible" visible="false" />
             <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" text="Supprimer le tableau" />
          </children>

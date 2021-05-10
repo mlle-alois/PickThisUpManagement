@@ -1,33 +1,26 @@
 package javaFXInterface.controllers;
 
 import CLIInterface.Controllers.CLIInterfaceController;
+import CLIInterface.Menu.BoardMenu;
 import Models.Board;
 import Models.Liste;
 import Models.StatusModel;
-import Models.Task;
 import Requete.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Handler;
 
 import static Enum.InterfaceCode.*;
 
@@ -66,7 +59,7 @@ public class BorderPaneController {
 
     public Board currentBoard;
     private TicketsService ticketsService;
-    private ListeService listeService;
+    private ListService listService;
     private BoardService boardService;
 
 
@@ -88,7 +81,7 @@ public class BorderPaneController {
     public void initialize(User user) {
         this.user = user;
         this.ticketsService = new TicketsService(user);
-        this.listeService = new ListeService(user);
+        this.listService = new ListService(user);
         this.boardService = new BoardService(user);
 
         initializeBoards();
@@ -114,6 +107,10 @@ public class BorderPaneController {
 
     private void initializeBoards() throws JsonProcessingException {
         boardMenu.getItems().addAll(getBranchs(parseBoards()));
+    }
+    private void refreshBoards() throws JsonProcessingException {
+        boardMenu.getItems().clear();
+        initializeBoards();
     }
 
     public String[] parseBoards() throws JsonProcessingException {
@@ -148,6 +145,7 @@ public class BorderPaneController {
             };
             menuItems[i] = new MenuItem(boards[i]);
             menuItems[i].setOnAction(menuItemHandler);
+
         }
         return menuItems;
     }
@@ -234,7 +232,7 @@ public class BorderPaneController {
 
         Body body = new Body();
         body.addValueToBody("",String.valueOf(currentBoard.boardId));
-        Liste[] listes = listeService.getListesFromBoard(body);
+        Liste[] listes = listService.getListesFromBoard(body);
         ScrollPaneWithList scrollPaneWithList = new ScrollPaneWithList(listes,user,this);
         borderPane.setCenter(scrollPaneWithList.getFullScrollPane());
 
@@ -263,8 +261,9 @@ public class BorderPaneController {
             body = new Body();
              body.addValueToBody("name",popupController.getText());
             body.addValueToBody("boardId",String.valueOf(currentBoard.boardId));
-          Liste liste =  listeService.addListe(body);
+          Liste liste =  listService.addListe(body);
             // Refresh
+
             setBorderPane();
 
         }
@@ -296,6 +295,8 @@ public class BorderPaneController {
 
             currentBoard = boardService.updateBoard(body);
             // Refresh
+            refreshBoards();
+          //  initialize(this.getUser());
             setBorderPane();
 
         }

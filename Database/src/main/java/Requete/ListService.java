@@ -10,7 +10,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import java.net.http.HttpResponse;
 import java.util.Map;
 
-public class ListeService {
+public class ListService {
 
     private final DatabaseService databaseService;
 
@@ -19,7 +19,7 @@ public class ListeService {
     private static String getListsFromBoard = "list/board";
     private static String updateList = "list/update";
 
-    public ListeService(User user) {
+    public ListService(User user) {
         this.databaseService = new DatabaseService(user);
     }
 
