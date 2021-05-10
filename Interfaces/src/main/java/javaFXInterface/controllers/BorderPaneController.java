@@ -45,13 +45,6 @@ public class BorderPaneController {
     @FXML
     private BorderPane borderPane;
 
-    // Screen AddList
-    @FXML
-    private Button validateAddListButton;
-    @FXML
-    private Button cancelAddListButton;
-    @FXML
-    private TextField addListTextField;
 
     private Stage root;
     private Stage stage;
@@ -73,7 +66,6 @@ public class BorderPaneController {
 
     public Board[] getBoards() throws JsonProcessingException {
         Body body = new Body();
-        //return user.getBoards(body);
         return boardService.getBoards(body);
     }
 
@@ -94,10 +86,7 @@ public class BorderPaneController {
 
     public void setBorderPane() throws JsonProcessingException {
         addGridPaneToCenter();
-      //  TextArea lblTextArea = new TextArea(currentBoard.boardName);
-      //  VboxForList vboxForList = new VboxForList(user,this);
         borderPane.setLeft(new Label(currentBoard.boardName));
-      //  borderPane.setLeft(vboxForList.getTitleVbox());
 
     }
 
@@ -296,7 +285,6 @@ public class BorderPaneController {
             currentBoard = boardService.updateBoard(body);
             // Refresh
             refreshBoards();
-          //  initialize(this.getUser());
             setBorderPane();
 
         }
