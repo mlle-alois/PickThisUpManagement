@@ -1,7 +1,10 @@
 package CLIInterface.Menu;
 
 import CLIInterface.Controllers.BoardController;
-import CLIInterface.Controllers.TicketController;
+import CLIInterface.Models.BoardModel;
+import Models.Board;
+import Requete.BoardService;
+import Requete.Body;
 import Requete.User;
 import javafx.stage.Stage;
 
@@ -12,7 +15,7 @@ import java.util.Scanner;
 
 public class BoardMenu {
 
-    private String[] boards;
+    private String[] boardsNames;
 
     public static Scanner clavier = new Scanner(System.in);
 
@@ -20,19 +23,19 @@ public class BoardMenu {
         int value = -1;
         BoardController boardController = new BoardController(user);
 
-        this.boards = boardController.parseBoards();
+        this.boardsNames = boardController.parseBoards();
         do {
             try {
                 List<String> menu = new ArrayList<>();
-                for(int i = 0 ; i < boards.length ; i+= 1) {
-                    menu.add((i + 1) + ". " + boards[i]);
+                for (int i = 0; i < boardsNames.length; i += 1) {
+                    menu.add((i + 1) + ". " + boardsNames[i]);
                 }
-                menu.add((boards.length + 1) + ". Retour");
+                menu.add((boardsNames.length + 1) + ". Retour");
                 for (String chaine : menu) {
                     System.out.println(chaine);
                 }
                 value = Integer.parseInt(clavier.next());
-                if (value < 1 || value > boards.length + 1) {
+                if (value < 1 || value > boardsNames.length + 1) {
                     System.out.println("Veuillez saisir un nombre présent dans le menu");
                     value = -1;
                 }
@@ -44,28 +47,17 @@ public class BoardMenu {
     }
 
     public void switchBoardMenu(int value, Stage window, User user) throws IOException {
-        if(value == boards.length + 1) {
+        BoardService boardService = new BoardService(user);
+        Board[] boards = boardService.getBoards(new Body());
+
+        if (value == boards.length + 2) {
             GeneralMenu.printGeneralMenu(window, user);
+        } else if (value == boards.length + 1) {
+            BoardModel.addBoardTreatment(window, user);
+        } else {
+            Board board = boards[value - 1];
+
+            BoardModel.printBoardListsAndActionMenu(board, window, user);
         }
-        //TODO permettre de naviguer sur le bon tableau selon la valeur saisie
-        /*switch (value) {
-            case 1 -> {
-                BoardMenu.printBoardMenu(window);
-            }
-            case 2 -> {
-                TicketMenu.printTicketsMenu(window);
-            }
-            case 4 -> {
-                User user = new User();
-                user.logout(new Body());
-                ConnectionMenu.printMenu(window);
-            }
-            case 5 -> {
-                System.exit(0);
-            }
-            default -> {
-                ContentPanelController.setContentPaneByInterfaceCode(BOARD, window);
-            }
-        }*/
     }
 }
