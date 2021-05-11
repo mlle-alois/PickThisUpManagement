@@ -59,21 +59,5 @@ public class User {
         }
         return new Task[0];
     }
-
-    public Board getBoard (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body,getBoards);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Board.class);
-        }
-        return new Board();
-    }
-
-    public Board[] getBoards (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body,getBoards);
-        if (result.statusCode() < 300){
-            return body.objectMapper.readValue(result.body(), Board[].class);
-        }
-        return new Board[0];
-    }
 }
 

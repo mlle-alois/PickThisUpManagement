@@ -2,6 +2,7 @@ package CLIInterface.Controllers;
 
 import CLIInterface.Menu.GeneralMenu;
 import Models.Board;
+import Requete.BoardService;
 import Requete.Body;
 import Requete.TicketsService;
 import Requete.User;
@@ -21,9 +22,9 @@ public class BoardController {
     }
 
     public Board[] getBoards(User user) throws JsonProcessingException {
-        Body body = new Body();
+        BoardService boardService = new BoardService(user);
 
-        return user.getBoards(body);
+        return boardService.getBoards(new Body());
     }
 
     public String[] parseBoards() throws JsonProcessingException {
@@ -34,17 +35,5 @@ public class BoardController {
         }
         allBoars[boards.length] = "Ajouter un tableau";
         return allBoars;
-    }
-
-    public void createBoard(String name, Stage window, User user) throws IOException {
-
-        var loginBody = new Body();
-        loginBody.addValueToBody("name", name);
-
-        if (user.login(loginBody)) {
-            GeneralMenu.printGeneralMenu(window, user);
-        } else {
-            System.out.println(errorConnection);
-        }
     }
 }
