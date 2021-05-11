@@ -1,41 +1,45 @@
 package CLIInterface.Models;
 
 import CLIInterface.Menu.BoardMenu;
+import Models.Board;
 import Models.Liste;
-import Requete.BoardService;
-import Requete.Body;
-import Requete.User;
+import Models.Task;
+import Requete.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class ListeModel {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printTaskListsAndActionMenu(Liste liste, Stage window, User user) throws IOException {
-        /*BoardController boardController = new BoardController(user);
-        BoardService boardService = new BoardService(user);
-        ListService listService = new ListService(user);
+    public static void printTaskListsAndActionMenu(Liste liste, Stage window, User user, Board board) throws IOException {
+        TaskService taskService = new TaskService(user);
 
         Body body = new Body();
-        body.addValueToBody("", String.valueOf(board.boardId));
-        Liste[] lists = listService.getListesFromBoard(body);
+        body.addValueToBody("", String.valueOf(liste.listId));
+        Task[] tasks = taskService.getTasksFromList(body);
 
         int value = -1;
 
         do {
             try {
                 List<String> menu = new ArrayList<>();
+                menu.add("Liste : " + liste.listName);
                 int i = 1;
-                for (Liste list : lists) {
-                    menu.add(i + ". " + list.listName);
+                for (Task task : tasks) {
+                    menu.add(i + ". " + task.taskName);
                     i += 1;
                 }
-                menu.add(i + ". Modifier le tableau");
+                menu.add(i + ". Modifier la liste");
                 i += 1;
-                menu.add(i + ". Supprimer le tableau");
+                menu.add(i + ". Supprimer la liste");
+                i += 1;
+                menu.add(i + ". Ajouter une tâche");
                 i += 1;
                 menu.add(i + ". Retour");
 
@@ -51,31 +55,31 @@ public class ListeModel {
                 System.out.println("Veuillez saisir un numérique");
             }
         } while (value == -1);
-        switchBoardListsAndActionMenu(value, window, user, board, lists);*/
+        switchTaskListsAndActionMenu(value, window, user, liste, tasks, board);
     }
 
-    /*public static void switchBoardListsAndActionMenu(int value, Stage window, User user, Board board, Liste[] lists) throws IOException {
-        BoardService boardService = new BoardService(user);
-
-        if (value == lists.length + 2) {
-            BoardMenu boardMenu = new BoardMenu();
-            boardMenu.printBoardMenu(window, user);
-        } else if (value == lists.length) {
-            ListeModel.updateBoardTreatment(window, user, board);
-        } else if (value == lists.length + 1) {
-            ListeModel.deleteBoardTreatment(window, user, board);
+    public static void switchTaskListsAndActionMenu(int value, Stage window, User user, Liste list, Task[] tasks, Board board) throws IOException {
+        if (value == tasks.length + 4) {
+            BoardModel.printBoardListsAndActionMenu(board, window, user);
+        } else if (value == tasks.length + 1) {
+            ListeModel.updateListTreatment(window, user, list, board);
+        } else if (value == tasks.length + 2) {
+            ListeModel.deleteListTreatment(window, user, list, board);
+        } else if (value == tasks.length + 3) {
+            //TODO
+            //TaskModel.addTaskTreatment(window, user, list);
         } else {
-            Liste list = lists[value - 1];
+            Task task = tasks[value - 1];
 
-            ListeModel.printTaskListsAndActionMenu(list, window, user);
+            //TODO
+            //TaskModel.printTask(list, window, user);
         }
-    }*/
+    }
 
-    public static void addBoardTreatment(Stage window, User user) throws IOException {
+    public static void addListTreatment(Stage window, User user, Board board) throws IOException {
         String name = "";
-        String desc = "";
         do {
-            System.out.println("Nom du nouveau tableau :");
+            System.out.println("Nom de la liste :");
             name = clavier.nextLine();
 
             if (name.equals("")) {
@@ -83,13 +87,59 @@ public class ListeModel {
             }
         } while (name.equals(""));
 
-        BoardService boardService = new BoardService(user);
+        ListService listService = new ListService(user);
 
         Body body = new Body();
+        body.addValueToBody("boardId", board.boardId + "");
         body.addValueToBody("name", name);
-        boardService.addBoard(body);
+        listService.addListe(body);
 
-        BoardMenu boardMenu = new BoardMenu();
-        boardMenu.printBoardMenu(window, user);
+        BoardModel.printBoardListsAndActionMenu(board, window, user);
+    }
+
+    public static void updateListTreatment(Stage window, User user, Liste list, Board board) throws IOException {
+
+        System.out.println("Nom de la liste :");
+        clavier.nextLine();
+        String name = clavier.nextLine();
+
+        if (!name.equals("")) {
+            ListService listService = new ListService(user);
+
+            Body body = new Body();
+            body.addValueToBody("", list.listId + "");
+            body.addValueToBody("name", name);
+            listService.updateListe(body);
+        }
+
+        list.listName = name;
+
+        ListeModel.printTaskListsAndActionMenu(list, window, user, board);
+    }
+
+    public static void deleteListTreatment(Stage window, User user, Liste list, Board board) throws IOException {
+        String validation = "";
+        do {
+            System.out.println("Voulez-vous vraiment supprimer cette liste (o/n) :");
+            clavier.nextLine();
+            validation = clavier.nextLine();
+
+            if (!validation.toLowerCase(Locale.ROOT).equals("o") && !validation.toLowerCase(Locale.ROOT).equals("n")) {
+                System.out.println("Veuillez saisir une valeur valide (o/n)");
+                validation = "";
+            }
+        } while (validation.equals(""));
+
+        if (validation.toLowerCase(Locale.ROOT).equals("o")) {
+            ListService listService = new ListService(user);
+
+            Body body = new Body();
+            body.addValueToBody("", list.listId + "");
+            listService.deleteListe(body);
+
+            BoardModel.printBoardListsAndActionMenu(board, window, user);
+        } else {
+            ListeModel.printTaskListsAndActionMenu(list, window, user, board);
+        }
     }
 }

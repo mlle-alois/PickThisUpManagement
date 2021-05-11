@@ -21,8 +21,6 @@ public class BoardModel {
     public static Scanner clavier = new Scanner(System.in);
 
     public static void printBoardListsAndActionMenu(Board board, Stage window, User user) throws IOException {
-        BoardController boardController = new BoardController(user);
-        BoardService boardService = new BoardService(user);
         ListService listService = new ListService(user);
 
         Body body = new Body();
@@ -64,8 +62,6 @@ public class BoardModel {
     }
 
     public static void switchBoardListsAndActionMenu(int value, Stage window, User user, Board board, Liste[] lists) throws IOException {
-        BoardService boardService = new BoardService(user);
-
         if (value == lists.length + 4) {
             BoardMenu boardMenu = new BoardMenu();
             boardMenu.printBoardMenu(window, user);
@@ -73,12 +69,12 @@ public class BoardModel {
             BoardModel.updateBoardTreatment(window, user, board);
         } else if (value == lists.length + 2) {
             BoardModel.deleteBoardTreatment(window, user, board);
-        }else if (value == lists.length + 3) {
-            //ListeModel.addListTreatment(window, user, board);
+        } else if (value == lists.length + 3) {
+            ListeModel.addListTreatment(window, user, board);
         } else {
             Liste list = lists[value - 1];
 
-            ListeModel.printTaskListsAndActionMenu(list, window, user);
+            ListeModel.printTaskListsAndActionMenu(list, window, user, board);
         }
     }
 
@@ -109,7 +105,7 @@ public class BoardModel {
         clavier.nextLine();
         String name = clavier.nextLine();
 
-        if(!name.equals("")) {
+        if (!name.equals("")) {
             BoardService boardService = new BoardService(user);
 
             Body body = new Body();
@@ -137,7 +133,7 @@ public class BoardModel {
             }
         } while (validation.equals(""));
 
-        if(validation.toLowerCase(Locale.ROOT).equals("o")) {
+        if (validation.toLowerCase(Locale.ROOT).equals("o")) {
             BoardService boardService = new BoardService(user);
 
             Body body = new Body();
@@ -146,8 +142,7 @@ public class BoardModel {
 
             BoardMenu boardMenu = new BoardMenu();
             boardMenu.printBoardMenu(window, user);
-        }
-        else {
+        } else {
             BoardModel.printBoardListsAndActionMenu(board, window, user);
         }
     }
