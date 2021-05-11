@@ -1,6 +1,5 @@
 package Requete;
 
-import Models.Liste;
 import Models.Task;
 import com.fasterxml.jackson.core.JsonProcessingException;
 

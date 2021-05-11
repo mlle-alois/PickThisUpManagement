@@ -8,10 +8,7 @@ import javax.swing.border.Border;
 
 import javaFXInterface.controllers.ConnectionController;
 import Controller.LabelController;
-import javaFXInterface.controllers.ContentPanelController;
 import javaFXInterface.Menu.ApplicationMenu;
-import Enum.InterfaceCode;
-import CLIInterface.Controllers.CLIInterfaceController;
 
 public class ConnectionPanel extends JPanel{
 

@@ -3,8 +3,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-
 public class ScreenWindow extends javafx.application.Application{
     @Override
     public void start(Stage stage) throws Exception {

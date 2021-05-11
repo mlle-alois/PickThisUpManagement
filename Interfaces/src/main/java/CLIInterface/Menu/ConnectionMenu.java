@@ -1,13 +1,11 @@
 package CLIInterface.Menu;
 
-import CLIInterface.Controllers.CLIInterfaceController;
 import CLIInterface.Models.ConnectionModel;
 import Requete.User;
 import javaFXInterface.controllers.ContentPanelController;
 import Enum.InterfaceCode;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,5 @@
 package javaFXInterface.controllers;
 
-import Enum.InterfaceCode;
-import javafx.fxml.Initializable;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

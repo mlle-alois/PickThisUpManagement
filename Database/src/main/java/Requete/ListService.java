@@ -1,14 +1,9 @@
 package Requete;
 
 import Models.Liste;
-import Models.StatusModel;
-import Models.Ticket;
-import Models.UserModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.net.http.HttpResponse;
-import java.util.Map;
 
 public class ListService {
 

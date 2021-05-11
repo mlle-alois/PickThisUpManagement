@@ -1,19 +1,12 @@
 package CLIInterface.Controllers;
 
-import CLIInterface.Menu.GeneralMenu;
 import Models.Board;
 import Requete.BoardService;
 import Requete.Body;
-import Requete.TicketsService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 public class BoardController {
-
-    private static String errorConnection = "La connexion a échoué";
 
     private final User user;
 

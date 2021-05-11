@@ -2,11 +2,8 @@ package CLIInterface.Models;
 
 import CLIInterface.Controllers.BoardController;
 import CLIInterface.Menu.BoardMenu;
-import CLIInterface.Menu.GeneralMenu;
-import CLIInterface.Menu.TicketMenu;
 import Models.Board;
 import Models.Liste;
-import Models.Ticket;
 import Requete.BoardService;
 import Requete.Body;
 import Requete.ListService;

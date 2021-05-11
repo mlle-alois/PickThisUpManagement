@@ -1,18 +1,13 @@
 package CLIInterface.Models;
 
-import CLIInterface.Controllers.BoardController;
 import CLIInterface.Menu.BoardMenu;
-import Models.Board;
 import Models.Liste;
 import Requete.BoardService;
 import Requete.Body;
-import Requete.ListService;
 import Requete.User;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ListeModel {
