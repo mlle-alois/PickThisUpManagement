@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaFXInterface.controllers.AddListController">
+   <children>
+      <Label layoutX="43.0" layoutY="33.0" style="-fx-font-size: 20;" text="Ajouter une nouvelle liste" />
+      <Label layoutX="168.0" layoutY="137.0" style="-fx-font-size: 16;" text="Nom de la liste" />
+      <TextField fx:id="addListTextField" layoutX="168.0" layoutY="188.0" prefHeight="25.0" prefWidth="269.0" />
+      <Button fx:id="validateAddListButton" layoutX="345.0" layoutY="240.0" mnemonicParsing="false" onAction="#addNewList" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: green;" text="Valider" textFill="#eeeaea">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelAddListButton" layoutX="208.0" layoutY="240.0" mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: red;" text="Annuler" textFill="#eeeaea">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
