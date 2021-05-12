@@ -1,6 +1,5 @@
 package Requete;
 
-import Models.Ticket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.io.IOException;

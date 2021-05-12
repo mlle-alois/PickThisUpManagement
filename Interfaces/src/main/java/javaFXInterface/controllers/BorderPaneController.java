@@ -1,7 +1,6 @@
 package javaFXInterface.controllers;
 
 import CLIInterface.Controllers.CLIInterfaceController;
-import CLIInterface.Menu.BoardMenu;
 import Models.Board;
 import Models.Liste;
 import Models.StatusModel;

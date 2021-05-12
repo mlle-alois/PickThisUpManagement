@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import Enum.InterfaceCode;
-import javaFXInterface.controllers.ContentPanelController;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
 import javax.swing.*;
 
