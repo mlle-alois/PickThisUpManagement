@@ -246,6 +246,8 @@ public class BorderPaneController {
             newStage.setTitle("PickThisUp");
             newStage.getIcons().add(new Image("/logo.PNG"));
             newStage.showAndWait();
+            if(!popupController.isValidate())
+                return;
             // add the list to the database
             body = new Body();
              body.addValueToBody("name",popupController.getText());
@@ -277,6 +279,8 @@ public class BorderPaneController {
             newStage.setTitle("PickThisUp");
             newStage.getIcons().add(new Image("/logo.PNG"));
             newStage.showAndWait();
+            if (!popupController.isValidate())
+                return;
             // add the list to the database
             body = new Body();
             body.addValueToBody("",String.valueOf(currentBoard.boardId));
