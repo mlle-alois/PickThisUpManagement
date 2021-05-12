@@ -66,6 +66,10 @@ public class Body {
         map.remove("");
        return result;
     }
+
+    public void clear(){
+        map.clear();
+    }
 }
 
 

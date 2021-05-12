@@ -12,6 +12,7 @@ public class TaskService {
 
     private static String getTask = "task";
     private static String getTasksFromList ="task/list";
+    private static String addTask = "task/add";
 
     public TaskService(User user) {
         this.databaseService = new DatabaseService(user);
@@ -26,6 +27,13 @@ public class TaskService {
         return new Task[0];
     }
 
+    public Task addTask(Body body) throws JsonProcessingException {
+        HttpResponse<String> response = databaseService.PostRequest(body,addTask);
+        if(response.statusCode() < 300){
+            return body.objectMapper.readValue(response.body(), Task.class);
+        }
+        return new Task();
+    }
 
     public boolean deleteTask(Body body) {
         return databaseService.DeleteRequest(body,getTask);

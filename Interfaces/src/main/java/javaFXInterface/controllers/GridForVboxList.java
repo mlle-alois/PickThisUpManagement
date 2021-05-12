@@ -109,7 +109,7 @@ public class GridForVboxList {
             event.consume();
         };
 
-        Button modifButton = new Button("Modifer");
+        Button modifButton = new Button("Modifier");
         modifButton.setOnAction(buttonModifHandler);
 
         Button eraseButton = new Button("Supprimer");
