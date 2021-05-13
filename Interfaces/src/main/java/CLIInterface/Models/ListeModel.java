@@ -1,6 +1,5 @@
 package CLIInterface.Models;
 
-import CLIInterface.Menu.BoardMenu;
 import Models.Board;
 import Models.Liste;
 import Models.Task;
@@ -66,13 +65,10 @@ public class ListeModel {
         } else if (value == tasks.length + 2) {
             ListeModel.deleteListTreatment(window, user, list, board);
         } else if (value == tasks.length + 3) {
-            //TODO
-            //TaskModel.addTaskTreatment(window, user, list);
+            TaskModel.addTaskTreatment(window, user, list, board);
         } else {
             Task task = tasks[value - 1];
-
-            //TODO
-            //TaskModel.printTask(list, window, user);
+            TaskModel.printTask(task, window, user, list, board);
         }
     }
 
