@@ -8,9 +8,7 @@ import javax.swing.border.Border;
 
 import javaFXInterface.controllers.ConnectionController;
 import Controller.LabelController;
-import javaFXInterface.controllers.ContentPanelController;
 import javaFXInterface.Menu.ApplicationMenu;
-import Enum.InterfaceCode;
 
 public class InscriptionPanel extends JPanel{
 

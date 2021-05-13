@@ -1,16 +1,14 @@
 package javaFXInterface.Panel;
 
-        import java.awt.*;
-        import java.awt.event.ActionEvent;
-        import java.awt.event.ActionListener;
-        import javax.swing.*;
-        import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import javax.swing.border.Border;
 
-        import javaFXInterface.controllers.ConnectionController;
-        import Controller.LabelController;
-        import javaFXInterface.controllers.ContentPanelController;
-        import javaFXInterface.Menu.ApplicationMenu;
-        import Enum.InterfaceCode;
+import javaFXInterface.controllers.ConnectionController;
+import Controller.LabelController;
+import javaFXInterface.Menu.ApplicationMenu;
 
 public class ForgotPasswordPanel extends JPanel {
 
@@ -29,7 +27,7 @@ public class ForgotPasswordPanel extends JPanel {
     /**
      * Constructeur du panel de la connexion
      */
-    public ForgotPasswordPanel(JFrame window){
+    public ForgotPasswordPanel(JFrame window) {
 
         this.setLayout(new GridBagLayout());
 
@@ -45,7 +43,7 @@ public class ForgotPasswordPanel extends JPanel {
         this.lblMdp = new JLabel("Mot de passe : ");
         this.lblError = new JLabel(" ");
 
-        this.lblError.setForeground(new Color(200,0,2));
+        this.lblError.setForeground(new Color(200, 0, 2));
 
         //définition des zones de textes
         this.jtfLogin = new JTextField();

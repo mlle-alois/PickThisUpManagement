@@ -1,9 +1,6 @@
 package javaFXInterface.controllers;
 
-import Models.Board;
 import Models.Liste;
-import Models.Task;
-import Requete.Body;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
@@ -15,13 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.geometry.Insets;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
 
 public class ScrollPaneWithList {
     private Liste[] listes;

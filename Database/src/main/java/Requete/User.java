@@ -4,10 +4,7 @@ import Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 
-import java.io.IOException;
-import java.net.URI;
 import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.Map;
 
@@ -58,22 +55,6 @@ public class User {
             return body.objectMapper.readValue(result.body(), Task[].class);
         }
         return new Task[0];
-    }
-
-    public Board getBoard (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body,getBoards);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Board.class);
-        }
-        return new Board();
-    }
-
-    public Board[] getBoards (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body,getBoards);
-        if (result.statusCode() < 300){
-            return body.objectMapper.readValue(result.body(), Board[].class);
-        }
-        return new Board[0];
     }
 }
 
