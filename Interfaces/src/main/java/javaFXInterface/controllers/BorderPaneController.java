@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import static Enum.InterfaceCode.*;
 
 public class BorderPaneController {
+    public static final String TOUS_LES_TICKETS = "Tous les tickets";
     @FXML
     private Button addListeButton;
     @FXML
@@ -55,6 +57,7 @@ public class BorderPaneController {
     private TicketsService ticketsService;
     private ListService listService;
     private BoardService boardService;
+    private Node boardPaneRight;
 
 
 
@@ -81,14 +84,16 @@ public class BorderPaneController {
         initializeTickets();
 
         currentBoard = boards[0];
+        boardPaneRight = borderPane.getRight();
         setBorderPane();
+
 
     }
 
     public void setBorderPane() throws JsonProcessingException {
         addGridPaneToCenter();
         borderPane.setLeft(new Label(currentBoard.boardName));
-
+        borderPane.setRight(boardPaneRight);
     }
 
     private void initializeTickets() throws JsonProcessingException {
@@ -153,7 +158,7 @@ public class BorderPaneController {
         StatusModel[] Tickets = getTickets(user);
         String[] allTickets = new String[Tickets.length + 1];
 
-        allTickets[0] = "Tous les tickets";
+        allTickets[0] = TOUS_LES_TICKETS;
 
         for (int i = 0; i < Tickets.length; i++) {
             allTickets[i + 1] = Tickets[i].statusLibelle;
@@ -297,7 +302,7 @@ public class BorderPaneController {
     public void addTicketGridToCenter() throws JsonProcessingException {
         Body body = new Body();
         Ticket[] tickets;
-        if (currentStatusTicket == "Tous les tickets"){
+        if (currentStatusTicket == TOUS_LES_TICKETS){
             tickets = ticketsService.getTickets(body);
         }
         else{
@@ -335,7 +340,6 @@ public class BorderPaneController {
             body.addValueToBody("boardId",String.valueOf(currentBoard.boardId));
           Liste liste =  listService.addListe(body);
             // Refresh
-
             setBorderPane();
 
         }
