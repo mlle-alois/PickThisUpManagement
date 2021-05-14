@@ -404,18 +404,5 @@ public class BorderPaneController {
         setBorderPane();
     }
 
-/*    public void switchToScene(ActionEvent event, String ScenePath, User user) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
-
-        root = loader.load();
-
-        BorderPaneController borderPaneController = loader.getController();
-        borderPaneController.initialize(user);
-
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }*/
 
 }
