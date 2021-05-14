@@ -282,7 +282,9 @@ public class TicketsModel {
      */
     public static void closureTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         TicketsService ticketsService = new TicketsService(user);
-        ticketsService.closeTicket(new Body(), ticket.ticketId);
+        Body body = new Body();
+        body.addValueToBody("",String.valueOf(ticket.ticketId));
+        ticketsService.closeTicket(body);
 
         Body statusBody = new Body();
         if (!status.equals("")) {
@@ -305,7 +307,9 @@ public class TicketsModel {
      */
     public static void reopenTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         TicketsService ticketsService = new TicketsService(user);
-        ticketsService.reopenTicket(new Body(), ticket.ticketId);
+        Body body = new Body();
+        body.addValueToBody("",String.valueOf(ticket.ticketId));
+        ticketsService.reopenTicket(body);
 
         Body statusBody = new Body();
         if (!status.equals("")) {
@@ -328,7 +332,9 @@ public class TicketsModel {
      */
     public static void archiveTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         TicketsService ticketsService = new TicketsService(user);
-        ticketsService.archiveTicket(new Body(), ticket.ticketId);
+        Body body = new Body();
+        body.addValueToBody("",String.valueOf(ticket.ticketId));
+        ticketsService.archiveTicket(body);
 
         Body statusBody = new Body();
         if (!status.equals("")) {
@@ -368,7 +374,8 @@ public class TicketsModel {
             body.addValueToBody("name", name);
         if(!desc.equals(""))
             body.addValueToBody("description", desc);
-        ticketsService.updateTicket(body, ticket.ticketId);
+        body.addValueToBody("",String.valueOf(ticket.ticketId));
+        ticketsService.updateTicket(body);
 
         Body statusBody = new Body();
         if (!status.equals("")) {
