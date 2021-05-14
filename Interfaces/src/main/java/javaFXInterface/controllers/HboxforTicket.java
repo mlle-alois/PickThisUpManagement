@@ -177,6 +177,7 @@ public class HboxforTicket {
         Label statusLibelle = new Label("Statut :");
 
         Label status = new Label(getCurrentStatusLibelle());
+        status.setMinWidth(60);
         status.setStyle("-fx-font-weight: bold");
         hbox.getChildren().addAll(statusLibelle,status);
         addSeparator();
