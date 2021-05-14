@@ -44,7 +44,7 @@ public class AddTicketController {
     private void addTicket(ActionEvent actionEvent) {
         name = nameTextField.getText();
         description = descriptionTextArea.getText();
-        status =  statusChoiceBox.getSelectionModel().getSelectedIndex();
+        status =  statusChoiceBox.getSelectionModel().getSelectedIndex() ;
 
         isValidate = true;
         newStage = (Stage) validateButton.getScene().getWindow();
@@ -76,7 +76,7 @@ public class AddTicketController {
         return status;
     }
     public void setStatusChoiceBox(StatusModel[] statusModels,int currentStatus){
-        statusChoiceBox.setValue(statusModels[currentStatus].statusLibelle);
+        statusChoiceBox.setValue(statusModels[currentStatus-1].statusLibelle);
         for (int i = 0; i < 3;i++){
             statusChoiceBox.getItems().add(statusModels[i].statusLibelle);
         }
