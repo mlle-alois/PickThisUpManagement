@@ -143,14 +143,14 @@ public class GridForVboxList {
         };
 
         EventHandler<ActionEvent> buttonEraseHandler = event -> {
-            try {
+
                 Body body = new Body();
-
                 String labelName = getClickedLabelName(event);
-
                 addLabelIdToBody(body, labelName);
-                if(taskService.deleteTask(body))
-                    borderPaneController.setBorderPane();
+                taskService.deleteTask(body);
+
+            try {
+                borderPaneController.setBorderPane();
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }

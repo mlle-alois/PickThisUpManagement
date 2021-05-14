@@ -46,12 +46,13 @@ public class AddTicketController {
         description = descriptionTextArea.getText();
         status =  statusChoiceBox.getSelectionModel().getSelectedIndex() ;
 
-        isValidate = true;
+        this.isValidate = true;
         newStage = (Stage) validateButton.getScene().getWindow();
         newStage.close();
     }
     @FXML
     private void cancel(ActionEvent actionEvent) {
+        this.isValidate = false;
         newStage = (Stage) cancelButton.getScene().getWindow();
         newStage.close();
     }

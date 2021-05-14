@@ -28,6 +28,8 @@ import static Enum.InterfaceCode.*;
 public class BorderPaneController {
     public static final String TOUS_LES_TICKETS = "Tous les tickets";
     @FXML
+    private Button deleteBoardButton;
+    @FXML
     private Button addListeButton;
     @FXML
     private Button updateBoardName;
@@ -377,6 +379,29 @@ public class BorderPaneController {
             setBorderPane();
 
         }
+    }
+
+    public boolean deleteBoardAlert() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Suppression de tableau");
+        alert.setHeaderText("Vous êtes sur le point de supprimer ce tableau ainsi que toutes les listes" +
+                " et tâches comprises à l'intérieur");
+        alert.setContentText("Est-ce vous sur de vouloir supprimer le tableau " + currentBoard.boardName + " ?");
+
+        return alert.showAndWait().get() == ButtonType.OK;
+
+    }
+
+    public void deleteBoard(ActionEvent actionEvent) throws JsonProcessingException {
+        if(!deleteBoardAlert()){
+            return;
+        }
+        Body body = new Body();
+        body.addValueToBody("",String.valueOf(currentBoard.boardId));
+        boardService.deleteBoard(body);
+        currentBoard = boards[0];
+        refreshBoards();
+        setBorderPane();
     }
 
 /*    public void switchToScene(ActionEvent event, String ScenePath, User user) throws IOException {

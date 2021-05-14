@@ -31,12 +31,13 @@ public class AddTaskController {
     private void addNewTask(ActionEvent actionEvent) {
         name = taskNameTextField.getText();
         description = descriptionTextArea.getText();
-        isValidate = true;
+        this.isValidate = true;
         newStage = (Stage) validateButton.getScene().getWindow();
         newStage.close();
     }
     @FXML
     private void cancel(ActionEvent actionEvent) {
+        this.isValidate = false;
         newStage = (Stage) cancelButton.getScene().getWindow();
         newStage.close();
     }
