@@ -23,7 +23,7 @@ public class AddListController  {
     @FXML
     private void addNewList(ActionEvent actionEvent) {
         text = addListTextField.getText();
-
+        isValidate = true;
         newStage = (Stage) validateAddListButton.getScene().getWindow();
         newStage.close();
     }

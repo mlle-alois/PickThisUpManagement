@@ -93,6 +93,7 @@ public class HboxforTicket {
 
 
                 AddTicketController popupController = loader.getController();
+                prepareScreenForTicketModification(popupController);
                 newStage.setScene(new Scene(root));
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.initOwner(button.getScene().getWindow());
@@ -100,14 +101,16 @@ public class HboxforTicket {
                 newStage.getIcons().add(new Image("/logo.PNG"));
                 newStage.showAndWait();
                 // add the task to the database
-              /*  body = new Body();
+                if(!popupController.isValidate())
+                    return;
+           /*     body = new Body();
                 body.addValueToBody("name",popupController.getName());
                 body.addValueToBody("description",popupController.getDescription());
                 body.addValueToBody("listId",String.valueOf(liste.listId));
-                TaskService taskService = new TaskService(user);
+
                 try {
-                    taskService.addTask(body);
-                    borderPaneController.setBorderPane();
+                    ticketsService.updateTicket(body, ticket.ticketId);
+                    borderPaneController.setRightBorderPaneWithAddTicketButton();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }*/
@@ -119,6 +122,17 @@ public class HboxforTicket {
         hbox.getChildren().add(button);
         addSeparator();
     }
+
+    @SneakyThrows
+    private void prepareScreenForTicketModification(AddTicketController popupController) {
+        popupController.setTitleLabel("Details du ticket");
+        popupController.setName(ticket.ticketName);
+        popupController.setDescription(ticket.ticketDescription);
+        popupController.setStatusChoiceBox(status,ticket.statusId);
+        popupController.setMembers(getuserModelsMembers());
+        popupController.setClotureDate(getClosureDate());
+    }
+
     private void addArchiveAndClotureVerticalButtons(){
         Button archiveButton = new Button("Archiver");
         Button clotureButton = new Button("Cloturer");
@@ -156,14 +170,19 @@ public class HboxforTicket {
     private String getMembersString(){
         StringBuilder membersString = new StringBuilder();
 
-        Body body = new Body();
-        UserModel[] members = ticketsService.getMembersByTicketId(body, ticket.ticketId);
+        UserModel[] members = getuserModelsMembers();
         for (int i = 0; i < members.length; i++){
             membersString.append(members[i].firstname);
             if(i != members.length-1)
                 membersString.append(",");
         }
         return membersString.toString();
+    }
+
+    private UserModel[] getuserModelsMembers() throws JsonProcessingException {
+        Body body = new Body();
+        UserModel[] members = ticketsService.getMembersByTicketId(body, ticket.ticketId);
+        return members;
     }
 
     private String getCurrentStatusLibelle() {
@@ -183,13 +202,25 @@ public class HboxforTicket {
     private void addCreationDate(){
         Label dateOuverture = new Label("Date d'ouverture :");
 
-        DateFormat shortDateFormat = DateFormat.getDateTimeInstance(
-                DateFormat.SHORT,
-                DateFormat.SHORT);
+        DateFormat shortDateFormat = getDateFormat();
 
         Label label = new Label(shortDateFormat.format(ticket.ticketCreationDate));
         hbox.getChildren().addAll(dateOuverture,label);
         addSeparator();
+    }
+
+    private DateFormat getDateFormat() {
+        DateFormat shortDateFormat = DateFormat.getDateTimeInstance(
+                DateFormat.SHORT,
+                DateFormat.SHORT);
+        return shortDateFormat;
+    }
+
+    private String getClosureDate(){
+        if(ticket.ticketClosingDate == null)
+            return "";
+        DateFormat shortDateFormat = getDateFormat();
+        return shortDateFormat.format(ticket.ticketClosingDate);
     }
     private void setHboxShape(){
         hbox.setSpacing(5);

@@ -166,7 +166,7 @@ public class BorderPaneController {
         return ticketsService.getTicketsStatus(body);
     }
 
-    private void setRightBorderPaneWithAddTicketButton(){
+    public void setRightBorderPaneWithAddTicketButton(){
         Button button = new Button("Ajouter un ticket");
 
         EventHandler<ActionEvent> buttonAddHandler = event -> {
@@ -192,18 +192,19 @@ public class BorderPaneController {
                 newStage.setTitle("PickThisUp");
                 newStage.getIcons().add(new Image("/logo.PNG"));
                 newStage.showAndWait();
+                if(!popupController.isValidate())
+                    return;
                 // add the task to the database
-              /*  body = new Body();
+                body = new Body();
                 body.addValueToBody("name",popupController.getName());
                 body.addValueToBody("description",popupController.getDescription());
-                body.addValueToBody("listId",String.valueOf(liste.listId));
-                TaskService taskService = new TaskService(user);
+                body.addValueToBody("statusId",String.valueOf(popupController.getStatus()));
                 try {
-                    taskService.addTask(body);
-                    borderPaneController.setBorderPane();
+                    ticketsService.addTicket(body);
+                    addTicketGridToCenter();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
-                }*/
+                }
                 event.consume();
             }
         };
