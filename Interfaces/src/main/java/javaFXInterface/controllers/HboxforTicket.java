@@ -101,17 +101,19 @@ public class HboxforTicket {
                 // add the task to the database
                 if(!popupController.isValidate())
                     return;
-           /*     body = new Body();
+                body = new Body();
+                body.addValueToBody("",String.valueOf(ticket.ticketId));
                 body.addValueToBody("name",popupController.getName());
                 body.addValueToBody("description",popupController.getDescription());
-                body.addValueToBody("listId",String.valueOf(liste.listId));
+            //    body.addValueToBody("listId",String.valueOf(liste.listId));
 
                 try {
-                    ticketsService.updateTicket(body, ticket.ticketId);
-                    borderPaneController.setRightBorderPaneWithAddTicketButton();
+                    ticketsService.updateTicket(body);
+                    updateStatus (popupController);
+                    borderPaneController.addTicketGridToCenter();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
-                }*/
+                }
                 event.consume();
             }
         };
@@ -119,6 +121,22 @@ public class HboxforTicket {
         button.setOnAction(buttonDetailsHandler);
         hbox.getChildren().add(button);
         addSeparator();
+    }
+
+    private void updateStatus(AddTicketController popupController) throws JsonProcessingException {
+        Body body = new Body();
+        body.addValueToBody("",String.valueOf(ticket.ticketId));
+        switch (popupController.getStatus()){
+            case 0:
+                ticketsService.reopenTicket(body);
+                break;
+            case 1:
+                ticketsService.closeTicket(body);
+                break;
+            case 2:
+                ticketsService.archiveTicket(body);
+                break;
+        }
     }
 
     @SneakyThrows

@@ -11,8 +11,8 @@ public class BoardService {
 
     private static String getBoards = "board";
     private static final String addBoard = "board/add";
-    private static final String deleteBoard = "board/";
-    private static final String updateBoard = "board/";
+    private static final String deleteBoard = "board";
+    private static final String updateBoard = "board";
 
     public BoardService(User user) {
         this.databaseService = new DatabaseService(user);
