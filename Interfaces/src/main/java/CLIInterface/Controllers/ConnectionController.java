@@ -1,5 +1,6 @@
 package CLIInterface.Controllers;
 
+import CLIInterface.Menu.ConnectionMenu;
 import CLIInterface.Menu.GeneralMenu;
 import Requete.Body;
 import Requete.User;
@@ -14,6 +15,8 @@ public class ConnectionController {
 
     public void connection(String mail, String password, Stage window, User user) throws IOException {
 
+        user = new Requete.User();
+
         var loginBody = new Body();
         loginBody.addValueToBody("mail", mail);
         loginBody.addValueToBody("password", password);
@@ -22,6 +25,7 @@ public class ConnectionController {
             GeneralMenu.printGeneralMenu(window, user);
         } else {
             System.out.println(errorConnection);
+            ConnectionMenu.printMenu(window, user);
         }
     }
 }
