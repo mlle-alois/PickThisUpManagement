@@ -5,7 +5,6 @@ import Models.StatusModel;
 import Models.Ticket;
 import Models.UserModel;
 import Requete.Body;
-import Requete.TaskService;
 import Requete.TicketsService;
 import Requete.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -14,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
-import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -62,7 +60,7 @@ public class HboxforTicket {
         addMember();
         addStatus();
         addDetailsButton();
-        addArchiveAndClotureVerticalButtons();
+        addArchiveAndClotureButtons();
 
     }
 
@@ -133,9 +131,37 @@ public class HboxforTicket {
         popupController.setClotureDate(getClosureDate());
     }
 
-    private void addArchiveAndClotureVerticalButtons(){
+    private void addArchiveAndClotureButtons(){
+        EventHandler<ActionEvent> buttonArchiverHandler = event -> {
+            try {
+                Body body = new Body();
+                body.addValueToBody("",String.valueOf(ticket.ticketId));
+                      ticketsService.archiveTicket(body);
+                    borderPaneController.addTicketGridToCenter();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            event.consume();
+        };
+
+
         Button archiveButton = new Button("Archiver");
+        archiveButton.setOnAction(buttonArchiverHandler);
+
+        EventHandler<ActionEvent> buttonclotureHandler = event -> {
+            try {
+                Body body = new Body();
+                body.addValueToBody("",String.valueOf(ticket.ticketId));
+                ticketsService.closeTicket(body);
+                borderPaneController.addTicketGridToCenter();
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+            event.consume();
+        };
+
         Button clotureButton = new Button("Cloturer");
+        clotureButton.setOnAction(buttonclotureHandler);
 
         hbox.getChildren().addAll(archiveButton,clotureButton);
     }

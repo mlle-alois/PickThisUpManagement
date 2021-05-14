@@ -13,11 +13,11 @@ public class TicketsService {
     private static final String addTicket = "ticket/add";
     private static final String getStatus = "ticket/status";
     private static final String getTicketsForStatus = "ticket/getByStatus";
-    private static final String getMembersByTicketId = "ticket/getMembers/";
-    private static final String closeTicket = "ticket/close/";
-    private static final String archiveTicket = "ticket/archive/";
-    private static final String reopenTicket = "ticket/open/";
-    private static final String updateTicket = "ticket/update/";
+    private static final String getMembersByTicketId = "ticket/getMembers";
+    private static final String closeTicket = "ticket/close";
+    private static final String archiveTicket = "ticket/archive";
+    private static final String reopenTicket = "ticket/open";
+    private static final String updateTicket = "ticket/update";
 
     public TicketsService(User user) {
         this.databaseService = new DatabaseService(user);
@@ -35,20 +35,20 @@ public class TicketsService {
         databaseService.PostRequest(body, addTicket);
     }
 
-    public void closeTicket(Body body, int id) throws JsonProcessingException {
-        databaseService.PutRequest(body, closeTicket + id);
+    public void closeTicket(Body body) throws JsonProcessingException {
+        databaseService.PutRequest(body, closeTicket);
     }
 
-    public void archiveTicket(Body body, int id) throws JsonProcessingException {
-        databaseService.PutRequest(body, archiveTicket + id);
+    public void archiveTicket(Body body) throws JsonProcessingException {
+        databaseService.PutRequest(body, archiveTicket);
     }
 
-    public void reopenTicket(Body body, int id) throws JsonProcessingException {
-        databaseService.PutRequest(body, reopenTicket + id);
+    public void reopenTicket(Body body) throws JsonProcessingException {
+        databaseService.PutRequest(body, reopenTicket);
     }
 
-    public void updateTicket(Body body, int id) throws JsonProcessingException {
-        databaseService.PutRequest(body, updateTicket + id);
+    public void updateTicket(Body body) throws JsonProcessingException {
+        databaseService.PutRequest(body, updateTicket);
     }
 
     public StatusModel[] getTicketsStatus(Body body) throws JsonProcessingException {

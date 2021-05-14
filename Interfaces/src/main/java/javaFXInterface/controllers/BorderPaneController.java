@@ -51,6 +51,7 @@ public class BorderPaneController {
     private Scene scene;
 
     public Board currentBoard;
+    public String currentStatusTicket;
     private TicketsService ticketsService;
     private ListService listService;
     private BoardService boardService;
@@ -198,7 +199,7 @@ public class BorderPaneController {
                 body = new Body();
                 body.addValueToBody("name",popupController.getName());
                 body.addValueToBody("description",popupController.getDescription());
-                body.addValueToBody("statusId",String.valueOf(popupController.getStatus()));
+                body.addValueToBody("statusId","1");
                 try {
                     ticketsService.addTicket(body);
                     addTicketGridToCenter();
@@ -220,10 +221,12 @@ public class BorderPaneController {
             tasksItems[i] = new MenuItem(Tickets[i]);
             Label newLabel = new Label(Tickets[i]);
             // Create event for switching boards
+            String ticketName = Tickets[i];
             EventHandler<ActionEvent> menuItemHandler = event -> {
                 MenuItem menuItemTemp = (MenuItem) event.getSource();
                 try {
 
+                    currentStatusTicket = ticketName;
                     addTicketGridToCenter();
                     borderPane.setLeft(newLabel);
                     setRightBorderPaneWithAddTicketButton();
@@ -291,9 +294,16 @@ public class BorderPaneController {
 
     }
 
-    private void addTicketGridToCenter() throws JsonProcessingException {
+    public void addTicketGridToCenter() throws JsonProcessingException {
         Body body = new Body();
-        Ticket[] tickets = ticketsService.getTickets(body);
+        Ticket[] tickets;
+        if (currentStatusTicket == "Tous les tickets"){
+            tickets = ticketsService.getTickets(body);
+        }
+        else{
+            body.addValueToBody("status",String.valueOf(currentStatusTicket));
+            tickets = ticketsService.getTicketsByStatus(body);
+        }
         ScrollPaneWithTickets scrollPaneWithTickets = new ScrollPaneWithTickets(tickets,user,this);
         borderPane.setCenter(scrollPaneWithTickets.getFullScrollPane());
     }
