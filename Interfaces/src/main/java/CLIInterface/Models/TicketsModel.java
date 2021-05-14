@@ -69,7 +69,7 @@ public class TicketsModel {
         System.out.println("Nom : " + ticket.ticketName + " - Description : " + ticket.ticketDescription +
                 " - Date d'ouverture : " + ticket.ticketCreationDate + " - Créateur : " + ticket.creatorId +
                 " - Membres : " + membersName + " - Statut : " + ticket.statusLibelle + " - Date de clôture : " +
-                ticket.ticketClosureDate);
+                ticket.ticketClosingDate);
 
         printTicketActionsMenu(window, user, tickets, ticket, status);
     }
