@@ -21,6 +21,7 @@ public class PostRequest {
         var Parameters = new Body();
       //  Parameters.addValueToBody("name","NListe2");
        // Parameters.addValueToBody("boardId","1");
+        Parameters.addValueToBody("","7");
         Parameters.addValueToBody("name","TacheTest03");
         Parameters.addValueToBody("description","Ceci est une merveilleuse description");
         Parameters.addValueToBody("listId","3");
@@ -44,7 +45,7 @@ public class PostRequest {
      //   Liste liste = listeService.updateListe(Parameters);
         //BoardService boardService = new BoardService(user);
         //boardService.updateBoard(Parameters);
-        taskService.addTask(Parameters);
+        taskService.updateTask(Parameters);
         Parameters.clear();
         user.logout(Parameters);
 

@@ -50,7 +50,7 @@ public class VboxForList {
         this.tasks = getTasksFromListe();
         setVboxShape(tasks.length * 200 + 100);
         addTitleToVbox();
-        GridForVboxList gridForVboxList = new GridForVboxList(tasks,borderPaneController);
+        GridForVboxList gridForVboxList = new GridForVboxList(tasks,borderPaneController,liste);
         this.gridPanes = gridForVboxList.getGridPanes();
         addPanesToVbox();
         createAddListButton();
@@ -185,8 +185,6 @@ public class VboxForList {
 
         Button addTaskButton = new Button("Ajouter une tâche");
         EventHandler<ActionEvent> buttonAddListHandler = event -> {
-            System.out.println("Modifier");
-
             if(event.getSource() == addTaskButton) {
                 Stage newStage;
                 Parent root = null;
@@ -209,6 +207,8 @@ public class VboxForList {
                 newStage.getIcons().add(new Image("/logo.PNG"));
                 newStage.showAndWait();
                 // add the task to the database
+                if(!popupController.isValidate())
+                    return;
                 body = new Body();
                 body.addValueToBody("name",popupController.getName());
                 body.addValueToBody("description",popupController.getDescription());

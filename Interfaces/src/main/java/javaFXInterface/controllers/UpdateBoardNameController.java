@@ -16,14 +16,14 @@ public class UpdateBoardNameController {
     private TextField updatedNameTextField;
 
     private String text;
-
+    private boolean isValidate = false;
     private Stage newStage;
 
 
     @FXML
     private void updateBoardName(ActionEvent actionEvent) {
         text = updatedNameTextField.getText();
-
+        isValidate = true;
         newStage = (Stage) validateButton.getScene().getWindow();
         newStage.close();
     }
@@ -36,4 +36,5 @@ public class UpdateBoardNameController {
     public String getText() {
         return text;
     }
+    public boolean isValidate(){return isValidate;}
 }

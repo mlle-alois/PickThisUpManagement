@@ -16,7 +16,7 @@ public class AddListController  {
     private TextField addListTextField;
 
     private String text;
-
+    private boolean isValidate = false;
     private Stage newStage;
 
 
@@ -32,7 +32,7 @@ public class AddListController  {
         newStage = (Stage) validateAddListButton.getScene().getWindow();
         newStage.close();
     }
-
+    public boolean isValidate(){return isValidate;}
     public String getText() {
         return text;
     }
