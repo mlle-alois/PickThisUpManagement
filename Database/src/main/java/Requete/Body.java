@@ -64,6 +64,7 @@ public class Body {
         String result;
         result = baseURL + route + "/" + map.get("");
         map.remove("");
+        System.out.println(result);
        return result;
     }
 

@@ -29,7 +29,7 @@ public class BoardService {
 
     public Board updateBoard(Body body) throws JsonProcessingException {
         HttpResponse<String> response = databaseService.PutRequest(body, updateBoard);
-        if(response.statusCode() < 300){
+        if (response.statusCode() < 300) {
             return body.objectMapper.readValue(response.body(), Board.class);
         }
         return new Board();

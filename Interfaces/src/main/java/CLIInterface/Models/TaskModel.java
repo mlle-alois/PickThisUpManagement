@@ -59,10 +59,10 @@ public class TaskModel {
     public static void switchTaskActionMenu(int value, Stage window, User user, Task task, Liste liste, Board board) throws IOException {
         switch (value) {
             case 1:
-                //updateTaskTreatment(window, user, task, liste);
+                updateTaskTreatment(window, user, task, liste, board);
                 break;
             case 2:
-                //deleteTaskTreatment(window, user, task, liste);
+                deleteTaskTreatment(task, liste, window, user, board);
                 break;
             default:
                 ListeModel.printTaskListsAndActionMenu(liste, window, user, board);
@@ -70,6 +70,7 @@ public class TaskModel {
     }
 
     public static void addTaskTreatment(Stage window, User user, Liste liste, Board board) throws IOException {
+        TaskService taskService = new TaskService(user);
         String name = "";
         do {
             System.out.println("Nom de la tâche :");
@@ -100,10 +101,6 @@ public class TaskModel {
             }
         } while (!isDate);
 
-        //TODO membres
-
-        TaskService taskService = new TaskService(user);
-
         Body body = new Body();
         body.addValueToBody("name", name);
         body.addValueToBody("description", desc);
@@ -112,37 +109,111 @@ public class TaskModel {
             body.addValueToBody("deadline", sdf.format(deadline));
         }
         body.addValueToBody("listId", liste.listId + "");
-        taskService.addTask(body);
+        Task task = taskService.addTask(body);
+
+        UserModel[] developers = user.getDevelopers(new Body());
+        String validation = "";
+        for (UserModel developer : developers) {
+            do {
+                validation = "";
+                System.out.println("Développeur : " + developer.name + " " + developer.firstname);
+                System.out.println("Voulez-vous assigner ce développeur à la tâche (o/n) :");
+                validation = clavier.nextLine();
+
+                if (!validation.toLowerCase(Locale.ROOT).equals("o") && !validation.toLowerCase(Locale.ROOT).equals("n")) {
+                    System.out.println("Veuillez saisir une valeur valide (o/n)");
+                    validation = "";
+                }
+
+                if (validation.toLowerCase(Locale.ROOT).equals("o")) {
+                    Body assignBody = new Body();
+                    assignBody.addValueToBody("taskId", task.taskId + "");
+                    assignBody.addValueToBody("userMail", developer.mail);
+                    taskService.assignUserToTask(assignBody);
+                }
+            } while (validation.equals(""));
+        }
 
         ListeModel.printTaskListsAndActionMenu(liste, window, user, board);
     }
 
-    /*public static void updateTaskTreatment(Stage window, User user, Task task) throws IOException {
+    public static void updateTaskTreatment(Stage window, User user, Task task, Liste liste, Board board) throws IOException {
+        TaskService taskService = new TaskService(user);
 
-        System.out.println("Nom du tableau :");
         clavier.nextLine();
+
+        System.out.println("Nom de la tâche :");
         String name = clavier.nextLine();
 
-        if (!name.equals("")) {
-            TaskService taskService = new TaskService(user);
+        System.out.println("Description de la tâche :");
+        String desc = clavier.nextLine();
 
-            Body body = new Body();
-            body.addValueToBody("", task.taskId + "");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+        Date deadline = null;
+        boolean isDate = true;
+        do {
+            try {
+                System.out.println("Deadline de la tâche :");
+                String saisie = clavier.nextLine();
+                if (!saisie.equals("")) {
+                    deadline = simpleDateFormat.parse(saisie);
+                }
+                isDate = true;
+            } catch (ParseException e) {
+                System.out.println("Veuillez saisir une date au format dd/MM/yyyy");
+                isDate = false;
+            }
+        } while (!isDate);
+
+        Body body = new Body();
+        body.addValueToBody("", task.taskId + "");
+        if (!name.equals(""))
             body.addValueToBody("name", name);
-            taskService.updateTask(body);
+        if (!desc.equals(""))
+            body.addValueToBody("description", desc);
+        if (deadline != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.FRANCE);
+            body.addValueToBody("deadline", sdf.format(deadline));
+        }
+        task = taskService.updateTask(body);
+
+        UserModel[] developers = user.getDevelopers(new Body());
+        String validation = "";
+        for (UserModel developer : developers) {
+            do {
+                validation = "";
+                System.out.println("Développeur : " + developer.name + " " + developer.firstname);
+                System.out.println("Voulez-vous assigner ce développeur à la tâche (o/n) :");
+                validation = clavier.nextLine();
+
+                if (!validation.toLowerCase(Locale.ROOT).equals("o") && !validation.toLowerCase(Locale.ROOT).equals("n")) {
+                    System.out.println("Veuillez saisir une valeur valide (o/n)");
+                    validation = "";
+                }
+
+                if (validation.toLowerCase(Locale.ROOT).equals("o")) {
+                    Body assignBody = new Body();
+                    assignBody.addValueToBody("taskId", task.taskId + "");
+                    assignBody.addValueToBody("userMail", developer.mail);
+                    taskService.assignUserToTask(assignBody);
+                }
+                else {
+                    Body unassignBody = new Body();
+                    unassignBody.addValueToBody("taskId", task.taskId + "");
+                    unassignBody.addValueToBody("userMail", developer.mail);
+                    taskService.unassignUserToTask(unassignBody);
+                }
+            } while (validation.equals(""));
         }
 
-        task.taskName = name;
-
-        TaskModel.printTaskListsAndActionMenu(task, window, user);
+        TaskModel.printTask(task, window, user, liste, board);
     }
 
-    public static void deleteTaskTreatment(Stage window, User user, Task task) throws IOException {
+    public static void deleteTaskTreatment(Task task, Liste liste, Stage window, User user, Board board) throws IOException {
 
         String validation = "";
         do {
-            System.out.println("Voulez-vous vraiment supprimer ce tableau (o/n) :");
-            clavier.nextLine();
+            System.out.println("Voulez-vous vraiment supprimer cette tâche (o/n) :");
             validation = clavier.nextLine();
 
             if (!validation.toLowerCase(Locale.ROOT).equals("o") && !validation.toLowerCase(Locale.ROOT).equals("n")) {
@@ -158,10 +229,9 @@ public class TaskModel {
             body.addValueToBody("", task.taskId + "");
             taskService.deleteTask(body);
 
-            TaskMenu taskMenu = new TaskMenu();
-            taskMenu.printTaskMenu(window, user);
+            ListeModel.printTaskListsAndActionMenu(liste, window, user, board);
         } else {
-            TaskModel.printTaskListsAndActionMenu(task, window, user);
+            TaskModel.printTask(task, window, user, liste, board);
         }
-    }*/
+    }
 }

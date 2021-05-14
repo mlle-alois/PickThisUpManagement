@@ -15,9 +15,9 @@ public class User {
 
 
     private static String Login = "auth/login";
-    private static String getBoards = "board";
-    private static String Logout ="auth/logout";
-    private static String getTasksFromList ="task/list";
+    private static String Logout = "auth/logout";
+    private static String getTasksFromList = "task/list";
+    private static String getAllDevelopers = "task/getAllDevelopers";
 
     public User() {
         this.clientUser = Client.getInstance();
@@ -29,9 +29,9 @@ public class User {
     }
 
     public boolean login(Body body) throws JsonProcessingException {
-        HttpResponse<String> response = databaseService.PostRequest(body,Login);
-        if(response.statusCode() < 300){
-            Map<String, Object> result = body.objectMapper.readValue(response.body(), new TypeReference<>(){
+        HttpResponse<String> response = databaseService.PostRequest(body, Login);
+        if (response.statusCode() < 300) {
+            Map<String, Object> result = body.objectMapper.readValue(response.body(), new TypeReference<>() {
             });
             token = String.valueOf(result.get("token"));
             return true;
@@ -40,21 +40,30 @@ public class User {
     }
 
     public boolean logout(Body body) throws JsonProcessingException {
-        if (databaseService.DeleteRequest(body,Logout)){
+        if (databaseService.DeleteRequest(body, Logout)) {
             token = "";
             return true;
-        };
+        }
+        ;
         return false;
     }
     // Get methods : If there's a positive reponse, => return a table of it
-                        // else return a empty table;
+    // else return a empty table;
 
-    public Task[] getTasksFromList (Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body,getTasksFromList);
+    public Task[] getTasksFromList(Body body) throws JsonProcessingException {
+        HttpResponse<String> result = databaseService.GetRequest(body, getTasksFromList);
         if (result.statusCode() < 300) {
             return body.objectMapper.readValue(result.body(), Task[].class);
         }
         return new Task[0];
+    }
+
+    public UserModel[] getDevelopers(Body body) throws JsonProcessingException {
+        HttpResponse<String> result = databaseService.GetRequest(body, getAllDevelopers);
+        if (result.statusCode() < 300) {
+            return body.objectMapper.readValue(result.body(), UserModel[].class);
+        }
+        return new UserModel[0];
     }
 }
 
