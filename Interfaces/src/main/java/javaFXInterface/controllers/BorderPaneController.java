@@ -4,6 +4,7 @@ import CLIInterface.Controllers.CLIInterfaceController;
 import Models.Board;
 import Models.Liste;
 import Models.StatusModel;
+import Models.Ticket;
 import Requete.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
@@ -165,11 +166,74 @@ public class BorderPaneController {
         return ticketsService.getTicketsStatus(body);
     }
 
+    private void setRightBorderPaneWithAddTicketButton(){
+        Button button = new Button("Ajouter un ticket");
+
+        EventHandler<ActionEvent> buttonAddHandler = event -> {
+
+            if(event.getSource() == button) {
+                Stage newStage;
+                Parent root = null;
+                Body body;
+                newStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddTicketToBoard.fxml"));
+
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+                AddTicketController popupController = loader.getController();
+                newStage.setScene(new Scene(root));
+                newStage.initModality(Modality.APPLICATION_MODAL);
+                newStage.initOwner(button.getScene().getWindow());
+                newStage.setTitle("PickThisUp");
+                newStage.getIcons().add(new Image("/logo.PNG"));
+                newStage.showAndWait();
+                // add the task to the database
+              /*  body = new Body();
+                body.addValueToBody("name",popupController.getName());
+                body.addValueToBody("description",popupController.getDescription());
+                body.addValueToBody("listId",String.valueOf(liste.listId));
+                TaskService taskService = new TaskService(user);
+                try {
+                    taskService.addTask(body);
+                    borderPaneController.setBorderPane();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }*/
+                event.consume();
+            }
+        };
+        button.setOnAction(buttonAddHandler);
+        borderPane.setRight(button);
+    }
     private MenuItem[] getBranchsTickets(String[] Tickets) {
         MenuItem[] tasksItems = new MenuItem[Tickets.length];
 
+
+
         for (int i = 0; i < Tickets.length; i++) {
             tasksItems[i] = new MenuItem(Tickets[i]);
+            Label newLabel = new Label(Tickets[i]);
+            // Create event for switching boards
+            EventHandler<ActionEvent> menuItemHandler = event -> {
+                MenuItem menuItemTemp = (MenuItem) event.getSource();
+                try {
+
+                    addTicketGridToCenter();
+                    borderPane.setLeft(newLabel);
+                    setRightBorderPaneWithAddTicketButton();
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+                event.consume();
+            };
+
+
+            tasksItems[i].setOnAction(menuItemHandler);
         }
 
         return tasksItems;
@@ -224,6 +288,13 @@ public class BorderPaneController {
         ScrollPaneWithList scrollPaneWithList = new ScrollPaneWithList(listes,user,this);
         borderPane.setCenter(scrollPaneWithList.getFullScrollPane());
 
+    }
+
+    private void addTicketGridToCenter() throws JsonProcessingException {
+        Body body = new Body();
+        Ticket[] tickets = ticketsService.getTickets(body);
+        ScrollPaneWithTickets scrollPaneWithTickets = new ScrollPaneWithTickets(tickets,user,this);
+        borderPane.setCenter(scrollPaneWithTickets.getFullScrollPane());
     }
 
     @FXML
