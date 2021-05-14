@@ -2,10 +2,7 @@ package javaFXInterface.controllers;
 
 import Models.Liste;
 import Models.Task;
-import Requete.Body;
-import Requete.ListService;
-import Requete.TaskService;
-import Requete.User;
+import Requete.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -59,9 +56,10 @@ public class VboxForList {
 
     private Task[] getTasksFromListe() throws JsonProcessingException {
         // Get all the tasks linked to the list
+        TaskService tasksService = new TaskService(user);
         Body body = new Body();
         body.addValueToBody("", String.valueOf(liste.listId));
-        return user.getTasksFromList(body);
+        return tasksService.getTasksFromList(body);
     }
 
     private void setVboxShape(int size) {
@@ -83,12 +81,8 @@ public class VboxForList {
         TextArea lblTextArea = getTitleWithEvent();
 
         newGrid.add(lblTextArea,0,0);
-       /* Label lbl = new Label(liste.listName);
-        newGrid.add(lbl, 0, 0);
-        lbl.setPrefSize(50, 50);*/
         // Initialisation requete
         ListService listService = new ListService(user);
-
 
         // Set Event when clicked from buttons
         EventHandler<ActionEvent> buttonModifHandler = event -> {
