@@ -1,5 +1,6 @@
 package CLIInterface.Models;
 
+import CLIInterface.Controllers.ListController;
 import CLIInterface.Controllers.TaskController;
 import Models.Board;
 import Models.Liste;
@@ -17,6 +18,14 @@ public class ListeModel {
 
     public static Scanner clavier = new Scanner(System.in);
 
+    /**
+     * affichage des tâches et des différentes actions possibles
+     * @param liste
+     * @param window
+     * @param user
+     * @param board
+     * @throws IOException
+     */
     public static void printTaskListsAndActionMenu(Liste liste, Stage window, User user, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
         Task[] tasks = taskController.getTasksFromList(liste.listId);
@@ -54,6 +63,16 @@ public class ListeModel {
         switchTaskListsAndActionMenu(value, window, user, liste, tasks, board);
     }
 
+    /**
+     * dirige vers la bonne action selon la valeur choisie
+     * @param value
+     * @param window
+     * @param user
+     * @param list
+     * @param tasks
+     * @param board
+     * @throws IOException
+     */
     public static void switchTaskListsAndActionMenu(int value, Stage window, User user, Liste list, Task[] tasks, Board board) throws IOException {
         if (value == tasks.length + 4) {
             BoardModel.printBoardListsAndActionMenu(board, window, user);
@@ -69,6 +88,13 @@ public class ListeModel {
         }
     }
 
+    /**
+     * affiche le traitement d'un ajout de liste
+     * @param window
+     * @param user
+     * @param board
+     * @throws IOException
+     */
     public static void addListTreatment(Stage window, User user, Board board) throws IOException {
         String name = "";
         do {
@@ -80,16 +106,20 @@ public class ListeModel {
             }
         } while (name.equals(""));
 
-        ListService listService = new ListService(user);
-
-        Body body = new Body();
-        body.addValueToBody("boardId", board.boardId + "");
-        body.addValueToBody("name", name);
-        listService.addListe(body);
+        ListController listController = new ListController(user);
+        listController.addListe(board.boardId, name);
 
         BoardModel.printBoardListsAndActionMenu(board, window, user);
     }
 
+    /**
+     * affiche le traitement d'une mise à jour de liste
+     * @param window
+     * @param user
+     * @param list
+     * @param board
+     * @throws IOException
+     */
     public static void updateListTreatment(Stage window, User user, Liste list, Board board) throws IOException {
 
         System.out.println("Nom de la liste :");
@@ -97,12 +127,8 @@ public class ListeModel {
         String name = clavier.nextLine();
 
         if (!name.equals("")) {
-            ListService listService = new ListService(user);
-
-            Body body = new Body();
-            body.addValueToBody("", list.listId + "");
-            body.addValueToBody("name", name);
-            listService.updateListe(body);
+            ListController listController = new ListController(user);
+            listController.updateListe(list.listId, name);
         }
 
         list.listName = name;
@@ -110,6 +136,14 @@ public class ListeModel {
         ListeModel.printTaskListsAndActionMenu(list, window, user, board);
     }
 
+    /**
+     * affiche le traitement d'une délétion de liste
+     * @param window
+     * @param user
+     * @param list
+     * @param board
+     * @throws IOException
+     */
     public static void deleteListTreatment(Stage window, User user, Liste list, Board board) throws IOException {
         String validation = "";
         do {
@@ -124,11 +158,8 @@ public class ListeModel {
         } while (validation.equals(""));
 
         if (validation.toLowerCase(Locale.ROOT).equals("o")) {
-            ListService listService = new ListService(user);
-
-            Body body = new Body();
-            body.addValueToBody("", list.listId + "");
-            listService.deleteListe(body);
+            ListController listController = new ListController(user);
+            listController.deleteListe(list.listId);
 
             BoardModel.printBoardListsAndActionMenu(board, window, user);
         } else {

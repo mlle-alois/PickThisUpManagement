@@ -11,6 +11,12 @@ public class ConnectionModel {
 
     public static Scanner clavier = new Scanner(System.in);
 
+    /**
+     * affichage du traitement de connexion
+     * @param window
+     * @param user
+     * @throws IOException
+     */
     public static void connectionTreatment(Stage window, User user) throws IOException {
         System.out.println("Mail :");
         String mail = clavier.next();

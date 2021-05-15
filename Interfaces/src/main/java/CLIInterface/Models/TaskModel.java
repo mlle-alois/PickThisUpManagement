@@ -15,6 +15,15 @@ public class TaskModel {
 
     public static Scanner clavier = new Scanner(System.in);
 
+    /**
+     * affiche le détail d'une tâche
+     * @param task
+     * @param window
+     * @param user
+     * @param liste
+     * @param board
+     * @throws IOException
+     */
     public static void printTask(Task task, Stage window, User user, Liste liste, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
         UserModel[] members = taskController.getMembersByTaskId(task.taskId);
@@ -32,6 +41,15 @@ public class TaskModel {
         printTaskActionsMenu(window, user, task, liste, board);
     }
 
+    /**
+     * affiche les actions possibles sur une tâche
+     * @param window
+     * @param user
+     * @param task
+     * @param liste
+     * @param board
+     * @throws IOException
+     */
     public static void printTaskActionsMenu(Stage window, User user, Task task, Liste liste, Board board) throws IOException {
         int value = -1;
 
@@ -56,6 +74,16 @@ public class TaskModel {
         switchTaskActionMenu(value, window, user, task, liste, board);
     }
 
+    /**
+     * dirige vers la bonne action selon la valeur choisie
+     * @param value
+     * @param window
+     * @param user
+     * @param task
+     * @param liste
+     * @param board
+     * @throws IOException
+     */
     public static void switchTaskActionMenu(int value, Stage window, User user, Task task, Liste liste, Board board) throws IOException {
         switch (value) {
             case 1:
@@ -69,6 +97,14 @@ public class TaskModel {
         }
     }
 
+    /**
+     * affiche le traitement d'ajout de tâche
+     * @param window
+     * @param user
+     * @param liste
+     * @param board
+     * @throws IOException
+     */
     public static void addTaskTreatment(Stage window, User user, Liste liste, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
         String name = "";
@@ -126,6 +162,15 @@ public class TaskModel {
         ListeModel.printTaskListsAndActionMenu(liste, window, user, board);
     }
 
+    /**
+     * affiche le traitement de modification de tâche
+     * @param window
+     * @param user
+     * @param task
+     * @param liste
+     * @param board
+     * @throws IOException
+     */
     public static void updateTaskTreatment(Stage window, User user, Task task, Liste liste, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
 
@@ -182,6 +227,15 @@ public class TaskModel {
         TaskModel.printTask(task, window, user, liste, board);
     }
 
+    /**
+     * affiche le traitement de délétion de tâche
+     * @param task
+     * @param liste
+     * @param window
+     * @param user
+     * @param board
+     * @throws IOException
+     */
     public static void deleteTaskTreatment(Task task, Liste liste, Stage window, User user, Board board) throws IOException {
 
         String validation = "";

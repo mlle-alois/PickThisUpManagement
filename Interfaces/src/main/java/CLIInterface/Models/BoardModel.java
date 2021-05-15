@@ -19,6 +19,13 @@ public class BoardModel {
 
     public static Scanner clavier = new Scanner(System.in);
 
+    /**
+     * affiche les listes et les différentes actions possibles
+     * @param board
+     * @param window
+     * @param user
+     * @throws IOException
+     */
     public static void printBoardListsAndActionMenu(Board board, Stage window, User user) throws IOException {
         ListService listService = new ListService(user);
 
@@ -60,6 +67,15 @@ public class BoardModel {
         switchBoardListsAndActionMenu(value, window, user, board, lists);
     }
 
+    /**
+     * dirige vers la bonne action selon la valeur choisie
+     * @param value
+     * @param window
+     * @param user
+     * @param board
+     * @param lists
+     * @throws IOException
+     */
     public static void switchBoardListsAndActionMenu(int value, Stage window, User user, Board board, Liste[] lists) throws IOException {
         if (value == lists.length + 4) {
             BoardMenu boardMenu = new BoardMenu();
@@ -77,6 +93,12 @@ public class BoardModel {
         }
     }
 
+    /**
+     * affichage du traitement d'un ajout de tableau
+     * @param window
+     * @param user
+     * @throws IOException
+     */
     public static void addBoardTreatment(Stage window, User user) throws IOException {
         String name = "";
         do {
@@ -95,6 +117,13 @@ public class BoardModel {
         boardMenu.printBoardMenu(window, user);
     }
 
+    /**
+     * affichage du traitement d'une mise à jour de tableau
+     * @param window
+     * @param user
+     * @param board
+     * @throws IOException
+     */
     public static void updateBoardTreatment(Stage window, User user, Board board) throws IOException {
 
         System.out.println("Nom du tableau :");
@@ -109,6 +138,13 @@ public class BoardModel {
         BoardModel.printBoardListsAndActionMenu(board, window, user);
     }
 
+    /**
+     * affichage du traitement de délétion de tableau
+     * @param window
+     * @param user
+     * @param board
+     * @throws IOException
+     */
     public static void deleteBoardTreatment(Stage window, User user, Board board) throws IOException {
 
         String validation = "";
