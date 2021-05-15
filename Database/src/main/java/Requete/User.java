@@ -16,8 +16,7 @@ public class User {
 
     private static String Login = "auth/login";
     private static String Logout = "auth/logout";
-    private static String getTasksFromList = "task/list";
-    private static String getAllDevelopers = "task/getAllDevelopers";
+    private static String getAllDevelopers = "user/getAllDevelopers";
 
     public User() {
         this.clientUser = Client.getInstance();
@@ -39,23 +38,13 @@ public class User {
         return false;
     }
 
-    public boolean logout(Body body) throws JsonProcessingException {
+    public boolean logout(Body body) {
         if (databaseService.DeleteRequest(body, Logout)) {
             token = "";
             return true;
         }
         ;
         return false;
-    }
-    // Get methods : If there's a positive reponse, => return a table of it
-    // else return a empty table;
-
-    public Task[] getTasksFromList(Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body, getTasksFromList);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Task[].class);
-        }
-        return new Task[0];
     }
 
     public UserModel[] getDevelopers(Body body) throws JsonProcessingException {
