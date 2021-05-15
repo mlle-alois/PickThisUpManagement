@@ -1,7 +1,7 @@
 package CLIInterface.Menu;
 
 import CLIInterface.Models.ConnectionModel;
-import Requete.UserService;
+import Services.UserService;
 import javaFXInterface.controllers.ContentPanelController;
 import Enum.InterfaceCode;
 import javafx.stage.Stage;

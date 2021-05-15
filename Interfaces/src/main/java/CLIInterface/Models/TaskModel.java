@@ -2,8 +2,8 @@ package CLIInterface.Models;
 
 import CLIInterface.Controllers.TaskController;
 import Models.*;
-import Requete.Body;
-import Requete.UserService;
+import Services.Body;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,11 +26,11 @@ public class TaskModel {
      */
     public static void printTask(Task task, Stage window, UserService user, Liste liste, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
-        UserModel[] members = taskController.getMembersByTaskId(task.taskId);
+        User[] members = taskController.getMembersByTaskId(task.taskId);
 
         StringBuilder membersName = new StringBuilder();
 
-        for (UserModel member : members) {
+        for (User member : members) {
             membersName.append(member.name).append(" ").append(member.firstname).append(", ");
         }
         System.out.println("Nom : " + task.taskName + " - Description : " + task.taskDescription +
@@ -139,9 +139,9 @@ public class TaskModel {
 
         Task task = taskController.addTask(name, desc, deadline, liste.listId);
 
-        UserModel[] developers = user.getDevelopers(new Body());
+        User[] developers = user.getDevelopers(new Body());
         String validation = "";
-        for (UserModel developer : developers) {
+        for (User developer : developers) {
             do {
                 validation = "";
                 System.out.println("Développeur : " + developer.name + " " + developer.firstname);
@@ -201,9 +201,9 @@ public class TaskModel {
 
         task = taskController.updateTask(task.taskId, name, desc,deadline);
 
-        UserModel[] developers = user.getDevelopers(new Body());
+        User[] developers = user.getDevelopers(new Body());
         String validation = "";
-        for (UserModel developer : developers) {
+        for (User developer : developers) {
             do {
                 validation = "";
                 System.out.println("Développeur : " + developer.name + " " + developer.firstname);

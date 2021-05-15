@@ -1,12 +1,12 @@
 package javaFXInterface.controllers;
 
 
-import Models.StatusModel;
+import Models.Status;
 import Models.Ticket;
-import Models.UserModel;
-import Requete.Body;
-import Requete.TicketService;
-import Requete.UserService;
+import Models.User;
+import Services.Body;
+import Services.TicketService;
+import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -34,7 +34,7 @@ public class HboxforTicket {
     private HBox hbox;
     private List<GridPane> gridPanes;
     private BorderPaneController borderPaneController;
-    private StatusModel[] status;
+    private Status[] status;
     private TicketService ticketService;
 
     @SneakyThrows
@@ -215,7 +215,7 @@ public class HboxforTicket {
     private String getMembersString(){
         StringBuilder membersString = new StringBuilder();
 
-        UserModel[] members = getuserModelsMembers();
+        User[] members = getuserModelsMembers();
         for (int i = 0; i < members.length; i++){
             membersString.append(members[i].firstname);
             if(i != members.length-1)
@@ -224,9 +224,9 @@ public class HboxforTicket {
         return membersString.toString();
     }
 
-    private UserModel[] getuserModelsMembers() throws JsonProcessingException {
+    private User[] getuserModelsMembers() throws JsonProcessingException {
         Body body = new Body();
-        UserModel[] members = ticketService.getMembersByTicketId(body, ticket.ticketId);
+        User[] members = ticketService.getMembersByTicketId(body, ticket.ticketId);
         return members;
     }
 

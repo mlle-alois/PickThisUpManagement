@@ -3,9 +3,9 @@ package javaFXInterface.controllers;
 import CLIInterface.Controllers.CLIInterfaceController;
 import Models.Board;
 import Models.Liste;
-import Models.StatusModel;
+import Models.Status;
 import Models.Ticket;
-import Requete.*;
+import Services.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -157,7 +157,7 @@ public class BorderPaneController {
     // Ticket Parts
 
     private String[] parseTickets() throws JsonProcessingException {
-        StatusModel[] Tickets = getTickets(user);
+        Status[] Tickets = getTickets(user);
         String[] allTickets = new String[Tickets.length + 1];
 
         allTickets[0] = TOUS_LES_TICKETS;
@@ -168,7 +168,7 @@ public class BorderPaneController {
         return allTickets;
     }
 
-    public StatusModel[] getTickets(UserService user) throws JsonProcessingException {
+    public Status[] getTickets(UserService user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
         return ticketService.getTicketsStatus(body);

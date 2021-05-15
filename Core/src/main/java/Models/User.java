@@ -1,6 +1,6 @@
 package Models;
 
-public class UserModel {
+public class User {
     public String mail;
     public String password;
     public String name;

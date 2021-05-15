@@ -3,7 +3,7 @@ package CLIInterface.Controllers;
 import CLIInterface.Menu.ConnectionMenu;
 import CLIInterface.Menu.GeneralMenu;
 import Enum.InterfaceCode;
-import Requete.UserService;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;

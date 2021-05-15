@@ -1,4 +1,4 @@
-package Requete;
+package Services;
 
 import Models.Board;
 import com.fasterxml.jackson.core.JsonProcessingException;

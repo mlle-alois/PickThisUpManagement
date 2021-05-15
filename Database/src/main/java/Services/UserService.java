@@ -1,4 +1,4 @@
-package Requete;
+package Services;
 
 import Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,12 +47,12 @@ public class UserService {
         return false;
     }
 
-    public UserModel[] getDevelopers(Body body) throws JsonProcessingException {
+    public User[] getDevelopers(Body body) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getAllDevelopers);
         if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), UserModel[].class);
+            return body.objectMapper.readValue(result.body(), User[].class);
         }
-        return new UserModel[0];
+        return new User[0];
     }
 }
 

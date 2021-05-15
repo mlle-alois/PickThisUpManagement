@@ -1,9 +1,9 @@
 package CLIInterface.Controllers;
 
 import Models.Board;
-import Requete.BoardService;
-import Requete.Body;
-import Requete.UserService;
+import Services.BoardService;
+import Services.Body;
+import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class BoardController {

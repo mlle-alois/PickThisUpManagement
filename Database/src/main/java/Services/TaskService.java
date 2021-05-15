@@ -1,7 +1,7 @@
-package Requete;
+package Services;
 
 import Models.Task;
-import Models.UserModel;
+import Models.User;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.net.http.HttpResponse;
@@ -50,12 +50,12 @@ public class TaskService {
         return databaseService.DeleteRequest(body, deleteTask);
     }
 
-    public UserModel[] getMembersByTaskId(Body body, Integer taskId) throws JsonProcessingException {
+    public User[] getMembersByTaskId(Body body, Integer taskId) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getMembersByTaskId + taskId);
         if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), UserModel[].class);
+            return body.objectMapper.readValue(result.body(), User[].class);
         }
-        return new UserModel[0];
+        return new User[0];
     }
 
     public Task assignUserToTask(Body body) throws JsonProcessingException {

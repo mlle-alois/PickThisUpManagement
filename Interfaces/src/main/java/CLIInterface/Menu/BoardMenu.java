@@ -3,7 +3,7 @@ package CLIInterface.Menu;
 import CLIInterface.Controllers.BoardController;
 import CLIInterface.Models.BoardModel;
 import Models.Board;
-import Requete.UserService;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;

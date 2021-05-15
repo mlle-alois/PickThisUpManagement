@@ -3,7 +3,7 @@ package Models;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-public class StatusModel {
+public class Status {
     public int statusId;
     public String statusLibelle;
 }

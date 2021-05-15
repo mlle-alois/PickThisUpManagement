@@ -2,8 +2,8 @@ package javaFXInterface.controllers;
 
 import Models.Liste;
 import Models.Task;
-import Requete.Body;
-import Requete.TaskService;
+import Services.Body;
+import Services.TaskService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

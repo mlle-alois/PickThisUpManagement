@@ -1,4 +1,4 @@
-package Requete;
+package Services;
 
 import Models.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -51,20 +51,20 @@ public class TicketService {
         databaseService.PutRequest(body, updateTicket);
     }
 
-    public StatusModel[] getTicketsStatus(Body body) throws JsonProcessingException {
+    public Status[] getTicketsStatus(Body body) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getStatus);
         if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), StatusModel[].class);
+            return body.objectMapper.readValue(result.body(), Status[].class);
         }
-        return new StatusModel[0];
+        return new Status[0];
     }
 
-    public UserModel[] getMembersByTicketId(Body body, Integer ticketId) throws JsonProcessingException {
+    public User[] getMembersByTicketId(Body body, Integer ticketId) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getMembersByTicketId + ticketId);
         if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), UserModel[].class);
+            return body.objectMapper.readValue(result.body(), User[].class);
         }
-        return new UserModel[0];
+        return new User[0];
     }
 
     public Ticket[] getTicketsByStatus(Body body) throws JsonProcessingException {

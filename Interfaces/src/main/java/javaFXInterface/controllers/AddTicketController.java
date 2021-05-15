@@ -1,7 +1,7 @@
 package javaFXInterface.controllers;
 
-import Models.StatusModel;
-import Models.UserModel;
+import Models.Status;
+import Models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -76,10 +76,10 @@ public class AddTicketController {
     public int getStatus() {
         return status;
     }
-    public void setStatusChoiceBox(StatusModel[] statusModels,int currentStatus){
-        statusChoiceBox.setValue(statusModels[currentStatus-1].statusLibelle);
+    public void setStatusChoiceBox(Status[] statuses, int currentStatus){
+        statusChoiceBox.setValue(statuses[currentStatus-1].statusLibelle);
         for (int i = 0; i < 3;i++){
-            statusChoiceBox.getItems().add(statusModels[i].statusLibelle);
+            statusChoiceBox.getItems().add(statuses[i].statusLibelle);
         }
     };
 
@@ -87,7 +87,7 @@ public class AddTicketController {
         return members;
     }
 
-    public void setMembers(UserModel[] members) {
+    public void setMembers(User[] members) {
         for(int i = 0; i < members.length;i++){
             TextField label = new TextField(members[i].firstname);
             membersVbox.getChildren().add(label);

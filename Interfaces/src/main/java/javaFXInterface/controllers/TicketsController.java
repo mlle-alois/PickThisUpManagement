@@ -1,9 +1,9 @@
 package javaFXInterface.controllers;
 
 import Models.Ticket;
-import Requete.Body;
-import Requete.TicketService;
-import Requete.UserService;
+import Services.Body;
+import Services.TicketService;
+import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;

@@ -1,10 +1,10 @@
 package CLIInterface.Controllers;
 
 import Models.Task;
-import Models.UserModel;
-import Requete.Body;
-import Requete.TaskService;
-import Requete.UserService;
+import Models.User;
+import Services.Body;
+import Services.TaskService;
+import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.text.SimpleDateFormat;
@@ -41,7 +41,7 @@ public class TaskController {
      * @return
      * @throws JsonProcessingException
      */
-    public UserModel[] getMembersByTaskId(Integer taskId) throws JsonProcessingException {
+    public User[] getMembersByTaskId(Integer taskId) throws JsonProcessingException {
         return taskService.getMembersByTaskId(new Body(), taskId);
     }
 

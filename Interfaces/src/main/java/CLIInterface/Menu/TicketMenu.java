@@ -3,9 +3,9 @@ package CLIInterface.Menu;
 import CLIInterface.Controllers.TicketController;
 import CLIInterface.Models.TicketsModel;
 import Models.Ticket;
-import Requete.Body;
-import Requete.TicketService;
-import Requete.UserService;
+import Services.Body;
+import Services.TicketService;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
