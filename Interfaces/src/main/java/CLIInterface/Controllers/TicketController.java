@@ -99,7 +99,7 @@ public class TicketController {
      */
     public void closeTicket(Integer ticketId) throws JsonProcessingException {
         Body body = new Body();
-        body.addValueToBody("",String.valueOf(ticketId));
+        body.addValueToBody("", String.valueOf(ticketId));
 
         ticketsService.closeTicket(body);
     }

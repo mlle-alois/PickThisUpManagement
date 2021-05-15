@@ -4,7 +4,6 @@ import CLIInterface.Controllers.BoardController;
 import CLIInterface.Menu.BoardMenu;
 import Models.Board;
 import Models.Liste;
-import Requete.BoardService;
 import Requete.Body;
 import Requete.ListService;
 import Requete.User;
@@ -89,11 +88,8 @@ public class BoardModel {
             }
         } while (name.equals(""));
 
-        BoardService boardService = new BoardService(user);
-
-        Body body = new Body();
-        body.addValueToBody("name", name);
-        boardService.addBoard(body);
+        BoardController boardController = new BoardController(user);
+        boardController.addBoard(name);
 
         BoardMenu boardMenu = new BoardMenu();
         boardMenu.printBoardMenu(window, user);
@@ -106,15 +102,9 @@ public class BoardModel {
         String name = clavier.nextLine();
 
         if (!name.equals("")) {
-            BoardService boardService = new BoardService(user);
-
-            Body body = new Body();
-            body.addValueToBody("", board.boardId + "");
-            body.addValueToBody("name", name);
-            boardService.updateBoard(body);
+            BoardController boardController = new BoardController(user);
+            board = boardController.updateBoard(board.boardId, name);
         }
-
-        board.boardName = name;
 
         BoardModel.printBoardListsAndActionMenu(board, window, user);
     }
@@ -134,11 +124,8 @@ public class BoardModel {
         } while (validation.equals(""));
 
         if (validation.toLowerCase(Locale.ROOT).equals("o")) {
-            BoardService boardService = new BoardService(user);
-
-            Body body = new Body();
-            body.addValueToBody("", board.boardId + "");
-            boardService.deleteBoard(body);
+            BoardController boardController = new BoardController(user);
+            boardController.deleteBoard(board.boardId);
 
             BoardMenu boardMenu = new BoardMenu();
             boardMenu.printBoardMenu(window, user);

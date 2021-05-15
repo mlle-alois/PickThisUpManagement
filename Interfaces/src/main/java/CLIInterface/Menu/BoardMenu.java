@@ -3,8 +3,6 @@ package CLIInterface.Menu;
 import CLIInterface.Controllers.BoardController;
 import CLIInterface.Models.BoardModel;
 import Models.Board;
-import Requete.BoardService;
-import Requete.Body;
 import Requete.User;
 import javafx.stage.Stage;
 
@@ -47,8 +45,8 @@ public class BoardMenu {
     }
 
     public void switchBoardMenu(int value, Stage window, User user) throws IOException {
-        BoardService boardService = new BoardService(user);
-        Board[] boards = boardService.getBoards(new Body());
+        BoardController boardController = new BoardController(user);
+        Board[] boards = boardController.getBoards();
 
         if (value == boards.length + 2) {
             GeneralMenu.printGeneralMenu(window, user);
