@@ -4,8 +4,6 @@ import CLIInterface.Controllers.TicketController;
 import CLIInterface.Menu.TicketMenu;
 import Models.Ticket;
 import Models.UserModel;
-import Requete.Body;
-import Requete.TicketsService;
 import Requete.User;
 import javafx.stage.Stage;
 
@@ -125,7 +123,6 @@ public class TicketsModel {
      * @throws IOException
      */
     public static void switchTicketActionMenu(int value, Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
-        TicketMenu ticketMenu = new TicketMenu();
         switch (value) {
             case 1:
                 updateTicketTreatment(window, user, tickets, ticket, status);
@@ -228,20 +225,11 @@ public class TicketsModel {
         System.out.println("Description du ticket :");
         desc = clavier.nextLine();
 
-        TicketsService ticketsService = new TicketsService(user);
+        TicketController ticketController = new TicketController(user);
 
-        Body body = new Body();
-        body.addValueToBody("name", name);
-        body.addValueToBody("description", desc);
-        ticketsService.addTicket(body);
+        ticketController.addTicket(name, desc);
 
-        Body statusBody = new Body();
-        if (!status.equals("")) {
-            statusBody.addValueToBody("status", status);
-            tickets = ticketsService.getTicketsByStatus(statusBody);
-        } else {
-            tickets = ticketsService.getTickets(statusBody);
-        }
+        tickets = ticketController.getTicketsByStatus(status);
         TicketsModel.printTickets(tickets, window, user, status);
     }
 
@@ -281,18 +269,11 @@ public class TicketsModel {
      * @throws IOException
      */
     public static void closureTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
-        TicketsService ticketsService = new TicketsService(user);
-        Body body = new Body();
-        body.addValueToBody("",String.valueOf(ticket.ticketId));
-        ticketsService.closeTicket(body);
+        TicketController ticketController = new TicketController(user);
 
-        Body statusBody = new Body();
-        if (!status.equals("")) {
-            statusBody.addValueToBody("status", status);
-            tickets = ticketsService.getTicketsByStatus(statusBody);
-        } else {
-            tickets = ticketsService.getTickets(statusBody);
-        }
+        ticketController.closeTicket(ticket.ticketId);
+
+        tickets = ticketController.getTicketsByStatus(status);
         TicketsModel.printTickets(tickets, window, user, status);
     }
 
@@ -306,18 +287,10 @@ public class TicketsModel {
      * @throws IOException
      */
     public static void reopenTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
-        TicketsService ticketsService = new TicketsService(user);
-        Body body = new Body();
-        body.addValueToBody("",String.valueOf(ticket.ticketId));
-        ticketsService.reopenTicket(body);
+        TicketController ticketController = new TicketController(user);
+        ticketController.reopenTicket(ticket.ticketId);
 
-        Body statusBody = new Body();
-        if (!status.equals("")) {
-            statusBody.addValueToBody("status", status);
-            tickets = ticketsService.getTicketsByStatus(statusBody);
-        } else {
-            tickets = ticketsService.getTickets(statusBody);
-        }
+        tickets = ticketController.getTicketsByStatus(status);
         TicketsModel.printTickets(tickets, window, user, status);
     }
 
@@ -331,18 +304,10 @@ public class TicketsModel {
      * @throws IOException
      */
     public static void archiveTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
-        TicketsService ticketsService = new TicketsService(user);
-        Body body = new Body();
-        body.addValueToBody("",String.valueOf(ticket.ticketId));
-        ticketsService.archiveTicket(body);
+        TicketController ticketController = new TicketController(user);
+        ticketController.archiveTicket(ticket.ticketId);
 
-        Body statusBody = new Body();
-        if (!status.equals("")) {
-            statusBody.addValueToBody("status", status);
-            tickets = ticketsService.getTicketsByStatus(statusBody);
-        } else {
-            tickets = ticketsService.getTickets(statusBody);
-        }
+        tickets = ticketController.getTicketsByStatus(status);
         TicketsModel.printTickets(tickets, window, user, status);
     }
 
@@ -367,23 +332,10 @@ public class TicketsModel {
         System.out.println("Description du ticket :");
         desc = clavier.nextLine();
 
-        TicketsService ticketsService = new TicketsService(user);
+        TicketController ticketController = new TicketController(user);
+        ticketController.updateTicket(ticket.ticketId, name, desc);
 
-        Body body = new Body();
-        if(!name.equals(""))
-            body.addValueToBody("name", name);
-        if(!desc.equals(""))
-            body.addValueToBody("description", desc);
-        body.addValueToBody("",String.valueOf(ticket.ticketId));
-        ticketsService.updateTicket(body);
-
-        Body statusBody = new Body();
-        if (!status.equals("")) {
-            statusBody.addValueToBody("status", status);
-            tickets = ticketsService.getTicketsByStatus(statusBody);
-        } else {
-            tickets = ticketsService.getTickets(statusBody);
-        }
+        tickets = ticketController.getTicketsByStatus(status);
         TicketsModel.printTickets(tickets, window, user, status);
     }
 }

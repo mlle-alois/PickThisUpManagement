@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class CLIInterfaceController {
 
-    public static void setContentPaneByInterfaceCode(InterfaceCode interfaceCode, Stage window, User user) throws IOException {
+    public static void setPrintByInterfaceCode(InterfaceCode interfaceCode, Stage window, User user) throws IOException {
         switch (interfaceCode) {
             case CONNECTION -> {
                 ConnectionMenu.printMenu(window, user);

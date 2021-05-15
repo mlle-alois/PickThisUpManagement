@@ -13,6 +13,14 @@ public class ConnectionController {
 
     private static String errorConnection = "La connexion a échoué";
 
+    /**
+     * Connexion d'un utilisateur
+     * @param mail
+     * @param password
+     * @param window
+     * @param user
+     * @throws IOException
+     */
     public void connection(String mail, String password, Stage window, User user) throws IOException {
 
         user = new Requete.User();

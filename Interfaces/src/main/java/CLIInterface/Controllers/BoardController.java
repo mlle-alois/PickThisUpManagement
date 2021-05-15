@@ -14,12 +14,23 @@ public class BoardController {
         this.user = user;
     }
 
+    /**
+     * récupération de tous les tableaux
+     * @param user
+     * @return
+     * @throws JsonProcessingException
+     */
     public Board[] getBoards(User user) throws JsonProcessingException {
         BoardService boardService = new BoardService(user);
 
         return boardService.getBoards(new Body());
     }
 
+    /**
+     * récupération de tous les champs qui seront présents dans le menu des tableaux
+     * @return
+     * @throws JsonProcessingException
+     */
     public String[] parseBoards() throws JsonProcessingException {
         Board[] boards = getBoards(user);
         String[] allBoars = new String[boards.length + 1];

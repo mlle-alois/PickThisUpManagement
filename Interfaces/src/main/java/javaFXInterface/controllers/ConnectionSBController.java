@@ -98,7 +98,7 @@ public class ConnectionSBController {
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setOpacity(0);
         stage.setAlwaysOnTop(false);
-        CLIInterfaceController.setContentPaneByInterfaceCode(CONNECTION, stage, user);
+        CLIInterfaceController.setPrintByInterfaceCode(CONNECTION, stage, user);
     }
 
 
