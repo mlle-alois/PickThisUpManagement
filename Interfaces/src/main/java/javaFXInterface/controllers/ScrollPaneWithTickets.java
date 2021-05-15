@@ -1,8 +1,7 @@
 package javaFXInterface.controllers;
 
-import Models.Liste;
 import Models.Ticket;
-import Requete.User;
+import Requete.UserService;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
@@ -11,11 +10,11 @@ import javafx.scene.layout.HBox;
 public class ScrollPaneWithTickets {
     private ScrollPane scrollPane;
     private GridPane mainPane;
-    private User user;
+    private UserService user;
     private BorderPaneController borderPaneController;
     private Ticket[] tickets;
 
-    public ScrollPaneWithTickets(Ticket[] tickets, User user, BorderPaneController borderPaneController){
+    public ScrollPaneWithTickets(Ticket[] tickets, UserService user, BorderPaneController borderPaneController){
         this.tickets = tickets;
         this.scrollPane = new ScrollPane();
         this.mainPane = new GridPane();

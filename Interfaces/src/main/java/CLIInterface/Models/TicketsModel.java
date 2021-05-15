@@ -4,7 +4,7 @@ import CLIInterface.Controllers.TicketController;
 import CLIInterface.Menu.TicketMenu;
 import Models.Ticket;
 import Models.UserModel;
-import Requete.User;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class TicketsModel {
      * @param user
      * @throws IOException
      */
-    public static void printTickets(Ticket[] tickets, Stage window, User user, String status) throws IOException {
+    public static void printTickets(Ticket[] tickets, Stage window, UserService user, String status) throws IOException {
         TicketController ticketController = new TicketController(user);
         int i = 1;
         for (Ticket ticket : tickets) {
@@ -53,7 +53,7 @@ public class TicketsModel {
      * @param user
      * @throws IOException
      */
-    public static void printTicket(Ticket[] tickets, int value, Stage window, User user, String status) throws IOException {
+    public static void printTicket(Ticket[] tickets, int value, Stage window, UserService user, String status) throws IOException {
         TicketController ticketController = new TicketController(user);
 
         Ticket ticket = tickets[value - 1];
@@ -80,7 +80,7 @@ public class TicketsModel {
      * @param tickets
      * @throws IOException
      */
-    public static void printTicketActionsMenu(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
+    public static void printTicketActionsMenu(Stage window, UserService user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         int value = -1;
 
         do {
@@ -122,7 +122,7 @@ public class TicketsModel {
      * @param tickets
      * @throws IOException
      */
-    public static void switchTicketActionMenu(int value, Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
+    public static void switchTicketActionMenu(int value, Stage window, UserService user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         switch (value) {
             case 1:
                 updateTicketTreatment(window, user, tickets, ticket, status);
@@ -155,7 +155,7 @@ public class TicketsModel {
      * @param tickets
      * @throws IOException
      */
-    public static void printTicketsActionsMenu(Stage window, User user, Ticket[] tickets, String status) throws IOException {
+    public static void printTicketsActionsMenu(Stage window, UserService user, Ticket[] tickets, String status) throws IOException {
         int value = -1;
 
         do {
@@ -188,7 +188,7 @@ public class TicketsModel {
      * @param tickets
      * @throws IOException
      */
-    public static void switchTicketsActionMenu(int value, Stage window, User user, Ticket[] tickets, String status) throws IOException {
+    public static void switchTicketsActionMenu(int value, Stage window, UserService user, Ticket[] tickets, String status) throws IOException {
         TicketMenu ticketMenu = new TicketMenu();
         switch (value) {
             case 1:
@@ -210,7 +210,7 @@ public class TicketsModel {
      * @param tickets
      * @throws IOException
      */
-    public static void addTicketTreatment(Stage window, User user, Ticket[] tickets, String status) throws IOException {
+    public static void addTicketTreatment(Stage window, UserService user, Ticket[] tickets, String status) throws IOException {
         String name = "";
         String desc = "";
         do {
@@ -241,7 +241,7 @@ public class TicketsModel {
      * @param tickets
      * @throws IOException
      */
-    public static void selectTicketTreatment(Stage window, User user, Ticket[] tickets, String status) throws IOException {
+    public static void selectTicketTreatment(Stage window, UserService user, Ticket[] tickets, String status) throws IOException {
         int value = -1;
         do {
             try {
@@ -268,7 +268,7 @@ public class TicketsModel {
      * @param ticket
      * @throws IOException
      */
-    public static void closureTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
+    public static void closureTicketTreatment(Stage window, UserService user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         TicketController ticketController = new TicketController(user);
 
         ticketController.closeTicket(ticket.ticketId);
@@ -286,7 +286,7 @@ public class TicketsModel {
      * @param ticket
      * @throws IOException
      */
-    public static void reopenTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
+    public static void reopenTicketTreatment(Stage window, UserService user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         TicketController ticketController = new TicketController(user);
         ticketController.reopenTicket(ticket.ticketId);
 
@@ -303,7 +303,7 @@ public class TicketsModel {
      * @param ticket
      * @throws IOException
      */
-    public static void archiveTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
+    public static void archiveTicketTreatment(Stage window, UserService user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         TicketController ticketController = new TicketController(user);
         ticketController.archiveTicket(ticket.ticketId);
 
@@ -320,7 +320,7 @@ public class TicketsModel {
      * @param ticket
      * @throws IOException
      */
-    public static void updateTicketTreatment(Stage window, User user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
+    public static void updateTicketTreatment(Stage window, UserService user, Ticket[] tickets, Ticket ticket, String status) throws IOException {
         String name = "";
         String desc = "";
 

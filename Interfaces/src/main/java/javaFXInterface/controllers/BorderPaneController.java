@@ -56,15 +56,15 @@ public class BorderPaneController {
 
     public Board currentBoard;
     public String currentStatusTicket;
-    private TicketsService ticketsService;
+    private TicketService ticketService;
     private ListService listService;
     private BoardService boardService;
     private Node boardPaneRight;
 
 
 
-    private User user;
-    public User getUser() {
+    private UserService user;
+    public UserService getUser() {
         return user;
     }
 
@@ -76,9 +76,9 @@ public class BorderPaneController {
     }
 
     @SneakyThrows
-    public void initialize(User user) {
+    public void initialize(UserService user) {
         this.user = user;
-        this.ticketsService = new TicketsService(user);
+        this.ticketService = new TicketService(user);
         this.listService = new ListService(user);
         this.boardService = new BoardService(user);
 
@@ -168,10 +168,10 @@ public class BorderPaneController {
         return allTickets;
     }
 
-    public StatusModel[] getTickets(User user) throws JsonProcessingException {
+    public StatusModel[] getTickets(UserService user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return ticketsService.getTicketsStatus(body);
+        return ticketService.getTicketsStatus(body);
     }
 
     public void setRightBorderPaneWithAddTicketButton(){
@@ -208,7 +208,7 @@ public class BorderPaneController {
                 body.addValueToBody("description",popupController.getDescription());
                 body.addValueToBody("statusId","1");
                 try {
-                    ticketsService.addTicket(body);
+                    ticketService.addTicket(body);
                     addTicketGridToCenter();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -305,11 +305,11 @@ public class BorderPaneController {
         Body body = new Body();
         Ticket[] tickets;
         if (currentStatusTicket == TOUS_LES_TICKETS){
-            tickets = ticketsService.getTickets(body);
+            tickets = ticketService.getTickets(body);
         }
         else{
             body.addValueToBody("status",String.valueOf(currentStatusTicket));
-            tickets = ticketsService.getTicketsByStatus(body);
+            tickets = ticketService.getTicketsByStatus(body);
         }
         ScrollPaneWithTickets scrollPaneWithTickets = new ScrollPaneWithTickets(tickets,user,this);
         borderPane.setCenter(scrollPaneWithTickets.getFullScrollPane());

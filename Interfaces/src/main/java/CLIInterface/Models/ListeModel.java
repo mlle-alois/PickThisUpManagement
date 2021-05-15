@@ -26,7 +26,7 @@ public class ListeModel {
      * @param board
      * @throws IOException
      */
-    public static void printTaskListsAndActionMenu(Liste liste, Stage window, User user, Board board) throws IOException {
+    public static void printTaskListsAndActionMenu(Liste liste, Stage window, UserService user, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
         Task[] tasks = taskController.getTasksFromList(liste.listId);
 
@@ -73,7 +73,7 @@ public class ListeModel {
      * @param board
      * @throws IOException
      */
-    public static void switchTaskListsAndActionMenu(int value, Stage window, User user, Liste list, Task[] tasks, Board board) throws IOException {
+    public static void switchTaskListsAndActionMenu(int value, Stage window, UserService user, Liste list, Task[] tasks, Board board) throws IOException {
         if (value == tasks.length + 4) {
             BoardModel.printBoardListsAndActionMenu(board, window, user);
         } else if (value == tasks.length + 1) {
@@ -95,7 +95,7 @@ public class ListeModel {
      * @param board
      * @throws IOException
      */
-    public static void addListTreatment(Stage window, User user, Board board) throws IOException {
+    public static void addListTreatment(Stage window, UserService user, Board board) throws IOException {
         String name = "";
         do {
             System.out.println("Nom de la liste :");
@@ -120,7 +120,7 @@ public class ListeModel {
      * @param board
      * @throws IOException
      */
-    public static void updateListTreatment(Stage window, User user, Liste list, Board board) throws IOException {
+    public static void updateListTreatment(Stage window, UserService user, Liste list, Board board) throws IOException {
 
         System.out.println("Nom de la liste :");
         clavier.nextLine();
@@ -144,7 +144,7 @@ public class ListeModel {
      * @param board
      * @throws IOException
      */
-    public static void deleteListTreatment(Stage window, User user, Liste list, Board board) throws IOException {
+    public static void deleteListTreatment(Stage window, UserService user, Liste list, Board board) throws IOException {
         String validation = "";
         do {
             System.out.println("Voulez-vous vraiment supprimer cette liste (o/n) :");

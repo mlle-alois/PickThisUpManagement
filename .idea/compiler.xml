@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Interfaces" />
         <module name="Database" />
-        <module name="Controller" />
         <module name="Application" />
         <module name="JavaFX-Interface" />
         <module name="Core" />
@@ -17,6 +16,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="CLI-Interface" target="15" />
+      <module name="Controller" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,7 +1,7 @@
 package CLIInterface.Menu;
 
 import Requete.Body;
-import Requete.User;
+import Requete.UserService;
 import javaFXInterface.controllers.ContentPanelController;
 import javafx.stage.Stage;
 
@@ -16,7 +16,7 @@ public class GeneralMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printGeneralMenu(Stage window, User user) throws IOException {
+    public static void printGeneralMenu(Stage window, UserService user) throws IOException {
         int value = -1;
         do {
             try {
@@ -41,7 +41,7 @@ public class GeneralMenu {
         GeneralMenu.switchGeneralMenu(value, window, user);
     }
 
-    public static void switchGeneralMenu(int value, Stage window, User user) throws IOException {
+    public static void switchGeneralMenu(int value, Stage window, UserService user) throws IOException {
         BoardMenu boardMenu = new BoardMenu();
         TicketMenu ticketMenu = new TicketMenu();
         switch (value) {

@@ -13,11 +13,8 @@ public class ContentPanelController {
             case CONNECTION -> {
                 connectionSBController.switchToConnectionUML("/Connection.fxml", window);
             }
-            case BOARD -> {
+            case BOARD, TICKET -> {
                 connectionSBController.switchToUML("/BorderPaneBoard.fxml", window);
-            }
-            case TICKET -> {
-                //TODO
             }
         }
     }

@@ -31,13 +31,13 @@ public class ConnectionSBController {
     @FXML
     PasswordField testAreaPassword;
 
-    private User user;
+    private UserService user;
 
     private static String errorConnection = "La connexion a échoué";
 
     public void connection(ActionEvent event) throws IOException {
 
-        this.user = new Requete.User();
+        this.user = new UserService();
 
         var loginBody = new Requete.Body();
         loginBody.addValueToBody("mail", textAreaId.getText());
@@ -50,7 +50,7 @@ public class ConnectionSBController {
         }
     }
 
-    public void switchToScene(ActionEvent event, String ScenePath, User user) throws IOException {
+    public void switchToScene(ActionEvent event, String ScenePath, UserService user) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(ScenePath));
 
         root = loader.load();

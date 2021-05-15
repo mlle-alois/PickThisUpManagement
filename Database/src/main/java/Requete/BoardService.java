@@ -14,7 +14,7 @@ public class BoardService {
     private static final String deleteBoard = "board";
     private static final String updateBoard = "board";
 
-    public BoardService(User user) {
+    public BoardService(UserService user) {
         this.databaseService = new DatabaseService(user);
     }
 

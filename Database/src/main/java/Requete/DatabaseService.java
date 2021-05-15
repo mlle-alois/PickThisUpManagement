@@ -11,14 +11,14 @@ import java.net.http.HttpResponse;
 public class DatabaseService {
 
     private final HttpClient httpClient;
-    private final User user;
+    private final UserService user;
 
     private static final String Authorization = "Authorization";
     private static final String Bearer = "Bearer ";
     private static final String ContentType = "Content-Type";
     private static final String app_json = "application/json";
 
-    public DatabaseService(User user) {
+    public DatabaseService(UserService user) {
         this.httpClient = Client.getInstance();
         this.user = user;
     }

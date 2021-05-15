@@ -2,8 +2,8 @@ package javaFXInterface.controllers;
 
 import Models.Ticket;
 import Requete.Body;
-import Requete.TicketsService;
-import Requete.User;
+import Requete.TicketService;
+import Requete.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.fxml.FXML;
 import javafx.scene.control.TreeItem;
@@ -14,15 +14,15 @@ public class TicketsController {
     @FXML
     private TreeView treeTickets;
 
-    private final TicketsService ticketsService;
+    private final TicketService ticketService;
     private String currentBoard;
 
-    public TicketsController(User user) {
-        this.ticketsService = new TicketsService(user);
+    public TicketsController(UserService user) {
+        this.ticketService = new TicketService(user);
     }
 
     @SneakyThrows
-    public void initialize(User user) {
+    public void initialize(UserService user) {
 
         TreeItem<String> rootBoard = new TreeItem<>("Tickets");
 
@@ -36,7 +36,7 @@ public class TicketsController {
     public Ticket[] getTickets() throws JsonProcessingException {
         Body body = new Body();
 
-        return ticketsService.getTickets(body);
+        return ticketService.getTickets(body);
     }
 
     private String[] parseTickets() throws JsonProcessingException {

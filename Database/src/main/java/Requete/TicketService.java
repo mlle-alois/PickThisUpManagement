@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.net.http.HttpResponse;
 
-public class TicketsService {
+public class TicketService {
 
     private final DatabaseService databaseService;
 
@@ -19,7 +19,7 @@ public class TicketsService {
     private static final String reopenTicket = "ticket/open";
     private static final String updateTicket = "ticket/update";
 
-    public TicketsService(User user) {
+    public TicketService(UserService user) {
         this.databaseService = new DatabaseService(user);
     }
 

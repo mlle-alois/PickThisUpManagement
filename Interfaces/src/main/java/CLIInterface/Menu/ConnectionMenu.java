@@ -1,7 +1,7 @@
 package CLIInterface.Menu;
 
 import CLIInterface.Models.ConnectionModel;
-import Requete.User;
+import Requete.UserService;
 import javaFXInterface.controllers.ContentPanelController;
 import Enum.InterfaceCode;
 import javafx.stage.Stage;
@@ -15,7 +15,7 @@ public class ConnectionMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public static void printMenu(Stage window, User user) throws IOException {
+    public static void printMenu(Stage window, UserService user) throws IOException {
         int value = -1;
         do {
             try {
@@ -41,7 +41,7 @@ public class ConnectionMenu {
         ConnectionMenu.switchMenu(value, window, user);
     }
 
-    public static void switchMenu(int value, Stage window, User user) throws IOException {
+    public static void switchMenu(int value, Stage window, UserService user) throws IOException {
         switch (value) {
             case 1 -> {
                 ConnectionModel.connectionTreatment(window, user);

@@ -6,7 +6,7 @@ import Models.Board;
 import Models.Liste;
 import Requete.Body;
 import Requete.ListService;
-import Requete.User;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -26,7 +26,7 @@ public class BoardModel {
      * @param user
      * @throws IOException
      */
-    public static void printBoardListsAndActionMenu(Board board, Stage window, User user) throws IOException {
+    public static void printBoardListsAndActionMenu(Board board, Stage window, UserService user) throws IOException {
         ListService listService = new ListService(user);
 
         Body body = new Body();
@@ -76,7 +76,7 @@ public class BoardModel {
      * @param lists
      * @throws IOException
      */
-    public static void switchBoardListsAndActionMenu(int value, Stage window, User user, Board board, Liste[] lists) throws IOException {
+    public static void switchBoardListsAndActionMenu(int value, Stage window, UserService user, Board board, Liste[] lists) throws IOException {
         if (value == lists.length + 4) {
             BoardMenu boardMenu = new BoardMenu();
             boardMenu.printBoardMenu(window, user);
@@ -99,7 +99,7 @@ public class BoardModel {
      * @param user
      * @throws IOException
      */
-    public static void addBoardTreatment(Stage window, User user) throws IOException {
+    public static void addBoardTreatment(Stage window, UserService user) throws IOException {
         String name = "";
         do {
             System.out.println("Nom du nouveau tableau :");
@@ -124,7 +124,7 @@ public class BoardModel {
      * @param board
      * @throws IOException
      */
-    public static void updateBoardTreatment(Stage window, User user, Board board) throws IOException {
+    public static void updateBoardTreatment(Stage window, UserService user, Board board) throws IOException {
 
         System.out.println("Nom du tableau :");
         clavier.nextLine();
@@ -145,7 +145,7 @@ public class BoardModel {
      * @param board
      * @throws IOException
      */
-    public static void deleteBoardTreatment(Stage window, User user, Board board) throws IOException {
+    public static void deleteBoardTreatment(Stage window, UserService user, Board board) throws IOException {
 
         String validation = "";
         do {

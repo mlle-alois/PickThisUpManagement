@@ -15,7 +15,7 @@ public class StatusService {
     private static final String getStatus = "ticket/status";
     private static final String getTicketsForStatus = "ticket/getByStatus/";
 
-    public StatusService(User user) {
+    public StatusService(UserService user) {
         this.databaseService = new DatabaseService(user);
     }
 

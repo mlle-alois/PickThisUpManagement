@@ -15,7 +15,7 @@ public class ListService {
     private static String updateList = "list/update";
     private static String deleteList = "list/";
 
-    public ListService(User user) {
+    public ListService(UserService user) {
         this.databaseService = new DatabaseService(user);
     }
 

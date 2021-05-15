@@ -3,14 +3,14 @@ package CLIInterface.Controllers;
 import CLIInterface.Menu.ConnectionMenu;
 import CLIInterface.Menu.GeneralMenu;
 import Enum.InterfaceCode;
-import Requete.User;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class CLIInterfaceController {
 
-    public static void setPrintByInterfaceCode(InterfaceCode interfaceCode, Stage window, User user) throws IOException {
+    public static void setPrintByInterfaceCode(InterfaceCode interfaceCode, Stage window, UserService user) throws IOException {
         switch (interfaceCode) {
             case CONNECTION -> {
                 ConnectionMenu.printMenu(window, user);

@@ -1,8 +1,7 @@
 package javaFXInterface.controllers;
 
 import Models.Liste;
-import Requete.Body;
-import Requete.User;
+import Requete.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
@@ -13,10 +12,10 @@ public class ScrollPaneWithList {
     private Liste[] listes;
     private ScrollPane scrollPane;
     private GridPane mainPane;
-    private User user;
+    private UserService user;
     private BorderPaneController borderPaneController;
 
-    public ScrollPaneWithList(Liste[] listes, User user,BorderPaneController borderPaneController){
+    public ScrollPaneWithList(Liste[] listes, UserService user, BorderPaneController borderPaneController){
         this.listes = listes;
         this.scrollPane = new ScrollPane();
         this.mainPane = new GridPane();

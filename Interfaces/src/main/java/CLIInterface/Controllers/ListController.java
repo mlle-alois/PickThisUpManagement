@@ -1,24 +1,17 @@
 package CLIInterface.Controllers;
 
 import Models.Liste;
-import Models.Task;
-import Models.UserModel;
 import Requete.Body;
 import Requete.ListService;
-import Requete.TaskService;
-import Requete.User;
+import Requete.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class ListController {
 
-    private final User user;
+    private final UserService user;
     private final ListService listService;
 
-    public ListController(User user) {
+    public ListController(UserService user) {
         this.user = user;
         this.listService = new ListService(user);
     }
@@ -51,6 +44,12 @@ public class ListController {
         return listService.updateListe(body);
     }
 
+    /**
+     * suppression de liste
+     * @param listId
+     * @return
+     * @throws JsonProcessingException
+     */
     public boolean deleteListe(Integer listId) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("", String.valueOf(listId));

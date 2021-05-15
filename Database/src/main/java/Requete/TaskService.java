@@ -18,7 +18,7 @@ public class TaskService {
     private static final String assignUserToTask = "task/assign";
     private static final String unassignUserToTask = "task/unassign";
 
-    public TaskService(User user) {
+    public TaskService(UserService user) {
         this.databaseService = new DatabaseService(user);
     }
 

@@ -8,7 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpResponse;
 import java.util.Map;
 
-public class User {
+public class UserService {
     public HttpClient clientUser;
     public String token;
     public DatabaseService databaseService;
@@ -18,7 +18,7 @@ public class User {
     private static String Logout = "auth/logout";
     private static String getAllDevelopers = "user/getAllDevelopers";
 
-    public User() {
+    public UserService() {
         this.clientUser = Client.getInstance();
         this.databaseService = new DatabaseService(this);
     }

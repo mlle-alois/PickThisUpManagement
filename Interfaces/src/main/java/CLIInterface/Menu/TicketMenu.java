@@ -4,8 +4,8 @@ import CLIInterface.Controllers.TicketController;
 import CLIInterface.Models.TicketsModel;
 import Models.Ticket;
 import Requete.Body;
-import Requete.TicketsService;
-import Requete.User;
+import Requete.TicketService;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class TicketMenu {
      * @param user
      * @throws IOException
      */
-    public void printTicketsStatusMenu(Stage window, User user) throws IOException {
+    public void printTicketsStatusMenu(Stage window, UserService user) throws IOException {
         int value = -1;
         TicketController menuController = new TicketController(user);
 
@@ -52,14 +52,14 @@ public class TicketMenu {
         this.switchTicketsStatusMenu(value, window, user);
     }
 
-    public void switchTicketsStatusMenu(int value, Stage window, User user) throws IOException {
-        TicketsService ticketsService = new TicketsService(user);
+    public void switchTicketsStatusMenu(int value, Stage window, UserService user) throws IOException {
+        TicketService ticketService = new TicketService(user);
 
         if(value == ticketsStatus.length + 1) {
             GeneralMenu.printGeneralMenu(window, user);
         }
         else if (value == 1){
-            Ticket[] tickets = ticketsService.getTickets(new Body());
+            Ticket[] tickets = ticketService.getTickets(new Body());
             TicketsModel.printTickets(tickets, window, user, "");
         }
         else {
@@ -67,7 +67,7 @@ public class TicketMenu {
             String status = ticketsStatus[value - 1];
             body.addValueToBody("status", status);
 
-            Ticket[] tickets = ticketsService.getTicketsByStatus(body);
+            Ticket[] tickets = ticketService.getTicketsByStatus(body);
 
             TicketsModel.printTickets(tickets, window, user, status);
         }

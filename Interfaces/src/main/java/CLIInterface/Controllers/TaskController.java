@@ -4,7 +4,7 @@ import Models.Task;
 import Models.UserModel;
 import Requete.Body;
 import Requete.TaskService;
-import Requete.User;
+import Requete.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.text.SimpleDateFormat;
@@ -13,10 +13,10 @@ import java.util.Locale;
 
 public class TaskController {
 
-    private final User user;
+    private final UserService user;
     private final TaskService taskService;
 
-    public TaskController(User user) {
+    public TaskController(UserService user) {
         this.user = user;
         this.taskService = new TaskService(user);
     }

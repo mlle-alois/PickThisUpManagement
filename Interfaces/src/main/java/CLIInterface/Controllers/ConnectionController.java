@@ -3,7 +3,7 @@ package CLIInterface.Controllers;
 import CLIInterface.Menu.ConnectionMenu;
 import CLIInterface.Menu.GeneralMenu;
 import Requete.Body;
-import Requete.User;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,9 +21,9 @@ public class ConnectionController {
      * @param user
      * @throws IOException
      */
-    public void connection(String mail, String password, Stage window, User user) throws IOException {
+    public void connection(String mail, String password, Stage window, UserService user) throws IOException {
 
-        user = new Requete.User();
+        user = new UserService();
 
         var loginBody = new Body();
         loginBody.addValueToBody("mail", mail);

@@ -4,17 +4,17 @@ import Models.StatusModel;
 import Models.Ticket;
 import Models.UserModel;
 import Requete.Body;
-import Requete.TicketsService;
-import Requete.User;
+import Requete.TicketService;
+import Requete.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class TicketController {
 
-    private final User user;
-    private final TicketsService ticketsService;
+    private final UserService user;
+    private final TicketService ticketService;
 
-    public TicketController(User user) {
-        this.ticketsService = new TicketsService(user);
+    public TicketController(UserService user) {
+        this.ticketService = new TicketService(user);
         this.user = user;
     }
 
@@ -43,10 +43,10 @@ public class TicketController {
      * @return
      * @throws JsonProcessingException
      */
-    public StatusModel[] getTicketsStatus(User user) throws JsonProcessingException {
+    public StatusModel[] getTicketsStatus(UserService user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return ticketsService.getTicketsStatus(body);
+        return ticketService.getTicketsStatus(body);
     }
 
     /**
@@ -58,7 +58,7 @@ public class TicketController {
      */
     public UserModel[] getMembersByTicketId(Integer ticketId) throws JsonProcessingException {
         Body body = new Body();
-        return ticketsService.getMembersByTicketId(body, ticketId);
+        return ticketService.getMembersByTicketId(body, ticketId);
     }
 
     /**
@@ -71,7 +71,7 @@ public class TicketController {
         Body body = new Body();
         body.addValueToBody("name", name);
         body.addValueToBody("description", desc);
-        ticketsService.addTicket(body);
+        ticketService.addTicket(body);
     }
 
     /**
@@ -85,9 +85,9 @@ public class TicketController {
         Body statusBody = new Body();
         if (!status.equals("")) {
             statusBody.addValueToBody("status", status);
-            tickets = ticketsService.getTicketsByStatus(statusBody);
+            tickets = ticketService.getTicketsByStatus(statusBody);
         } else {
-            tickets = ticketsService.getTickets(statusBody);
+            tickets = ticketService.getTickets(statusBody);
         }
         return tickets;
     }
@@ -101,19 +101,19 @@ public class TicketController {
         Body body = new Body();
         body.addValueToBody("", String.valueOf(ticketId));
 
-        ticketsService.closeTicket(body);
+        ticketService.closeTicket(body);
     }
 
     public void archiveTicket(Integer ticketId) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("",String.valueOf(ticketId));
-        ticketsService.archiveTicket(body);
+        ticketService.archiveTicket(body);
     }
 
     public void reopenTicket(Integer ticketId) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("",String.valueOf(ticketId));
-        ticketsService.reopenTicket(body);
+        ticketService.reopenTicket(body);
     }
 
     public void updateTicket(Integer ticketId, String name, String desc) throws JsonProcessingException {
@@ -123,6 +123,6 @@ public class TicketController {
         if(!desc.equals(""))
             body.addValueToBody("description", desc);
         body.addValueToBody("",String.valueOf(ticketId));
-        ticketsService.updateTicket(body);
+        ticketService.updateTicket(body);
     }
 }

@@ -3,7 +3,7 @@ package CLIInterface.Models;
 import CLIInterface.Controllers.TaskController;
 import Models.*;
 import Requete.Body;
-import Requete.User;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,7 +24,7 @@ public class TaskModel {
      * @param board
      * @throws IOException
      */
-    public static void printTask(Task task, Stage window, User user, Liste liste, Board board) throws IOException {
+    public static void printTask(Task task, Stage window, UserService user, Liste liste, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
         UserModel[] members = taskController.getMembersByTaskId(task.taskId);
 
@@ -50,7 +50,7 @@ public class TaskModel {
      * @param board
      * @throws IOException
      */
-    public static void printTaskActionsMenu(Stage window, User user, Task task, Liste liste, Board board) throws IOException {
+    public static void printTaskActionsMenu(Stage window, UserService user, Task task, Liste liste, Board board) throws IOException {
         int value = -1;
 
         do {
@@ -84,7 +84,7 @@ public class TaskModel {
      * @param board
      * @throws IOException
      */
-    public static void switchTaskActionMenu(int value, Stage window, User user, Task task, Liste liste, Board board) throws IOException {
+    public static void switchTaskActionMenu(int value, Stage window, UserService user, Task task, Liste liste, Board board) throws IOException {
         switch (value) {
             case 1:
                 updateTaskTreatment(window, user, task, liste, board);
@@ -105,7 +105,7 @@ public class TaskModel {
      * @param board
      * @throws IOException
      */
-    public static void addTaskTreatment(Stage window, User user, Liste liste, Board board) throws IOException {
+    public static void addTaskTreatment(Stage window, UserService user, Liste liste, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
         String name = "";
         do {
@@ -171,7 +171,7 @@ public class TaskModel {
      * @param board
      * @throws IOException
      */
-    public static void updateTaskTreatment(Stage window, User user, Task task, Liste liste, Board board) throws IOException {
+    public static void updateTaskTreatment(Stage window, UserService user, Task task, Liste liste, Board board) throws IOException {
         TaskController taskController = new TaskController(user);
 
         clavier.nextLine();
@@ -236,7 +236,7 @@ public class TaskModel {
      * @param board
      * @throws IOException
      */
-    public static void deleteTaskTreatment(Task task, Liste liste, Stage window, User user, Board board) throws IOException {
+    public static void deleteTaskTreatment(Task task, Liste liste, Stage window, UserService user, Board board) throws IOException {
 
         String validation = "";
         do {

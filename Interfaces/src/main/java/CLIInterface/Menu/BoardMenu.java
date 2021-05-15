@@ -3,7 +3,7 @@ package CLIInterface.Menu;
 import CLIInterface.Controllers.BoardController;
 import CLIInterface.Models.BoardModel;
 import Models.Board;
-import Requete.User;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class BoardMenu {
 
     public static Scanner clavier = new Scanner(System.in);
 
-    public void printBoardMenu(Stage window, User user) throws IOException {
+    public void printBoardMenu(Stage window, UserService user) throws IOException {
         int value = -1;
         BoardController boardController = new BoardController(user);
 
@@ -44,7 +44,7 @@ public class BoardMenu {
         this.switchBoardMenu(value, window, user);
     }
 
-    public void switchBoardMenu(int value, Stage window, User user) throws IOException {
+    public void switchBoardMenu(int value, Stage window, UserService user) throws IOException {
         BoardController boardController = new BoardController(user);
         Board[] boards = boardController.getBoards();
 

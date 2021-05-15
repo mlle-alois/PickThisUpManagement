@@ -1,8 +1,5 @@
 package Requete;
 
-import Models.Liste;
-import Models.Task;
-
 import java.io.IOException;
 
 public class PostRequest {
@@ -10,7 +7,7 @@ public class PostRequest {
     public static void main(String[] args) throws IOException {
 
 
-        User user = new User();
+        UserService user = new UserService();
 
         var testBody = new Body();
         testBody.addValueToBody("mail", "IchaiDev");

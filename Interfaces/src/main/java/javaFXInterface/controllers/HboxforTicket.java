@@ -5,8 +5,8 @@ import Models.StatusModel;
 import Models.Ticket;
 import Models.UserModel;
 import Requete.Body;
-import Requete.TicketsService;
-import Requete.User;
+import Requete.TicketService;
+import Requete.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,20 +30,20 @@ import java.util.List;
 
 public class HboxforTicket {
     private Ticket ticket;
-    private User user;
+    private UserService user;
     private HBox hbox;
     private List<GridPane> gridPanes;
     private BorderPaneController borderPaneController;
     private StatusModel[] status;
-    private TicketsService ticketsService;
+    private TicketService ticketService;
 
     @SneakyThrows
-    public HboxforTicket(Ticket ticket, User user, BorderPaneController borderPaneController){
+    public HboxforTicket(Ticket ticket, UserService user, BorderPaneController borderPaneController){
         this.ticket = ticket;
         this.user = user;
         this.borderPaneController = borderPaneController;
         this.hbox = new HBox();
-        this.ticketsService = new TicketsService(user);
+        this.ticketService = new TicketService(user);
         fetchStatus();
     }
 
@@ -108,7 +108,7 @@ public class HboxforTicket {
             //    body.addValueToBody("listId",String.valueOf(liste.listId));
 
                 try {
-                    ticketsService.updateTicket(body);
+                    ticketService.updateTicket(body);
                     updateStatus (popupController);
                     borderPaneController.addTicketGridToCenter();
                 } catch (JsonProcessingException e) {
@@ -128,13 +128,13 @@ public class HboxforTicket {
         body.addValueToBody("",String.valueOf(ticket.ticketId));
         switch (popupController.getStatus()){
             case 0:
-                ticketsService.reopenTicket(body);
+                ticketService.reopenTicket(body);
                 break;
             case 1:
-                ticketsService.closeTicket(body);
+                ticketService.closeTicket(body);
                 break;
             case 2:
-                ticketsService.archiveTicket(body);
+                ticketService.archiveTicket(body);
                 break;
         }
     }
@@ -154,7 +154,7 @@ public class HboxforTicket {
             try {
                 Body body = new Body();
                 body.addValueToBody("",String.valueOf(ticket.ticketId));
-                      ticketsService.archiveTicket(body);
+                      ticketService.archiveTicket(body);
                     borderPaneController.addTicketGridToCenter();
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
@@ -170,7 +170,7 @@ public class HboxforTicket {
             try {
                 Body body = new Body();
                 body.addValueToBody("",String.valueOf(ticket.ticketId));
-                ticketsService.closeTicket(body);
+                ticketService.closeTicket(body);
                 borderPaneController.addTicketGridToCenter();
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
@@ -226,7 +226,7 @@ public class HboxforTicket {
 
     private UserModel[] getuserModelsMembers() throws JsonProcessingException {
         Body body = new Body();
-        UserModel[] members = ticketsService.getMembersByTicketId(body, ticket.ticketId);
+        UserModel[] members = ticketService.getMembersByTicketId(body, ticket.ticketId);
         return members;
     }
 
@@ -241,7 +241,7 @@ public class HboxforTicket {
 
     private void fetchStatus() throws JsonProcessingException {
         Body body = new Body();
-        status = ticketsService.getTicketsStatus(body);
+        status = ticketService.getTicketsStatus(body);
     }
 
     private void addCreationDate(){

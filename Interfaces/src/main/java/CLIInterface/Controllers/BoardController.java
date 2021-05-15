@@ -3,15 +3,15 @@ package CLIInterface.Controllers;
 import Models.Board;
 import Requete.BoardService;
 import Requete.Body;
-import Requete.User;
+import Requete.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class BoardController {
 
-    private final User user;
+    private final UserService user;
     private final BoardService boardService;
 
-    public BoardController(User user) {
+    public BoardController(UserService user) {
         this.user = user;
         this.boardService = new BoardService(user);
     }

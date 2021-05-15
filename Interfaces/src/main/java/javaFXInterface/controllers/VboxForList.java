@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -28,13 +27,13 @@ import java.util.List;
 
 public class VboxForList {
     private Liste liste;
-    private User user;
+    private UserService user;
     private VBox vbox;
     private Task[] tasks;
     private List<GridPane> gridPanes;
     private BorderPaneController borderPaneController;
 
-    public VboxForList(Liste liste,User user,BorderPaneController borderPaneController){
+    public VboxForList(Liste liste, UserService user, BorderPaneController borderPaneController){
         this.liste = liste;
         this.user = user;
         this.vbox = new VBox();

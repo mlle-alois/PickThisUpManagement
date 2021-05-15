@@ -1,7 +1,7 @@
 package CLIInterface.Models;
 
 import CLIInterface.Controllers.ConnectionController;
-import Requete.User;
+import Requete.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -17,7 +17,7 @@ public class ConnectionModel {
      * @param user
      * @throws IOException
      */
-    public static void connectionTreatment(Stage window, User user) throws IOException {
+    public static void connectionTreatment(Stage window, UserService user) throws IOException {
         System.out.println("Mail :");
         String mail = clavier.next();
         System.out.println("Mot de passe :");
