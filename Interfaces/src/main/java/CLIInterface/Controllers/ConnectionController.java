@@ -2,8 +2,8 @@ package CLIInterface.Controllers;
 
 import CLIInterface.Menu.ConnectionMenu;
 import CLIInterface.Menu.GeneralMenu;
-import Requete.Body;
-import Requete.UserService;
+import Services.Body;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;

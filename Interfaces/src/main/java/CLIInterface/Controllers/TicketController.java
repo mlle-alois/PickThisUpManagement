@@ -1,11 +1,11 @@
 package CLIInterface.Controllers;
 
-import Models.StatusModel;
+import Models.Status;
 import Models.Ticket;
-import Models.UserModel;
-import Requete.Body;
-import Requete.TicketService;
-import Requete.UserService;
+import Models.User;
+import Services.Body;
+import Services.TicketService;
+import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class TicketController {
@@ -25,7 +25,7 @@ public class TicketController {
      * @throws JsonProcessingException
      */
     public String[] parseTickets() throws JsonProcessingException {
-        StatusModel[] Tickets = getTicketsStatus(user);
+        Status[] Tickets = getTicketsStatus(user);
         String[] allTickets = new String[Tickets.length + 1];
 
         allTickets[0] = "Tous les tickets";
@@ -43,7 +43,7 @@ public class TicketController {
      * @return
      * @throws JsonProcessingException
      */
-    public StatusModel[] getTicketsStatus(UserService user) throws JsonProcessingException {
+    public Status[] getTicketsStatus(UserService user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
         return ticketService.getTicketsStatus(body);
@@ -56,7 +56,7 @@ public class TicketController {
      * @return
      * @throws JsonProcessingException
      */
-    public UserModel[] getMembersByTicketId(Integer ticketId) throws JsonProcessingException {
+    public User[] getMembersByTicketId(Integer ticketId) throws JsonProcessingException {
         Body body = new Body();
         return ticketService.getMembersByTicketId(body, ticketId);
     }

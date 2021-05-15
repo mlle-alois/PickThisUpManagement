@@ -3,8 +3,8 @@ package CLIInterface.Models;
 import CLIInterface.Controllers.TicketController;
 import CLIInterface.Menu.TicketMenu;
 import Models.Ticket;
-import Models.UserModel;
-import Requete.UserService;
+import Models.User;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -28,10 +28,10 @@ public class TicketsModel {
         TicketController ticketController = new TicketController(user);
         int i = 1;
         for (Ticket ticket : tickets) {
-            UserModel[] members = ticketController.getMembersByTicketId(ticket.ticketId);
+            User[] members = ticketController.getMembersByTicketId(ticket.ticketId);
             StringBuilder membersName = new StringBuilder();
 
-            for (UserModel member : members) {
+            for (User member : members) {
                 membersName.append(member.name).append(" ").append(member.firstname).append(", ");
             }
             System.out.println(i + "/ Nom : " + ticket.ticketName + " - Date d'ouverture : " + ticket.ticketCreationDate +
@@ -58,10 +58,10 @@ public class TicketsModel {
 
         Ticket ticket = tickets[value - 1];
 
-        UserModel[] members = ticketController.getMembersByTicketId(ticket.ticketId);
+        User[] members = ticketController.getMembersByTicketId(ticket.ticketId);
         StringBuilder membersName = new StringBuilder();
 
-        for (UserModel member : members) {
+        for (User member : members) {
             membersName.append(member.name).append(" ").append(member.firstname).append(", ");
         }
         System.out.println("Nom : " + ticket.ticketName + " - Description : " + ticket.ticketDescription +

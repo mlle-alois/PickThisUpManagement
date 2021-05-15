@@ -4,9 +4,9 @@ import CLIInterface.Controllers.BoardController;
 import CLIInterface.Menu.BoardMenu;
 import Models.Board;
 import Models.Liste;
-import Requete.Body;
-import Requete.ListService;
-import Requete.UserService;
+import Services.Body;
+import Services.ListService;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;

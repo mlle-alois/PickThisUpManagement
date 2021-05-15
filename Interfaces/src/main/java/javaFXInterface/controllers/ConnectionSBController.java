@@ -1,7 +1,7 @@
 package javaFXInterface.controllers;
 
 import CLIInterface.Controllers.CLIInterfaceController;
-import Requete.*;
+import Services.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +39,7 @@ public class ConnectionSBController {
 
         this.user = new UserService();
 
-        var loginBody = new Requete.Body();
+        var loginBody = new Services.Body();
         loginBody.addValueToBody("mail", textAreaId.getText());
         loginBody.addValueToBody("password", testAreaPassword.getText());
 

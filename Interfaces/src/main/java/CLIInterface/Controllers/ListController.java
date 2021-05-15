@@ -1,9 +1,9 @@
 package CLIInterface.Controllers;
 
 import Models.Liste;
-import Requete.Body;
-import Requete.ListService;
-import Requete.UserService;
+import Services.Body;
+import Services.ListService;
+import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public class ListController {

@@ -1,7 +1,7 @@
 package CLIInterface.Models;
 
 import CLIInterface.Controllers.ConnectionController;
-import Requete.UserService;
+import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
