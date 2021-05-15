@@ -1,7 +1,7 @@
 package CLIInterface.Models;
 
+import CLIInterface.Controllers.TaskController;
 import Models.*;
-import Requete.TaskService;
 import Requete.Body;
 import Requete.User;
 import javafx.stage.Stage;
@@ -16,9 +16,9 @@ public class TaskModel {
     public static Scanner clavier = new Scanner(System.in);
 
     public static void printTask(Task task, Stage window, User user, Liste liste, Board board) throws IOException {
-        TaskService taskService = new TaskService(user);
+        TaskController taskController = new TaskController(user);
+        UserModel[] members = taskController.getMembersByTaskId(task.taskId);
 
-        UserModel[] members = taskService.getMembersByTaskId(new Body(), task.taskId);
         StringBuilder membersName = new StringBuilder();
 
         for (UserModel member : members) {
@@ -70,7 +70,7 @@ public class TaskModel {
     }
 
     public static void addTaskTreatment(Stage window, User user, Liste liste, Board board) throws IOException {
-        TaskService taskService = new TaskService(user);
+        TaskController taskController = new TaskController(user);
         String name = "";
         do {
             System.out.println("Nom de la tâche :");
@@ -101,15 +101,7 @@ public class TaskModel {
             }
         } while (!isDate);
 
-        Body body = new Body();
-        body.addValueToBody("name", name);
-        body.addValueToBody("description", desc);
-        if (deadline != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.FRANCE);
-            body.addValueToBody("deadline", sdf.format(deadline));
-        }
-        body.addValueToBody("listId", liste.listId + "");
-        Task task = taskService.addTask(body);
+        Task task = taskController.addTask(name, desc, deadline, liste.listId);
 
         UserModel[] developers = user.getDevelopers(new Body());
         String validation = "";
@@ -126,10 +118,7 @@ public class TaskModel {
                 }
 
                 if (validation.toLowerCase(Locale.ROOT).equals("o")) {
-                    Body assignBody = new Body();
-                    assignBody.addValueToBody("taskId", task.taskId + "");
-                    assignBody.addValueToBody("userMail", developer.mail);
-                    taskService.assignUserToTask(assignBody);
+                    taskController.assignUserToTask(task.taskId, developer.mail);
                 }
             } while (validation.equals(""));
         }
@@ -138,7 +127,7 @@ public class TaskModel {
     }
 
     public static void updateTaskTreatment(Stage window, User user, Task task, Liste liste, Board board) throws IOException {
-        TaskService taskService = new TaskService(user);
+        TaskController taskController = new TaskController(user);
 
         clavier.nextLine();
 
@@ -165,17 +154,7 @@ public class TaskModel {
             }
         } while (!isDate);
 
-        Body body = new Body();
-        body.addValueToBody("", task.taskId + "");
-        if (!name.equals(""))
-            body.addValueToBody("name", name);
-        if (!desc.equals(""))
-            body.addValueToBody("description", desc);
-        if (deadline != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.FRANCE);
-            body.addValueToBody("deadline", sdf.format(deadline));
-        }
-        task = taskService.updateTask(body);
+        task = taskController.updateTask(task.taskId, name, desc,deadline);
 
         UserModel[] developers = user.getDevelopers(new Body());
         String validation = "";
@@ -192,16 +171,10 @@ public class TaskModel {
                 }
 
                 if (validation.toLowerCase(Locale.ROOT).equals("o")) {
-                    Body assignBody = new Body();
-                    assignBody.addValueToBody("taskId", task.taskId + "");
-                    assignBody.addValueToBody("userMail", developer.mail);
-                    taskService.assignUserToTask(assignBody);
+                    taskController.assignUserToTask(task.taskId, developer.mail);
                 }
                 else {
-                    Body unassignBody = new Body();
-                    unassignBody.addValueToBody("taskId", task.taskId + "");
-                    unassignBody.addValueToBody("userMail", developer.mail);
-                    taskService.unassignUserToTask(unassignBody);
+                    taskController.unassignUserToTask(task.taskId, developer.mail);
                 }
             } while (validation.equals(""));
         }
@@ -223,11 +196,8 @@ public class TaskModel {
         } while (validation.equals(""));
 
         if (validation.toLowerCase(Locale.ROOT).equals("o")) {
-            TaskService taskService = new TaskService(user);
-
-            Body body = new Body();
-            body.addValueToBody("", task.taskId + "");
-            taskService.deleteTask(body);
+            TaskController taskController = new TaskController(user);
+            taskController.deleteTask(task.taskId);
 
             ListeModel.printTaskListsAndActionMenu(liste, window, user, board);
         } else {

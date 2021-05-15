@@ -1,5 +1,6 @@
 package CLIInterface.Models;
 
+import CLIInterface.Controllers.TaskController;
 import Models.Board;
 import Models.Liste;
 import Models.Task;
@@ -17,14 +18,10 @@ public class ListeModel {
     public static Scanner clavier = new Scanner(System.in);
 
     public static void printTaskListsAndActionMenu(Liste liste, Stage window, User user, Board board) throws IOException {
-        TaskService taskService = new TaskService(user);
-
-        Body body = new Body();
-        body.addValueToBody("", String.valueOf(liste.listId));
-        Task[] tasks = taskService.getTasksFromList(body);
+        TaskController taskController = new TaskController(user);
+        Task[] tasks = taskController.getTasksFromList(liste.listId);
 
         int value = -1;
-
         do {
             try {
                 List<String> menu = new ArrayList<>();

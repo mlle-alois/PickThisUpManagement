@@ -1,6 +1,5 @@
 package Requete;
 
-import Models.Board;
 import Models.Task;
 import Models.UserModel;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -11,7 +10,6 @@ public class TaskService {
 
     private final DatabaseService databaseService;
 
-    private static String getTask = "task/get";
     private static String deleteTask = "task/delete";
     private static String updateTask = "task/update";
     private static String getTasksFromList = "task/list";
@@ -41,8 +39,8 @@ public class TaskService {
     }
 
     public Task updateTask(Body body) throws JsonProcessingException {
-        HttpResponse<String> response = databaseService.PutRequest(body,updateTask);
-        if(response.statusCode() < 300){
+        HttpResponse<String> response = databaseService.PutRequest(body, updateTask);
+        if (response.statusCode() < 300) {
             return body.objectMapper.readValue(response.body(), Task.class);
         }
         return new Task();
