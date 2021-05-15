@@ -4,12 +4,14 @@ import CLIInterface.Controllers.TicketController;
 import CLIInterface.Menu.TicketMenu;
 import Models.Ticket;
 import Models.User;
+import Services.Body;
 import Services.UserService;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class TicketsModel {
@@ -214,6 +216,8 @@ public class TicketsModel {
         String name = "";
         String desc = "";
         do {
+            clavier.nextLine();
+
             System.out.println("Nom du ticket :");
             name = clavier.nextLine();
 
@@ -226,8 +230,27 @@ public class TicketsModel {
         desc = clavier.nextLine();
 
         TicketController ticketController = new TicketController(user);
+        Ticket ticket = ticketController.addTicket(name, desc);
 
-        ticketController.addTicket(name, desc);
+        User[] developers = user.getDevelopers(new Body());
+        String validation = "";
+        for (User developer : developers) {
+            do {
+                validation = "";
+                System.out.println("Développeur : " + developer.name + " " + developer.firstname);
+                System.out.println("Voulez-vous assigner ce développeur à la tâche (o/n) :");
+                validation = clavier.nextLine();
+
+                if (!validation.toLowerCase(Locale.ROOT).equals("o") && !validation.toLowerCase(Locale.ROOT).equals("n")) {
+                    System.out.println("Veuillez saisir une valeur valide (o/n)");
+                    validation = "";
+                }
+
+                if (validation.toLowerCase(Locale.ROOT).equals("o")) {
+                    ticketController.assignUserToTicket(ticket.ticketId, developer.mail);
+                }
+            } while (validation.equals(""));
+        }
 
         tickets = ticketController.getTicketsByStatus(status);
         TicketsModel.printTickets(tickets, window, user, status);
@@ -333,7 +356,30 @@ public class TicketsModel {
         desc = clavier.nextLine();
 
         TicketController ticketController = new TicketController(user);
-        ticketController.updateTicket(ticket.ticketId, name, desc);
+        if (!name.equals("") || !desc.equals(""))
+            ticket = ticketController.updateTicket(ticket.ticketId, name, desc);
+
+        User[] developers = user.getDevelopers(new Body());
+        String validation = "";
+        for (User developer : developers) {
+            do {
+                validation = "";
+                System.out.println("Développeur : " + developer.name + " " + developer.firstname);
+                System.out.println("Voulez-vous assigner ce développeur à la tâche (o/n) :");
+                validation = clavier.nextLine();
+
+                if (!validation.toLowerCase(Locale.ROOT).equals("o") && !validation.toLowerCase(Locale.ROOT).equals("n")) {
+                    System.out.println("Veuillez saisir une valeur valide (o/n)");
+                    validation = "";
+                }
+
+                if (validation.toLowerCase(Locale.ROOT).equals("o")) {
+                    ticketController.assignUserToTicket(ticket.ticketId, developer.mail);
+                } else {
+                    ticketController.unassignUserToTicket(ticket.ticketId, developer.mail);
+                }
+            } while (validation.equals(""));
+        }
 
         tickets = ticketController.getTicketsByStatus(status);
         TicketsModel.printTickets(tickets, window, user, status);

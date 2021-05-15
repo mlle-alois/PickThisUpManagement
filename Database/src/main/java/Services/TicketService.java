@@ -13,11 +13,13 @@ public class TicketService {
     private static final String addTicket = "ticket/add";
     private static final String getStatus = "ticket/status";
     private static final String getTicketsForStatus = "ticket/getByStatus";
-    private static final String getMembersByTicketId = "ticket/getMembers";
+    private static final String getMembersByTicketId = "ticket/getMembers/";
     private static final String closeTicket = "ticket/close";
     private static final String archiveTicket = "ticket/archive";
     private static final String reopenTicket = "ticket/open";
     private static final String updateTicket = "ticket/update";
+    private static final String assignUserToTicket = "ticket/assign";
+    private static final String unassignUserToTicket = "ticket/unassign";
 
     public TicketService(UserService user) {
         this.databaseService = new DatabaseService(user);
@@ -31,8 +33,12 @@ public class TicketService {
         return new Ticket[0];
     }
 
-    public void addTicket(Body body) throws JsonProcessingException {
-        databaseService.PostRequest(body, addTicket);
+    public Ticket addTicket(Body body) throws JsonProcessingException {
+        HttpResponse<String> response = databaseService.PostRequest(body, addTicket);
+        if (response.statusCode() < 300) {
+            return body.objectMapper.readValue(response.body(), Ticket.class);
+        }
+        return new Ticket();
     }
 
     public void closeTicket(Body body) throws JsonProcessingException {
@@ -47,8 +53,11 @@ public class TicketService {
         databaseService.PutRequest(body, reopenTicket);
     }
 
-    public void updateTicket(Body body) throws JsonProcessingException {
-        databaseService.PutRequest(body, updateTicket);
+    public Ticket updateTicket(Body body) throws JsonProcessingException {
+        HttpResponse<String> result = databaseService.PutRequest(body, updateTicket);if (result.statusCode() < 300) {
+            return body.objectMapper.readValue(result.body(), Ticket.class);
+        }
+        return new Ticket();
     }
 
     public Status[] getTicketsStatus(Body body) throws JsonProcessingException {
@@ -73,5 +82,17 @@ public class TicketService {
             return body.objectMapper.readValue(result.body(), Ticket[].class);
         }
         return new Ticket[0];
+    }
+
+    public Ticket assignUserToTicket(Body body) throws JsonProcessingException {
+        HttpResponse<String> response = databaseService.PostRequest(body, assignUserToTicket);
+        if (response.statusCode() < 300) {
+            return body.objectMapper.readValue(response.body(), Ticket.class);
+        }
+        return new Ticket();
+    }
+
+    public boolean unassignUserToTicket(Body body) {
+        return databaseService.DeleteRequest(body, unassignUserToTicket);
     }
 }

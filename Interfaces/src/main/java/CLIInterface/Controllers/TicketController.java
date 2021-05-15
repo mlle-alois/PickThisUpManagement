@@ -1,6 +1,7 @@
 package CLIInterface.Controllers;
 
 import Models.Status;
+import Models.Task;
 import Models.Ticket;
 import Models.User;
 import Services.Body;
@@ -67,11 +68,11 @@ public class TicketController {
      * @param name
      * @param desc
      */
-    public void addTicket(String name, String desc) throws JsonProcessingException {
+    public Ticket addTicket(String name, String desc) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("name", name);
         body.addValueToBody("description", desc);
-        ticketService.addTicket(body);
+        return ticketService.addTicket(body);
     }
 
     /**
@@ -116,13 +117,27 @@ public class TicketController {
         ticketService.reopenTicket(body);
     }
 
-    public void updateTicket(Integer ticketId, String name, String desc) throws JsonProcessingException {
+    public Ticket updateTicket(Integer ticketId, String name, String desc) throws JsonProcessingException {
         Body body = new Body();
         if(!name.equals(""))
             body.addValueToBody("name", name);
         if(!desc.equals(""))
             body.addValueToBody("description", desc);
-        body.addValueToBody("",String.valueOf(ticketId));
-        ticketService.updateTicket(body);
+        body.addValueToBody("", String.valueOf(ticketId));
+        return ticketService.updateTicket(body);
+    }
+
+    public Ticket assignUserToTicket(Integer ticketId, String mail) throws JsonProcessingException {
+        Body assignBody = new Body();
+        assignBody.addValueToBody("ticketId", String.valueOf(ticketId));
+        assignBody.addValueToBody("userMail", mail);
+        return ticketService.assignUserToTicket(assignBody);
+    }
+
+    public boolean unassignUserToTicket(Integer ticketId, String mail) {
+        Body unassignBody = new Body();
+        unassignBody.addValueToBody("ticketId", String.valueOf(ticketId));
+        unassignBody.addValueToBody("userMail", mail);
+        return ticketService.unassignUserToTicket(unassignBody);
     }
 }

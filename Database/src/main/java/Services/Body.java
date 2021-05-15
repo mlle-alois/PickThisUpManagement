@@ -11,9 +11,6 @@ public class Body {
     public ObjectMapper objectMapper;
 
     private static String baseURL = "http://localhost:3000/";
-    private static String limit = "limit";
-    private static String offset = "offset";
-
 
     public Body() {
         map = new HashMap<>();
@@ -48,27 +45,21 @@ public class Body {
         return result;
     }
 
-    private boolean isGetAllOptions() {
-        String firstKey = map.keySet().iterator().next();
-        return firstKey.equals(limit) || firstKey.equals(offset);
-    }
-
     private String firstLine(Map.Entry me) {
-        if(me.getKey().equals("")) {
+        if (me.getKey().equals("")) {
             return me.getValue() + "";
         }
         return "?" + me.getKey() + "=" + me.getValue();
     }
 
-    public String getPutUrl(String route){
+    public String getPutUrl(String route) {
         String result;
         result = baseURL + route + "/" + map.get("");
         map.remove("");
-        System.out.println(result);
-       return result;
+        return result;
     }
 
-    public void clear(){
+    public void clear() {
         map.clear();
     }
 }
