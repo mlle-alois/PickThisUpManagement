@@ -27,6 +27,7 @@ import static Enum.InterfaceCode.*;
 
 public class BorderPaneController {
     public static final String TOUS_LES_TICKETS = "Tous les tickets";
+    public static final String AJOUTER_UN_TABLEAU = "Ajouter un tableau";
     @FXML
     private Button deleteBoardButton;
     @FXML
@@ -116,7 +117,7 @@ public class BorderPaneController {
         for (int i = 0; i < boards.length; i++) {
             allBoars[i] = boards[i].boardName;
         }
-        allBoars[boards.length] = "Ajouter un tableau";
+       // allBoars[boards.length] = "Ajouter un tableau";
         return allBoars;
     }
 
@@ -143,9 +144,16 @@ public class BorderPaneController {
             menuItems[i] = new MenuItem(boards[i]);
             menuItems[i].setOnAction(menuItemHandler);
 
+
+
         }
+         menuItems[boards.length-1] = new MenuItem(AJOUTER_UN_TABLEAU);
+        EventHandler<ActionEvent> menuItemAddBoard = getActionEventAddBoard();
+
+        menuItems[boards.length-1].setOnAction(menuItemAddBoard);
         return menuItems;
     }
+
 
     public void selectItem() {
       /*  TreeItem<String> item = (TreeItem<String>) treeBoard.getSelectionModel().getSelectedItem();
@@ -380,6 +388,52 @@ public class BorderPaneController {
 
         }
     }
+
+
+    private EventHandler<ActionEvent> getActionEventAddBoard() {
+        EventHandler<ActionEvent> menuItemAddBoard = event -> {
+            MenuItem menuItemTemp = (MenuItem) event.getSource();
+            Stage newStage;
+            Parent root = null;
+            Body body;
+            if(menuItemTemp.getText() == AJOUTER_UN_TABLEAU) {
+
+                newStage = new Stage();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/AddBoard.fxml"));
+                try {
+                    root = loader.load();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                AddListController popupController = loader.getController();
+                newStage.setScene(new Scene(root));
+                newStage.initModality(Modality.APPLICATION_MODAL);
+                newStage.initOwner(updateBoardName.getScene().getWindow());
+                newStage.setTitle("PickThisUp");
+                newStage.getIcons().add(new Image("/logo.PNG"));
+                newStage.showAndWait();
+                if (!popupController.isValidate())
+                    return;
+                // add the list to the database
+                body = new Body();
+                body.addValueToBody("name",popupController.getText());
+
+
+                // Refresh
+                try {
+                    boardService.addBoard(body);
+                    refreshBoards();
+                    setBorderPane();
+
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+            }
+            event.consume();
+        };
+        return menuItemAddBoard;
+    }
+
 
     public boolean deleteBoardAlert() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
