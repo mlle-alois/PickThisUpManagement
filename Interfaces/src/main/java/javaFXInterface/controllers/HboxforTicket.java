@@ -110,6 +110,8 @@ public class HboxforTicket {
                 try {
                     ticketService.updateTicket(body);
                     updateStatus (popupController);
+                    assignNewMember(body, popupController);
+                    unAssignNewMember(body,popupController);
                     borderPaneController.addTicketGridToCenter();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -122,6 +124,31 @@ public class HboxforTicket {
         hbox.getChildren().add(button);
         addSeparator();
     }
+
+    private void assignNewMember(Body body, AddTicketController popupController) {
+        List<String> newMembers = popupController.getNewMembers();
+        newMembers.forEach(newMember->{
+            body.clear();
+            body.addValueToBody("ticketId",String.valueOf(ticket.ticketId));
+            body.addValueToBody("userMail",newMember);
+            try {
+                ticketService.assignUserToTicket(body);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void unAssignNewMember(Body body, AddTicketController popupController) {
+        List<String> deletedMembers = popupController.getDeletedMembers();
+        deletedMembers.forEach(oldMember->{
+            body.clear();
+            body.addValueToBody("ticketId",String.valueOf(ticket.ticketId));
+            body.addValueToBody("userMail",oldMember);
+            ticketService.unassignUserToTicket(body);
+        });
+    }
+
 
     private void updateStatus(AddTicketController popupController) throws JsonProcessingException {
         Body body = new Body();
@@ -145,8 +172,10 @@ public class HboxforTicket {
         popupController.setName(ticket.ticketName);
         popupController.setDescription(ticket.ticketDescription);
         popupController.setStatusChoiceBox(status,ticket.statusId);
+        popupController.setDevs(getDevUsers());
         popupController.setMembers(getuserModelsMembers());
         popupController.setClotureDate(getClosureDate());
+
     }
 
     private void addArchiveAndClotureButtons(){
@@ -229,6 +258,13 @@ public class HboxforTicket {
         User[] members = ticketService.getMembersByTicketId(body, ticket.ticketId);
         return members;
     }
+
+    private User[] getDevUsers() throws JsonProcessingException {
+        Body body = new Body();
+        User[] members = user.getDevelopers(body);
+        return members;
+    }
+
 
     private String getCurrentStatusLibelle() {
         String currentStatus = null;
