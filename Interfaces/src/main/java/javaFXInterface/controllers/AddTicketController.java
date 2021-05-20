@@ -94,6 +94,17 @@ public class AddTicketController {
             choiceBoxesSelectedIndex[i] = choiceBoxes[i].getSelectionModel().getSelectedIndex();
         }
 
+// adding a new ticket
+        if(membersBeforeUpdate == null){
+            for (int choice : choiceBoxesSelectedIndex) {
+                if(devs[choice].mail != " ")
+                newMembers.add(devs[choice].mail);
+            }
+            if(!newMembers.isEmpty()){
+                newMembers.stream().distinct().collect(Collectors.toList());}
+            return;
+        }
+// modifying ticket
         List<String> membersBeforeUpdateString = membersBeforeUpdate.stream().map(mem -> mem.mail).collect(Collectors.toList());
         List<String> actualMember = new ArrayList<>();
 

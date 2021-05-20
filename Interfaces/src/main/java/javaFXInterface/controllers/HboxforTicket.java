@@ -111,7 +111,6 @@ public class HboxforTicket {
                     ticketService.updateTicket(body);
                     updateStatus (popupController);
                     assignNewMember(body, popupController);
-                    unAssignNewMember(body,popupController);
                     borderPaneController.addTicketGridToCenter();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -139,15 +138,6 @@ public class HboxforTicket {
         });
     }
 
-    private void unAssignNewMember(Body body, AddTicketController popupController) {
-        List<String> deletedMembers = popupController.getDeletedMembers();
-        deletedMembers.forEach(oldMember->{
-            body.clear();
-            body.addValueToBody("ticketId",String.valueOf(ticket.ticketId));
-            body.addValueToBody("userMail",oldMember);
-            ticketService.unassignUserToTicket(body);
-        });
-    }
 
 
     private void updateStatus(AddTicketController popupController) throws JsonProcessingException {

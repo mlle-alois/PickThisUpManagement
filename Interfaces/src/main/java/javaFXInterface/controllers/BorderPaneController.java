@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import lombok.SneakyThrows;
 
 import java.io.IOException;
+import java.util.List;
 
 import static Enum.InterfaceCode.*;
 
@@ -202,6 +203,11 @@ public class BorderPaneController {
 
 
                 AddTicketController popupController = loader.getController();
+                try {
+                    popupController.setDevs(user.getDevelopers(new Body()));
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
                 newStage.setScene(new Scene(root));
                 newStage.initModality(Modality.APPLICATION_MODAL);
                 newStage.initOwner(button.getScene().getWindow());
@@ -216,7 +222,9 @@ public class BorderPaneController {
                 body.addValueToBody("description",popupController.getDescription());
                 body.addValueToBody("statusId","1");
                 try {
-                    ticketService.addTicket(body);
+                  Ticket ticket =  ticketService.addTicket(body);
+                    assignNewMember(body, popupController, ticket);
+                    unAssignNewMember(body, popupController, ticket);
                     addTicketGridToCenter();
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
@@ -457,6 +465,31 @@ public class BorderPaneController {
         refreshBoards();
         setBorderPane();
     }
+
+    private void assignNewMember(Body body, AddTicketController popupController,Ticket ticket) {
+        List<String> newMembers = popupController.getNewMembers();
+        newMembers.forEach(newMember->{
+            body.clear();
+            body.addValueToBody("ticketId",String.valueOf(ticket.ticketId));
+            body.addValueToBody("userMail",newMember);
+            try {
+                ticketService.assignUserToTicket(body);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void unAssignNewMember(Body body, AddTicketController popupController,Ticket ticket) {
+        List<String> deletedMembers = popupController.getDeletedMembers();
+        deletedMembers.forEach(oldMember->{
+            body.clear();
+            body.addValueToBody("ticketId",String.valueOf(ticket.ticketId));
+            body.addValueToBody("userMail",oldMember);
+            ticketService.unassignUserToTicket(body);
+        });
+    }
+
 
 
 }
