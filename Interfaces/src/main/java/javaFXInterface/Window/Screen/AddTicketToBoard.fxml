@@ -28,8 +28,8 @@
       <TextArea fx:id="descriptionTextArea" layoutX="43.0" layoutY="200.0" prefHeight="67.0" prefWidth="188.0" />
       <Label layoutX="345.0" layoutY="91.0" style="-fx-font-size: 16;" text="Membres :" />
       <VBox fx:id="membersVbox" layoutX="341.0" layoutY="116.0" prefHeight="79.0" prefWidth="163.0" />
-      <Label layoutX="343.0" layoutY="221.0" style="-fx-font-size: 16;" text="Date de clôture :" />
-      <TextField fx:id="clotureDateTextField" layoutX="343.0" layoutY="255.0" prefHeight="25.0" prefWidth="188.0" editable="false"/>
+      <Label layoutX="343.0" layoutY="301.0" style="-fx-font-size: 16;" text="Date de clôture :" />
+      <TextField fx:id="clotureDateTextField" editable="false" layoutX="343.0" layoutY="335.0" prefHeight="25.0" prefWidth="188.0" />
       <Label layoutX="43.0" layoutY="301.0" style="-fx-font-size: 16;" text="Statut :">
          <font>
             <Font size="14.0" />
