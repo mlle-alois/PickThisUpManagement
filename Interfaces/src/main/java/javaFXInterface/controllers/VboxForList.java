@@ -2,6 +2,7 @@ package javaFXInterface.controllers;
 
 import Models.Liste;
 import Models.Task;
+import Models.User;
 import Services.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import javafx.event.ActionEvent;
@@ -220,7 +221,6 @@ public class VboxForList {
         addTaskButton.setOnAction(buttonAddListHandler);
         this.vbox.getChildren().add(addTaskButton);
     }
-
 
 
 }
