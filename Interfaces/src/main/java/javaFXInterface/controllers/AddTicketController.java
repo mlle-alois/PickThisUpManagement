@@ -18,6 +18,8 @@ import java.util.stream.Collectors;
 
 public class AddTicketController {
     @FXML
+    private Label closureDateLabel;
+    @FXML
     private Label titleLabel;
     @FXML
     private ChoiceBox statusChoiceBox;
@@ -212,5 +214,17 @@ public class AddTicketController {
 
     public List<String> getDeletedMembers() {
         return deletedMembers;
+    }
+    public void setStatusInvisible(){
+        statusChoiceBox.setVisible(false);
+    }
+    public void setStatusLabelInvisible(){
+        statusLabel.setVisible(false);
+    }
+    public void setClotureDateTextFieldInvisible(){
+        clotureDateTextField.setVisible(false);
+    }
+    public void setClotureDateLabelInvisible(){
+        closureDateLabel.setVisible(false);
     }
 }
