@@ -5,6 +5,7 @@ import Models.Task;
 import Models.Ticket;
 import Models.User;
 import Services.Body;
+import Services.StatusService;
 import Services.TicketService;
 import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -47,7 +48,8 @@ public class TicketController {
     public Status[] getTicketsStatus(UserService user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return ticketService.getTicketsStatus(body);
+        StatusService userService = new StatusService(user);
+        return userService.getStatus(body);
     }
 
     /**

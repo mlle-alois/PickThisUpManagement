@@ -55,7 +55,7 @@ public class GridPaneForTask {
 
         newGrid.setPrefSize(100, 180);
         // set style
-        newGrid.setStyle("-fx-background-color: blue, lightgray;-fx-border-color:black; -fx-border-width: 1; -fx-border-style: solid;");
+        newGrid.setStyle("-fx-background-color: blue, lightgray;-fx-border-color:#276C3A; -fx-border-width: 1; -fx-border-style: solid");
         // set Gap between row and column
         newGrid.setHgap(10);
         newGrid.setVgap(5);
