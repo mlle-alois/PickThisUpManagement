@@ -5,6 +5,7 @@ import Models.Status;
 import Models.Ticket;
 import Models.User;
 import Services.Body;
+import Services.StatusService;
 import Services.TicketService;
 import Services.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -279,7 +280,8 @@ public class HboxforTicket {
 
     private void fetchStatus() throws JsonProcessingException {
         Body body = new Body();
-        status = ticketService.getTicketsStatus(body);
+        StatusService statusService = new StatusService(user);
+        status = statusService.getStatus(body);
     }
 
     private void addCreationDate(){

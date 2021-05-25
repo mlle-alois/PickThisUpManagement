@@ -11,7 +11,6 @@ public class TicketService {
 
     private static final String getTickets = "ticket";
     private static final String addTicket = "ticket/add";
-    private static final String getStatus = "ticket/status";
     private static final String getTicketsForStatus = "ticket/getByStatus";
     private static final String getMembersByTicketId = "ticket/getMembers/";
     private static final String closeTicket = "ticket/close";
@@ -60,13 +59,6 @@ public class TicketService {
         return new Ticket();
     }
 
-    public Status[] getTicketsStatus(Body body) throws JsonProcessingException {
-        HttpResponse<String> result = databaseService.GetRequest(body, getStatus);
-        if (result.statusCode() < 300) {
-            return body.objectMapper.readValue(result.body(), Status[].class);
-        }
-        return new Status[0];
-    }
 
     public User[] getMembersByTicketId(Body body, Integer ticketId) throws JsonProcessingException {
         HttpResponse<String> result = databaseService.GetRequest(body, getMembersByTicketId + ticketId);

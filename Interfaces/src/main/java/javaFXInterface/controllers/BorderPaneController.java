@@ -61,6 +61,7 @@ public class BorderPaneController {
     private TicketService ticketService;
     private ListService listService;
     private BoardService boardService;
+    private StatusService statusService;
     private Node boardPaneRight;
 
 
@@ -83,7 +84,7 @@ public class BorderPaneController {
         this.ticketService = new TicketService(user);
         this.listService = new ListService(user);
         this.boardService = new BoardService(user);
-
+        this.statusService = new StatusService(user);
         initializeBoards();
         initializeTickets();
 
@@ -180,7 +181,8 @@ public class BorderPaneController {
     public Status[] getTickets(UserService user) throws JsonProcessingException {
         Body body = new Body();
         body.addValueToBody("limit", "3");
-        return ticketService.getTicketsStatus(body);
+
+        return statusService.getStatus(body);
     }
 
     public void setRightBorderPaneWithAddTicketButton(){
