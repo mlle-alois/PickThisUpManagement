@@ -65,7 +65,9 @@ public class VboxForList {
     private void setVboxShape(int size) {
         vbox.setSpacing(20);
         vbox.setPrefSize(150, size);
-        vbox.setStyle("-fx-background-color: #d3d4cb");
+       vbox.setStyle("-fx-background-color: #d3d4cb");
+       // vbox.setStyle("-fx-background-color: #31cd6f");
+
     }
 
 

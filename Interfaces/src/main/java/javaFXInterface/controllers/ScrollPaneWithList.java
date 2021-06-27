@@ -40,6 +40,8 @@ public class ScrollPaneWithList {
         mainPane.setPadding(new Insets(10, 10, 10, 10));
         mainPane.setHgap(50);
         mainPane.setVgap(50);
+        //add
+        mainPane.setStyle("-fx-background-color: white");
     }
 
     private void create1VboxPerListe() throws JsonProcessingException {
