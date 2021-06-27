@@ -55,7 +55,8 @@ public class GridPaneForTask {
 
         newGrid.setPrefSize(100, 180);
         // set style
-        newGrid.setStyle("-fx-background-color: blue, lightgray;-fx-border-color:#276C3A; -fx-border-width: 1; -fx-border-style: solid");
+       newGrid.setStyle("-fx-background-color: blue, lightgray;-fx-border-color:#276C3A; -fx-border-width: 1; -fx-border-style: solid");
+       // newGrid.setStyle("-fx-background-color: #37B95B;-fx-border-color:#276C3A; -fx-border-width: 1; -fx-border-style: solid");
         // set Gap between row and column
         newGrid.setHgap(10);
         newGrid.setVgap(5);
@@ -88,6 +89,7 @@ public class GridPaneForTask {
         lblTextArea.setWrapText(true);
         lblTextArea.setEditable(false);
         lblTextArea.setStyle("-fx-control-inner-background: lightgray;");
+     //   lblTextArea.setStyle("-fx-control-inner-background: #055314;");
         newGrid.add(lblTextArea, 0, 1);
         // add Label for members
         Label memberLabel = new Label("Membres :");
@@ -95,6 +97,7 @@ public class GridPaneForTask {
         // add members
          users = taskService.getMembersByTaskId(new Body(), task.taskId);
         VBox vbox = new VBox();
+   //     vbox.setStyle("-fx-background-color: #37B95B");
         for (User user : users) {
             Label label = new Label(user.mail);
             vbox.getChildren().add(label);
