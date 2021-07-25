@@ -58,11 +58,4 @@ public class TicketsController {
 
         return treeItems;
     }
-
-    public void selectItem() {
-        TreeItem<String> item = (TreeItem<String>) treeTickets.getSelectionModel().getSelectedItem();
-        if (item != null) {
-            System.out.println(item.getValue());
-        }
-    }
 }

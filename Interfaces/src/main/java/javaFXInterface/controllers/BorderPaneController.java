@@ -156,14 +156,6 @@ public class BorderPaneController {
         return menuItems;
     }
 
-
-    public void selectItem() {
-      /*  TreeItem<String> item = (TreeItem<String>) treeBoard.getSelectionModel().getSelectedItem();
-        if(item != null){
-            System.out.println(item.getValue());
-        }*/
-    }
-
     // Ticket Parts
 
     private String[] parseTickets() throws JsonProcessingException {

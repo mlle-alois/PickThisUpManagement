@@ -21,7 +21,6 @@ public class ConnectionModel {
         System.out.println("Mail :");
         String mail = clavier.next();
         System.out.println("Mot de passe :");
-        //TODO Trouver comment masquer le mot de passe
         String password = clavier.next();
 
         ConnectionController connectionController = new ConnectionController();
